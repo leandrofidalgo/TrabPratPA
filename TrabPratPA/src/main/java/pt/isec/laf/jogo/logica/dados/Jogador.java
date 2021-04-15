@@ -9,12 +9,14 @@ public class Jogador {
     private int num_jogada; //numero da jogada atual
     private int creditos; //numero de creditos do jogador
     private boolean pessoa; //se true é uma pessoa se false é o computador
+    private int corDaPeca; //se 1 = VERDE, se 2 = VERMELHO
 
-    public Jogador(String nome, int num_jogada, int creditos, boolean pessoa) {
+    public Jogador(String nome, int num_jogada, int creditos, boolean pessoa, int peca) {
         this.nome = nome;
         this.num_jogada = num_jogada;
         this.creditos = creditos;
         this.pessoa = pessoa;
+        this.corDaPeca = peca;
     }
     
 }
