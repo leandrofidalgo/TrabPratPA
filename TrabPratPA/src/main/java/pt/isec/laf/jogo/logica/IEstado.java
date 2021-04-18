@@ -6,4 +6,5 @@ package pt.isec.laf.jogo.logica;
  */
 public interface IEstado {
     IEstado proximaJogada();
+    IEstado verificarSeAlguemGanhou();
 }

@@ -1,5 +1,6 @@
 package pt.isec.laf.jogo.logica.estados;
 
+import pt.isec.laf.jogo.logica.IEstado;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
 
 
@@ -13,9 +14,10 @@ public class EsperaJogada4Linha extends EstadoAdaptador{
         super(dadosJogo);
     }
 
-     
-    public void verificarSeAlguemGanhou(){
-        
+    @Override
+    public IEstado verificarSeAlguemGanhou() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-   
+
+    
 }
