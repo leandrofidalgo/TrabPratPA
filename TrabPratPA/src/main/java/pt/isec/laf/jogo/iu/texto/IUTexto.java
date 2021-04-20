@@ -2,10 +2,18 @@ package pt.isec.laf.jogo.iu.texto;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pt.isec.laf.jogo.logica.MaquinaDeEstados;
+import static pt.isec.laf.jogo.logica.dados.DadosJogo.COLUNAS;
+import static pt.isec.laf.jogo.logica.dados.DadosJogo.LINHAS;
 import pt.isec.laf.jogo.logica.dados.Jogador;
 
 /**
@@ -24,14 +32,19 @@ public class IUTexto {
     }
 
     public void run() {
-        miniJogoPalavras();
-        miniJogoCalculos();
+        //miniJogoCalculos();
+        //miniJogoPalavras();
+        imprimirTabuleiro();
+        inicioDoJogo();
         menuPrincipal();
+        while (true) {
+            proximaJogadaInteface();
+        }
     }
 
-    public void inicioDOJogo() {
+    public void inicioDoJogo() {
         System.out.println("------------------------ 4 em Linha ------------------------");
-        //Continuar a fazer o inicio do jogo
+        //TODO Continuar a fazer o inicio do jogo
     }
 
     public void menuPrincipal() {
@@ -39,17 +52,20 @@ public class IUTexto {
         do {
             System.out.println("\n");
             System.out.println("------------------------ Menu Principal ------------------------");
-            System.out.println("1-Iniciar jogo");
-            System.out.println("2-Exit");
+            System.out.println("1-Iniciar novo jogo");
+            System.out.println("2-Carregar um jogo de um ficheiro");
+            System.out.println("3-Exit");
             System.out.print("> ");
-            System.out.flush(); //provavelmente colocar flush para ajudar
+            System.out.flush(); //TODO provavelmente colocar flush para ajudar
             while (!scanner.hasNextInt()) {
                 scanner.next();
             }
             valor = scanner.nextInt();
             if (valor == 1) {
-                carregaFicheiro();
+                definirJogadorContraJogador();
             } else if (valor == 2) {
+                carregaFicheiro();
+            } else if (valor == 3) {
                 System.exit(0);
             }
         } while (valor != 1 || valor != 2);
@@ -57,30 +73,16 @@ public class IUTexto {
 
     public void carregaFicheiro() {
         int valor;
-        do {
-            System.out.println("\n");
-            System.out.println("------------------------ Carregar Ficheiro ------------------------");
-            System.out.println("Deseja carregar um ficheiro?");
-            System.out.println("1-Sim");
-            System.out.println("2-Não");
-            System.out.print("> ");
-            System.out.flush();
-            while (!scanner.hasNextInt()) {
-                scanner.next();
-            }
-            valor = scanner.nextInt();
-            if (valor == 1) {
-                System.out.println("Qual o nome do ficheiro que deseja carregar: ");
-                while (!scanner.hasNext()) {
-                    scanner.next();
-                }
-                String ficheiro = scanner.next();
-                //TODO
-                //carregar ficheiro e depois enviar os dados do jogo para a maquina de estados
-            } else if (valor == 2) {
-                definirJogadorContraJogador();
-            }
-        } while (valor != 1 || valor != 2);
+        System.out.println("\n");
+        System.out.println("------------------------ Carregar Ficheiro ------------------------");
+        System.out.println("Qual o nome do ficheiro que deseja carregar: ");
+        System.out.print("> ");
+        System.out.flush();
+        while (!scanner.hasNext()) {
+            scanner.next();
+        }
+        String ficheiro = scanner.next();
+        //TODO carregar ficheiro e depois enviar os dados do jogo para a maquina de estados e de seguida começar nova jogada
     }
 
     public void definirJogadorContraJogador() {
@@ -90,29 +92,23 @@ public class IUTexto {
             System.out.println("1- CPU vs CPU");
             System.out.println("2- Jogador1 vs CPU");
             System.out.println("3- Jodador1 vs Jogador2");
-            System.out.println("> ");
+            System.out.print("> ");
             while (!scanner.hasNextInt()) {
                 scanner.next();
             }
             valor = scanner.nextInt();
             if (valor == 1) {
                 ArrayList<String> nomes = dadosUtilizador();
-                Jogador j1 = new Jogador(nomes.get(0), 0, 0, false, 1);
-                Jogador j2 = new Jogador(nomes.get(1), 0, 0, false, 2);
-                maquinaDeEstados.proximaJogada(j1, j2);
+                //TODO qual jogador vai ser o primeiro e depois usar a classe pessoa e computador depois na proxima jogada fazer qual vai ser primeiro
+                maquinaDeEstados.definirJogadores(valor, nomes);
             } else if (valor == 2) {
                 ArrayList<String> nomes = dadosUtilizador();
-                Jogador j1 = new Jogador(nomes.get(0), 0, 0, false, 1);
-                Jogador j2 = new Jogador(nomes.get(1), 0, 0, false, 2);
-                maquinaDeEstados.proximaJogada(j1, j2);
+                maquinaDeEstados.definirJogadores(valor, nomes);
             } else if (valor == 3) {
                 ArrayList<String> nomes = dadosUtilizador();
-                Jogador j1 = new Jogador(nomes.get(0), 0, 0, false, 1);
-                Jogador j2 = new Jogador(nomes.get(1), 0, 0, false, 2);
-                maquinaDeEstados.proximaJogada(j1, j2);
+                maquinaDeEstados.definirJogadores(valor, nomes);
             }
         } while (valor != 1 || valor != 2 || valor != 3);
-
     }
 
     public ArrayList<String> dadosUtilizador() {
@@ -137,14 +133,65 @@ public class IUTexto {
     }
 
     public void miniJogoCalculos() {
-        //TODO: Esperar 30 segundos
+        //isto vai ter de ir para outro lado
+        int numAcertou = 0;
+
+        Thread td1 = new Thread(() -> {
+            //Thread secundaria para tratar da obtencao dos calculos do jogador
+            while (true) {
+                miniJogoCalculosTemporizador();
+            }
+        });
+        td1.start();
+
+        long starttime = System.currentTimeMillis();
+        try {
+            //Esperar 30 segundos na thread principal
+            contador(starttime);
+            //supostamente passou 30sec 
+            synchronized (td1) {
+                td1.notify();
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        /*if (numAcertou == -1) {
+            System.out.println("Existe um problema com o sinal da operação!\n");
+        } else if (numAcertou >= 5) {
+            //TODO ganhar peça especial
+            System.out.println("Muito bem conseguiu acertar 5 ou mais vezes nos cálculos.");
+            System.out.println("Como bonus irá lhe ser oferecida uma peça especial.");
+        } else {
+            System.out.println("Nao conseguiu ganhar a peça especial!");
+        }*/
+    }
+
+    public void contador(long starttime) throws InterruptedException {
+        long timepassed;
+        while (true) {
+            TimeUnit.SECONDS.sleep(1);
+            timepassed = System.currentTimeMillis() - starttime;
+            if (timepassed <= 30000) {
+                System.out.println(timepassed / 1000);
+            } else if (timepassed > 30000) {
+                return;
+            }
+        }
+    }
+
+    public synchronized int miniJogoCalculosTemporizador() {
         int numAcertou = 0;
         int valor; //valor do calculo
+        long timepassed; //time in seconds
+        int randomSinal;
+        int randomValor1;
+        int randomValor2;
         //gerar random para o sinal da operação 1-4
-        int randomSinal = rand.nextInt(4) + 1;
+        randomSinal = rand.nextInt(4) + 1;
         //gerar rando para os valores a calcular 0-99
-        int randomValor1 = rand.nextInt(100);
-        int randomValor2 = rand.nextInt(100);
+        randomValor1 = rand.nextInt(100);
+        randomValor2 = rand.nextInt(100);
         switch (randomSinal) {
             case 1:
                 System.out.println(randomValor1 + " + " + randomValor2);
@@ -152,6 +199,7 @@ public class IUTexto {
                     scanner.next();
                 }
                 valor = scanner.nextInt();
+                //numAcertou = maquinaDeEstados.miniJogoCalculos(valor, randomValor1, randomValor2, "+");
                 if (valor == (randomValor1 + randomValor2)) {
                     numAcertou++;
                 }
@@ -188,19 +236,15 @@ public class IUTexto {
                 break;
             default:
                 System.out.println("Existe um problema com o sinal da operação!\n");
-                return;
+                return -1;
         }
-        if (numAcertou >= 5) {
-            //TODO ganhar peça especial
-            System.out.println("Muito bem conseguiu acertar 5 ou mais vezes nos cálculos.");
-            System.out.println("Como bonus irá lhe ser oferecida uma peça especial.");
-        }
+        return 0;
     }
 
     public void miniJogoPalavras() {
         //TODO: esperar metade do número de caracteres apresentados, incluindo os espaços em branco
         ArrayList<String> palavras = carregaPalavras();
-        if(palavras == null){
+        if (palavras == null) {
             System.out.println("Não existem palavras no ficheiro!\n");
         }
         int numPalavras = palavras.size();
@@ -214,7 +258,7 @@ public class IUTexto {
                 scanner.next();
             }
             palavra = scanner.next();
-            if(palavra.equals(palavras.get(randomPal))){
+            if (palavra.equals(palavras.get(randomPal))) {
                 System.out.println("Acertou!");
             }
         } while (aux != numPalavras);
@@ -247,5 +291,47 @@ public class IUTexto {
 
     public int getRandom(int min, int max) {
         return rand.nextInt(max) + min;
+    }
+
+    public void proximaJogadaInteface() {
+        imprimirTabuleiro();
+        System.out.println();
+        maquinaDeEstados.proximaJogada();
+    }
+
+    public void imprimirTabuleiro() {
+        StringBuilder sB = new StringBuilder();
+        for (int i = 0; i < LINHAS; i++) {
+            sB.append("|");
+            for (int j = 0; j < COLUNAS; j++) {
+                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 0) {
+                    sB.append(" |");
+                }
+                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 1) {
+                    sB.append("O|");
+                }
+                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 2) {
+                    sB.append("X|");
+                }
+            }
+            sB.append("\n");
+        }
+        System.out.println(sB);
+    }
+
+    public void verificarSeAlguemGanhou() {
+        verificaLinhas();
+    }
+
+    public void verificaLinhas() {
+        int[][] tabuleiro = new int[6][7];
+        int aux;
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                /*aux = tabuleiro[i];
+                if(tabuleiro[i])*/
+            }
+        }
+
     }
 }
