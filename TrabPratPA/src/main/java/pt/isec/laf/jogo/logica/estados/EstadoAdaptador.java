@@ -25,29 +25,39 @@ public abstract class EstadoAdaptador implements IEstado {
         this.dadosJogo = dadosJogo;
     }
 
-    //funcoes para usar nos estados
     @Override
-    public IEstado definirJogadores(DadosJogo dadosJogo, int valor, ArrayList<String> nomes) {
+    public IEstado iniciarJogo() {
         return this;
     }
 
     @Override
-    public IEstado proximaJogada(DadosJogo dadosJogo) {
+    public IEstado carregarJogo() {
         return this;
     }
 
     @Override
-    public IEstado miniJogoCalculos(DadosJogo dadosJogo, int valor, int randomValor1, int randomValor2, String sinal) {
+    public IEstado modoCPUXCPU() {
         return this;
     }
 
     @Override
-    public IEstado miniJogoPalavras() {
+    public IEstado modoHomemXCPU() {
         return this;
     }
 
     @Override
-    public IEstado verificarSeAlguemGanhou() {
+    public IEstado modoHomemXHomem() {
         return this;
     }
+
+    @Override
+    public IEstado definirNomes(String nome, String nome2) {
+        return this;
+    }
+
+    @Override
+    public IEstado definirProximoJogador() {
+        return this;
+    }
+
 }

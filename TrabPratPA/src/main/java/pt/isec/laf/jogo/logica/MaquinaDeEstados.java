@@ -2,9 +2,7 @@ package pt.isec.laf.jogo.logica;
 
 import java.util.ArrayList;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
-import pt.isec.laf.jogo.logica.dados.Jogador;
-import pt.isec.laf.jogo.logica.estados.DefinirJogadores;
-import pt.isec.laf.jogo.logica.estados.EsperaJogada4Linha;
+import pt.isec.laf.jogo.logica.estados.*;
 
 /**
  *
@@ -13,26 +11,62 @@ import pt.isec.laf.jogo.logica.estados.EsperaJogada4Linha;
 public class MaquinaDeEstados {
 
     private DadosJogo dadosJogo;
-    private Jogador j1, j2;
+    //private Jogador j1, j2;
     private IEstado estado;
 
-    public DadosJogo getDadosJogo(){
-        return dadosJogo;
-    }
-    
     public MaquinaDeEstados() {
         dadosJogo = new DadosJogo();
     }
 
-    public void definirJogadores(int valor, ArrayList<String> nomes) {
-        estado = estado.definirJogadores(dadosJogo, valor, nomes);
+    public DadosJogo getDadosJogo() {
+        return dadosJogo;
     }
 
-    public void proximaJogada() {
-        estado = estado.proximaJogada(dadosJogo);
+    //-------------------------------------verificar estado atual-----------------------------
+    public boolean isMenuPrincipal() {
+        return estado instanceof MenuPrincipal;
     }
 
-    public void miniJogoCalculos(int valor, int randomValor1, int randomValor2, String sinal) {
+    public boolean isEscolherModoJogo() {
+        return estado instanceof EscolherModoJogo;
+    }
 
+    public boolean isModoCPUXCPU() {
+        return estado instanceof ModoCPUXCPU;
+    }
+
+    public boolean isModoPessoaXCPU() {
+        return estado instanceof ModoPessoaXCPU;
+    }
+
+    public boolean isModoPessoaXPessoa() {
+        return estado instanceof ModoPessoaXPessoa;
+    }
+
+    public boolean isEscolherProximoJogador() {
+        return estado instanceof EscolherProximoJogador;
+    }
+
+    //-------------------------------------atualizar estados-----------------------------
+    public void iniciarNovoJogo() {
+        estado = estado.iniciarJogo();
+    }
+
+    public void escolherModoJogo(int valor) {
+        if (valor == 1) {
+            estado = estado.modoCPUXCPU();
+        } else if (valor == 2) {
+            estado = estado.modoHomemXCPU();
+        } else if (valor == 3) {
+            estado = estado.modoHomemXHomem();
+        }
+    }
+
+    public void definirNomes(String nome, String nome2) {
+        estado = estado.definirNomes(nome, nome2);
+    }
+
+    public void escolheProximoJogador() {
+        estado = estado.definirProximoJogador();
     }
 }

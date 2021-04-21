@@ -1,7 +1,7 @@
 package pt.isec.laf.jogo.logica.estados;
 
 import java.util.Random;
-import pt.isec.laf.jogo.iu.texto.IUTexto;
+import pt.isec.laf.jogo.iu.texto.IUTextoFodeu;
 import pt.isec.laf.jogo.logica.IEstado;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
 

@@ -2,7 +2,7 @@ package pt.isec.laf.jogo.logica.estados;
 
 import java.util.ArrayList;
 import pt.isec.laf.jogo.logica.IEstado;
-import pt.isec.laf.jogo.logica.dados.Computador;
+import pt.isec.laf.jogo.logica.dados.CPU;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
 import pt.isec.laf.jogo.logica.dados.Pessoa;
 
@@ -21,8 +21,8 @@ public class DefinirJogadores extends EstadoAdaptador {
         //gerar random para o sinal da operação 1-2
         int randomJogador = dadosJogo.getRandom().nextInt(2) + 1;
         if (valor == 1) {
-            Computador comp1 = new Computador(nomes.get(0), 1);
-            Computador comp2 = new Computador(nomes.get(1), 2);
+            CPU comp1 = new CPU(nomes.get(0), 1);
+            CPU comp2 = new CPU(nomes.get(1), 2);
             if (randomJogador == 1) {
                 dadosJogo.adicionaJogador(comp1);
                 dadosJogo.adicionaJogador(comp2);
@@ -32,7 +32,7 @@ public class DefinirJogadores extends EstadoAdaptador {
             }
         } else if (valor == 2) {
             Pessoa pess1 = new Pessoa(nomes.get(0), 1);
-            Computador comp2 = new Computador(nomes.get(1), 2);
+            CPU comp2 = new CPU(nomes.get(1), 2);
             if (randomJogador == 1) {
                 dadosJogo.adicionaJogador(pess1);
                 dadosJogo.adicionaJogador(comp2);
