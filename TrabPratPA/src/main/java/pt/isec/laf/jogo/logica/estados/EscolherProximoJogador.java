@@ -15,23 +15,29 @@ public class EscolherProximoJogador extends EstadoAdaptador {
 
     @Override
     public IEstado definirProximoJogador() {
-        //TODO definir proximo jogador e ver o numero da jogada atual tambem por causa dos minijogos
+        //definir proximo jogador e ver o numero da jogada atual tambem por causa dos minijogos
         if (getDadosJogo().getNum_jogada() == 0) {
             //significa que é a primeira jogada
             int num = getDadosJogo().getRandom(0, 1);
             getDadosJogo().getJogadores().get(num).setVezDoJogador(false);
-        } else if (getDadosJogo().getNum_jogada() == 3 || getDadosJogo().getNum_jogada() == 7) {
-            //verificar quando pode jogar o minijogo
+        } else if (getDadosJogo().getNum_jogada() % 8 == 0) {
+            //quando pode jogar o minijogo e fazer return do estado do mini jogo
+            return new EscolherJogarMiniJogo(getDadosJogo());
         }
-        //verificar se a vez do jogdar esta a false e passar para true e colocar a false a do outro
+        //se a vez do jogdar esta a false e passar para true e colocar a false a do outro
         for (int i = 0; i < 2; i++) {
-            if(getDadosJogo().getJogadores().get(i).isVezDoJogador() == false){
-                getDadosJogo().getJogadores().get(i).setVezDoJogador(true);
+            var j = getDadosJogo().getJogadores().get(i);
+            if(j.isVezDoJogador()== false){
+                j.setVezDoJogador(true);
+                getDadosJogo().addMsgLog("O jogador escolhido foi: " + j.getNome());
             }else{
-                getDadosJogo().getJogadores().get(i).setVezDoJogador(false);
+                j.setVezDoJogador(false);
             }
+            //j.setVezDoJogador(!j.isVezDoJogador());
+            
         }
         //quem estiver a true agora significa que é ele a jogar
+        
         return new ProximaJogada4Linha(getDadosJogo());
     }
 

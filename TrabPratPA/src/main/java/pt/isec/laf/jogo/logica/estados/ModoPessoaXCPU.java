@@ -18,7 +18,7 @@ public class ModoPessoaXCPU extends EstadoAdaptador {
     @Override
     public IEstado definirNomes(String nome, String nome2) {
         Pessoa pessoa1 = new Pessoa(nome, 1);
-        CPU cPU2 = new CPU(nome, 2);
+        CPU cPU2 = new CPU(nome2, 2);
         getDadosJogo().adicionaJogador(pessoa1);
         getDadosJogo().adicionaJogador(cPU2);
         return new EscolherProximoJogador(getDadosJogo());

@@ -18,10 +18,17 @@ public class DadosJogo {
     private Random rand = new Random();
     private boolean jogoAcabou = false;
 
+    private boolean proximoMiniJogo; //qual o proximo mini jogo que ira ser realizado //false = calculos & true = palavras
+    private int numMiniJogos; //quantos mini jogos foram realizados
+
+    //mensagens de log
+    private ArrayList<String> logMensagens;
+
     public DadosJogo(ArrayList<Jogador> jogadores, int numJogada) {
         this.jogadores = jogadores;
         this.numJogada = numJogada;
         this.tabuleiro = new int[LINHAS][COLUNAS];
+        this.proximoMiniJogo = false;
     }
 
     public DadosJogo() {
@@ -29,8 +36,28 @@ public class DadosJogo {
     }
 
     //----------------- Getters e Setters -------------------
+    public void clearMsgLog() {
+        logMensagens.clear();
+    }
+
+    public void addMsgLog(String msg) {
+        logMensagens.add(msg);
+    }
+
+    public ArrayList<String> getMsgLog() {
+        return logMensagens;
+    }
+
     public int getNum_jogada() {
         return numJogada;
+    }
+
+    public int getNumMiniJogos() {
+        return numMiniJogos;
+    }
+
+    public boolean isProximoMiniJogo() {
+        return proximoMiniJogo;
     }
 
     public Random getRandom() {
@@ -49,13 +76,22 @@ public class DadosJogo {
         return jogoAcabou;
     }
 
+    public void incrementaNumMiniJogo() {
+        this.numMiniJogos++;
+    }
+
     public void setJogoAcabou(boolean jogoAcabou) {
         this.jogoAcabou = jogoAcabou;
+    }
+
+    public void setProximoMiniJogo(boolean proximoMiniJogo) {
+        this.proximoMiniJogo = proximoMiniJogo;
     }
 
     //--------- Funcoes uteis para fazer algo ------------
     public void adicionaJogador(Jogador jogador) {
         jogadores.add(jogador);
+        addMsgLog("Jogador adicionado com sucesso!");
     }
 
     public int getRandom(int min, int max) {

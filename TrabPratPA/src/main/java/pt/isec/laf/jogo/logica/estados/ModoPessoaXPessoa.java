@@ -17,7 +17,7 @@ public class ModoPessoaXPessoa extends EstadoAdaptador {
     @Override
     public IEstado definirNomes(String nome, String nome2) {
         Pessoa pessoa1 = new Pessoa(nome, 1);
-        Pessoa pessoa2 = new Pessoa(nome, 2);
+        Pessoa pessoa2 = new Pessoa(nome2, 2);
         getDadosJogo().adicionaJogador(pessoa1);
         getDadosJogo().adicionaJogador(pessoa2);
         return new EscolherProximoJogador(getDadosJogo());

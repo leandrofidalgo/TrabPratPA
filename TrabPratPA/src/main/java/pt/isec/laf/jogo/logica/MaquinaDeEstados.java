@@ -47,6 +47,22 @@ public class MaquinaDeEstados {
         return estado instanceof EscolherProximoJogador;
     }
 
+    public boolean isProximaJogada4Linha() {
+        return estado instanceof ProximaJogada4Linha;
+    }
+
+    public boolean isEscolherJogarMiniJogo() {
+        return estado instanceof EscolherJogarMiniJogo;
+    }
+
+    public boolean isMiniJogoCalculos() {
+        return estado instanceof MiniJogoCalculos;
+    }
+
+    public boolean isMiniJogoPalavras() {
+        return estado instanceof MiniJogoPalavras;
+    }
+
     //-------------------------------------atualizar estados-----------------------------
     public void iniciarNovoJogo() {
         estado = estado.iniciarJogo();
@@ -68,5 +84,17 @@ public class MaquinaDeEstados {
 
     public void escolheProximoJogador() {
         estado = estado.definirProximoJogador();
+    }
+
+    public void jogarMiniJogo() {
+        estado = estado.jogarMiniJogo();
+    }
+
+    public void jogaPeca(int coluna) {
+        estado = estado.proximaJogada(coluna);
+    }
+
+    public void jogaPecaEspecial() {
+        estado = estado.jogarPecaEspecial();
     }
 }

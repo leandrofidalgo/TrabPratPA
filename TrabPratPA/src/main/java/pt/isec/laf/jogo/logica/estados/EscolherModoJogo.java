@@ -15,16 +15,19 @@ public class EscolherModoJogo extends EstadoAdaptador {
 
     @Override
     public IEstado modoCPUXCPU() {
+        getDadosJogo().addMsgLog("Modo CPU X CPU");
         return new ModoCPUXCPU(getDadosJogo());
     }
 
     @Override
     public IEstado modoHomemXCPU() {
+        getDadosJogo().addMsgLog("Modo Pessoa X CPU");
         return new ModoPessoaXCPU(getDadosJogo());
     }
 
     @Override
     public IEstado modoHomemXHomem() {
+        getDadosJogo().addMsgLog("Modo Pessoa X Pessoa");
         return new ModoPessoaXPessoa(getDadosJogo());
     }
 }
