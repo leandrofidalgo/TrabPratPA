@@ -43,12 +43,16 @@ public class IUTexto {
                 menuEscolherProximoJogador();
             } else if (maquinaDeEstados.isProximaJogada4Linha()) {
                 menuProximaJogada();
+            } else if (maquinaDeEstados.isVerificarSeAcabou()) {
+                menuVerificarSeAcabou();
             } else if (maquinaDeEstados.isEscolherJogarMiniJogo()) {
                 menuJogarMiniJogo();
             } else if (maquinaDeEstados.isMiniJogoCalculos()) {
                 miniJogoCalculos();
             } else if (maquinaDeEstados.isMiniJogoPalavras()) {
                 miniJogoPalavras();
+            } else if (maquinaDeEstados.isFimDoJogo()) {
+                menuFimDoJogo();
             }
         }
     }
@@ -302,6 +306,14 @@ public class IUTexto {
 
     private void miniJogoPalavras() {
         //pedir as palavras.... e ainda fazer toda a logica
+    }
+
+    private void menuVerificarSeAcabou() {
+        maquinaDeEstados.verificaSeAcabou();
+    }
+
+    private void menuFimDoJogo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void showMsgLog() {

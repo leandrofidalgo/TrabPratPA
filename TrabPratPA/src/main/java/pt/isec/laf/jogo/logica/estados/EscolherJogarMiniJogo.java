@@ -18,36 +18,33 @@ public class EscolherJogarMiniJogo extends EstadoAdaptador {
         //fazer sort e escolher um dos jogos, o primeiro mini jogo sera definido assim
         var j = getDadosJogo().getNumMiniJogos();
         //definir o primeiro mini jogo
+        //TODO adicionar num pecas especiais
         if (j == 0) {
             int num = getDadosJogo().getRandom(0, 1);
             if (num == 0) {
-                getDadosJogo().incrementaNumMiniJogo();
-                getDadosJogo().setProximoMiniJogo(false); //significa que é calculos
-                getDadosJogo().addMsgLog("Jogo dos calculos");
+                logicaMiniJogo(true, "Jogo dos calculos");
                 return new MiniJogoCalculos(getDadosJogo());
             } else {
-                getDadosJogo().incrementaNumMiniJogo();
-                getDadosJogo().setProximoMiniJogo(true);  //significa que e palavras
-                getDadosJogo().addMsgLog("Jogo das palavras");
+                logicaMiniJogo(false, "Jogo das palavras");
                 return new MiniJogoPalavras(getDadosJogo());
             }
         } else {
             if (!getDadosJogo().isProximoMiniJogo()) {
                 //calculos
-                getDadosJogo().incrementaNumMiniJogo();
-                getDadosJogo().setProximoMiniJogo(true);
-                getDadosJogo().addMsgLog("Jogo dos calculos");
+                logicaMiniJogo(true, "Jogo dos calculos");
                 return new MiniJogoCalculos(getDadosJogo());
             } else {
                 //palavras
-                getDadosJogo().incrementaNumMiniJogo();
-                getDadosJogo().setProximoMiniJogo(false);
-                getDadosJogo().addMsgLog("Jogo das palavras");
+                logicaMiniJogo(false, "Jogo das palavras");
                 return new MiniJogoPalavras(getDadosJogo());
             }
         }
-
         //return super.jogarMiniJogo(); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public void logicaMiniJogo(boolean proximoMiniJogo, String messLog) {
+        getDadosJogo().incrementaNumMiniJogo();
+        getDadosJogo().setProximoMiniJogo(proximoMiniJogo); //significa que o proximo será palavras
+        getDadosJogo().addMsgLog(messLog);
+    }
 }

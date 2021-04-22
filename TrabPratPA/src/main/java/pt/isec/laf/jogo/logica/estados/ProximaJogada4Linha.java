@@ -2,6 +2,7 @@ package pt.isec.laf.jogo.logica.estados;
 
 import pt.isec.laf.jogo.logica.IEstado;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
+import pt.isec.laf.jogo.logica.dados.Jogador;
 
 /**
  *
@@ -16,9 +17,16 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
     @Override
     public IEstado proximaJogada(int coluna) {
         //Efetuar a proxima jogada
-        //fazer a logica de colocar uma peca
-        
-        return this; //To change body of generated methods, choose Tools | Templates.
+        boolean bool = getDadosJogo().iniciaProximaJogada(coluna);
+        if (bool) {
+            getDadosJogo().addMsgLog("Jogada efetuada com sucesso e a peca foi colocada na devida coluna!");
+            //TODO guardar a jogada e incrementar jogadas (incrementar jogadaas do jogador e do jogo)
+            
+            return new VerificarSeAcabou(getDadosJogo());
+        } else {
+            getDadosJogo().addMsgLog("A coluna já se encontra completa por favor tente outra coluna!");
+            return this;
+        }
     }
 
     @Override

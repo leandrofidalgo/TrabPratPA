@@ -16,8 +16,9 @@ public interface IEstado {
     IEstado modoHomemXHomem(); //escolhermodojogo
     IEstado definirNomes(String nome, String nome2); //dentro de cada modo de jogo
     IEstado definirProximoJogador();
-    IEstado jogarMiniJogo();
     IEstado proximaJogada(int coluna);
+    IEstado verificarSeAcabou();
+    IEstado jogarMiniJogo();
     IEstado jogarPecaEspecial();
     
     

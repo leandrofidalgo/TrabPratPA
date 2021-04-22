@@ -61,17 +61,22 @@ public abstract class EstadoAdaptador implements IEstado {
     }
 
     @Override
-    public IEstado jogarMiniJogo(){
-        return this;
-    }
-
-    @Override
     public IEstado proximaJogada(int coluna) {
         return this;
     }
 
     @Override
+    public IEstado verificarSeAcabou() {
+        return this;
+    }
+
+    @Override
     public IEstado jogarPecaEspecial() {
+        return this;
+    }
+
+    @Override
+    public IEstado jogarMiniJogo() {
         return this;
     }
 

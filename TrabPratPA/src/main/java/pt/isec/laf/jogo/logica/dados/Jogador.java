@@ -7,7 +7,7 @@ package pt.isec.laf.jogo.logica.dados;
 public class Jogador {
 
     private String nome; //os jogadores têm de ter nomes diferentes
-    private int num_jogada; //numero da jogada atual
+    private int num_jogada; //numero da jogada atual TODO numero de jogadas ate minijogo
     private int creditos; //numero de creditos do jogador
     //private boolean pessoa; //se true é uma pessoa se false é o computador
     private int corDaPeca; //se 1 = VERDE, se 2 = VERMELHO
@@ -30,8 +30,16 @@ public class Jogador {
         return nome;
     }
 
+    public int getNum_jogada() {
+        return num_jogada;
+    }
+
     public int getNumPecasEspeciais() {
         return numPecasEspeciais;
+    }
+
+    public int getCorDaPeca() {
+        return corDaPeca;
     }
 
     public boolean isVezDoJogador() {
@@ -41,5 +49,11 @@ public class Jogador {
     public void setVezDoJogador(boolean vezDoJogador) {
         this.vezDoJogador = vezDoJogador;
     }
+
+    public void setNum_jogada(int num_jogada) {
+        this.num_jogada = num_jogada;
+    }
+    
+    
 
 }
