@@ -20,6 +20,6 @@ public interface IEstado {
     IEstado verificarSeAcabou();
     IEstado jogarMiniJogo();
     IEstado jogarPecaEspecial();
-    
+    //IEstado 
     
 }

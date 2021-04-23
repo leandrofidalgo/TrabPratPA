@@ -15,10 +15,12 @@ public class VerificarSeAcabou extends EstadoAdaptador {
 
     @Override
     public IEstado verificarSeAcabou() {
-        getDadosJogo().verificaSeJogoAcabou();
-        //alterar a vez do jogador para false
-        
-        return super.verificarSeAcabou(); //To change body of generated methods, choose Tools | Templates.
+        boolean ganhou = getDadosJogo().verificaSeJogoAcabou();
+        if(ganhou == true){
+            return new FimDoJogo(getDadosJogo());
+        }else{
+            return new EscolherProximoJogador(getDadosJogo());
+        }
     }
 
     

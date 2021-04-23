@@ -54,6 +54,8 @@ public class Jogador {
         this.num_jogada = num_jogada;
     }
     
-    
+    public void incrementaNumJogada(){
+        this.num_jogada = this.num_jogada++;
+    }
 
 }

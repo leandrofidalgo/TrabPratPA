@@ -2,6 +2,7 @@ package pt.isec.laf.jogo.iu.texto;
 
 import java.util.Scanner;
 import pt.isec.laf.jogo.logica.MaquinaDeEstados;
+import pt.isec.laf.jogo.logica.dados.CPU;
 import static pt.isec.laf.jogo.logica.dados.DadosJogo.COLUNAS;
 import static pt.isec.laf.jogo.logica.dados.DadosJogo.LINHAS;
 
@@ -14,8 +15,8 @@ public class IUTexto {
     private MaquinaDeEstados maquinaDeEstados;
     private Scanner scanner;
 
-    public IUTexto(MaquinaDeEstados jogo) {
-        this.maquinaDeEstados = jogo;
+    public IUTexto(MaquinaDeEstados maquinaDeEstados) {
+        this.maquinaDeEstados = maquinaDeEstados;
         this.scanner = new Scanner(System.in);
     }
 
@@ -25,7 +26,7 @@ public class IUTexto {
         //imprimirTabuleiro();
         //inicioDoJogo();
         //menuPrincipal();
-        while (maquinaDeEstados.getDadosJogo().isJogoAcabou()) {
+        while (!maquinaDeEstados.getDadosJogo().isJogoAcabou()) {
             System.out.println();
             showMsgLog();
             maquinaDeEstados.getDadosJogo().clearMsgLog();
@@ -103,12 +104,12 @@ public class IUTexto {
     private void menuCPUXCPU() {
         String nome, nome2;
         System.out.println("------------------------ Menu Escolher nome do CPUXCPU ------------------------");
-        System.out.print("Indique qual o nome do primeiro CPU: ");
+        System.out.println("Indique qual o nome do primeiro CPU: ");
         while (!scanner.hasNext()) {
             scanner.next();
         }
         nome = scanner.next();
-        System.out.print("Indique qual o nome do segundo CPU: ");
+        System.out.println("Indique qual o nome do segundo CPU: ");
         while (!scanner.hasNext()) {
             scanner.next();
         }
@@ -121,12 +122,12 @@ public class IUTexto {
     private void menuPessoaXCPU() {
         String nome, nome2;
         System.out.println("------------------------ Menu Escolher nome do PessoaXCPU ------------------------");
-        System.out.print("Indique qual o nome da pessoa: ");
+        System.out.println("Indique qual o nome da pessoa: ");
         while (!scanner.hasNext()) {
             scanner.next();
         }
         nome = scanner.next();
-        System.out.print("Indique qual o nome do CPU: ");
+        System.out.println("Indique qual o nome do CPU: ");
         while (!scanner.hasNext()) {
             scanner.next();
         }
@@ -139,12 +140,12 @@ public class IUTexto {
     private void menuPessoaXPessoa() {
         String nome, nome2;
         System.out.println("------------------------ Menu Escolher nome do PessoaXPessoa ------------------------");
-        System.out.print("Indique qual o nome da primeira pessoa: ");
+        System.out.println("Indique qual o nome da primeira pessoa: ");
         while (!scanner.hasNext()) {
             scanner.next();
         }
         nome = scanner.next();
-        System.out.print("Indique qual o nome do segunda pessoa: ");
+        System.out.println("Indique qual o nome do segunda pessoa: ");
         while (!scanner.hasNext()) {
             scanner.next();
         }
@@ -160,31 +161,44 @@ public class IUTexto {
 
     private void menuProximaJogada() {
         int valor;
+        int coluna;
         imprimirTabuleiro();
-        System.out.println("------------------------ Menu Jogada ------------------------");
-        System.out.println("1-Efetuar uma jogada");
-        System.out.println("2-Efetuar a jogada da peça especial");
-        System.out.println("2-Retroceder jogada");
-        while (!scanner.hasNextInt()) {
-            scanner.next();
-        }
-        valor = scanner.nextInt();
-        if (valor == 1) {
-            //chamar função para avançar uma jogada
-            int coluna;
-            System.out.print("Indique a coluna onde deseja colocar a nova peca: ");
+        //TODO verificar se é um CPU
+        if (maquinaDeEstados.getDadosJogo().retornaJogadorAtual() instanceof CPU) {
+            imprimirTabuleiro();
+            maquinaDeEstados.jogaPeca(0);
+        } else {
+            System.out.println("------------------------ Menu Jogada ------------------------");
+            System.out.println("1-Efetuar uma jogada");
+            System.out.println("2-Efetuar a jogada da peça especial");
+            System.out.println("2-Retroceder jogada");
             while (!scanner.hasNextInt()) {
                 scanner.next();
             }
-            coluna = scanner.nextInt();
-            maquinaDeEstados.jogaPeca(coluna);
-        } else if (valor == 2) {
-            //chamar funcao para jogar a peca especial
-            //TODO perguntar qual é a coluna onde a deseja colocar
-            maquinaDeEstados.jogaPecaEspecial();
-        } else if (valor == 3) {
-            //chamar função para perguntar quantas vezes deseja voltar atrás
-            //chamar processo de retroceder jogada
+            valor = scanner.nextInt();
+            if (valor == 1) {
+                //chamar função para avançar uma jogada
+                System.out.print("Indique a coluna onde deseja colocar a nova peca: ");
+                while (!scanner.hasNextInt()) {
+                    scanner.next();
+                }
+                coluna = scanner.nextInt();
+                maquinaDeEstados.jogaPeca(coluna);
+            } else if (valor == 2) {
+                //chamar funcao para jogar a peca especial
+                //TODO perguntar qual é a coluna onde a deseja colocar
+                maquinaDeEstados.jogaPecaEspecial();
+            } else if (valor == 3) {
+                int iteracoes;
+                //chamar função para perguntar quantas vezes deseja voltar atrás
+                //chamar processo de retroceder jogada
+                System.out.println("Quantas iteracoes deseja voltar atras (Maximo 5 vezes): ");
+                while (!scanner.hasNextInt()) {
+                    scanner.next();
+                }
+                iteracoes = scanner.nextInt();
+                //maquinaDeEstados.
+            }
         }
     }
 

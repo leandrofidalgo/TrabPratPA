@@ -23,13 +23,22 @@ public class EscolherProximoJogador extends EstadoAdaptador {
             getDadosJogo().getJogadores().get(num).setVezDoJogador(false);
         } else if (getDadosJogo().retornaJogadorAtual().getNum_jogada() % 4 == 0 && getDadosJogo().retornaJogadorAtual().getNum_jogada() != 0) {
             //quando pode jogar o minijogo e fazer return do estado do mini jogo
+            //quem estiver a true agora significa que é ele a jogar
+            proximoJogador();
             return new EscolherJogarMiniJogo(getDadosJogo());
         }
+        proximoJogador();
+        //quem estiver a true agora significa que é ele a jogar
+        return new ProximaJogada4Linha(getDadosJogo());
+    }
+
+    public void proximoJogador(){
         //se a vez do jogdar esta a false e passar para true e colocar a false a do outro
         for (int i = 0; i < 2; i++) {
             var j = getDadosJogo().getJogadores().get(i);
             if (j.isVezDoJogador() == false) {
                 j.setVezDoJogador(true);
+                getDadosJogo().adicionaDadosJogaga(getDadosJogo());
                 getDadosJogo().addMsgLog("O jogador escolhido foi: " + j.getNome());
             } else {
                 j.setVezDoJogador(false);
@@ -37,9 +46,5 @@ public class EscolherProximoJogador extends EstadoAdaptador {
             //j.setVezDoJogador(!j.isVezDoJogador());
 
         }
-        //quem estiver a true agora significa que é ele a jogar
-
-        return new ProximaJogada4Linha(getDadosJogo());
     }
-
 }

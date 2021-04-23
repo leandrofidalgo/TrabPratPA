@@ -24,15 +24,25 @@ public class DadosJogo {
     //mensagens de log
     private ArrayList<String> logMensagens;
 
+    //gravar jogadas
+    private ArrayList<DadosJogo> dadosJogadas;
+
     public DadosJogo(ArrayList<Jogador> jogadores, int numJogada) {
         this.jogadores = jogadores;
         this.numJogada = numJogada;
         this.tabuleiro = new int[LINHAS][COLUNAS];
         this.proximoMiniJogo = false;
+        logMensagens = new ArrayList<>();
+        dadosJogadas = new ArrayList<>();
     }
 
     public DadosJogo() {
         this.tabuleiro = new int[LINHAS][COLUNAS];
+        this.numJogada = 0;
+        this.jogadores = new ArrayList<>();
+        this.proximoMiniJogo = false;
+        logMensagens = new ArrayList<>();
+        dadosJogadas = new ArrayList<>();
     }
 
     //----------------- Getters e Setters -------------------
@@ -88,10 +98,18 @@ public class DadosJogo {
         this.proximoMiniJogo = proximoMiniJogo;
     }
 
+    public void incrementaNumJogadas() {
+        this.numJogada = this.numJogada++;
+    }
+
     //--------- Funcoes uteis para fazer algo ------------
     public void adicionaJogador(Jogador jogador) {
         jogadores.add(jogador);
         addMsgLog("Jogador adicionado com sucesso!");
+    }
+
+    public void adicionaDadosJogaga(DadosJogo dadosJogo) {
+        dadosJogadas.add(dadosJogo);
     }
 
     public Jogador retornaJogadorAtual() {
@@ -101,6 +119,21 @@ public class DadosJogo {
             }
         }
         return null;
+    }
+
+    public void reverteVezdoJogador() {
+        for (int i = 0; i < 2; i++) {
+            if (jogadores.get(i).isVezDoJogador()) {
+                jogadores.get(i).setVezDoJogador(false);
+            } else {
+                jogadores.get(i).setVezDoJogador(true);
+            }
+        }
+    }
+
+    public int gerarColunaAleatoria() {
+        int coluna = getRandom(0, 6);
+        return coluna;
     }
 
     public boolean iniciaProximaJogada(int coluna) {
@@ -113,6 +146,9 @@ public class DadosJogo {
                 } else {
                     int corPeca = jog.getCorDaPeca();
                     getTabuleiro()[i][coluna] = corPeca;
+                    //incrementar num de jogadas do jogador e do jogo
+                    jog.incrementaNumJogada();
+                    this.incrementaNumJogadas();
                     return true;
                 }
             }
@@ -120,15 +156,20 @@ public class DadosJogo {
         return false;
     }
 
-    public void verificaSeJogoAcabou() {
+    public boolean verificaSeJogoAcabou() {
         boolean ganhouLinhas = verificaLinhas();
         boolean ganhouColunas = verificaColunas();
         boolean ganhouDiagonais1 = verificaDiagonais();
         boolean ganhouDiagonais2 = verificaDiagonais2();
+        if (ganhouLinhas == true || ganhouColunas == true || ganhouDiagonais1 == true || ganhouDiagonais2 == true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getRandom(int min, int max) {
-        return rand.nextInt(max) + min;
+        return rand.nextInt(max - min + 1) + min;
     }
 
     public void zerarDadosJogo() {
@@ -186,7 +227,7 @@ public class DadosJogo {
             for (int j = 0; (7 - j) < 3; j++) {
                 ganhou = 0;
                 for (int k = 0, linha = i, coluna = j; k < 4; k++, linha++, coluna++) {
-                    if (getTabuleiro()[linha][coluna] == jog.getCorDaPeca()){
+                    if (getTabuleiro()[linha][coluna] == jog.getCorDaPeca()) {
                         ganhou++;
                     }
                 }
@@ -202,18 +243,18 @@ public class DadosJogo {
         //verificar a diagonal para cima
         int ganhou = 0;
         Jogador jog = retornaJogadorAtual();
-        for (int coluna = 0; coluna < 6; coluna++) {
-            for (int linha = 0; linha < 7; linha++) {
-                if (getTabuleiro()[linha][coluna] == jog.getCorDaPeca()) {
-                    ganhou++;
-                    if (ganhou == 4) {
-                        return true;
+        for (int i = 0; (6 - i) < 3; i++) {
+            for (int j = 3; j < 7; j++) {
+                ganhou = 0;
+                for (int k = 0, linha = i, coluna = j; k < 4; k++, linha++, coluna--) {
+                    if (getTabuleiro()[linha][coluna] == jog.getCorDaPeca()) {
+                        ganhou++;
                     }
-                } else {
-                    ganhou = 0;
+                }
+                if (ganhou == 4) {
+                    return true;
                 }
             }
-            ganhou = 0;
         }
         return false;
     }

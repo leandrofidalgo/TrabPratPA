@@ -102,7 +102,7 @@ public class IUTextoFodeu {
             if (valor >= 1 && valor <= 3) {
                 ArrayList<String> nomes = dadosUtilizador();
                 //TODO qual jogador vai ser o primeiro e depois usar a classe pessoa e computador depois na proxima jogada fazer qual vai ser primeiro
-                maquinaDeEstados.definirJogadores(valor, nomes);
+                //maquinaDeEstados.definirJogadores(valor, nomes);
                 proximaJogadaInteface();
             }
         } while (valor != 1 || valor != 2 || valor != 3);
@@ -112,7 +112,7 @@ public class IUTextoFodeu {
     public void proximaJogadaInteface() {
         imprimirTabuleiro();
         System.out.println();
-        maquinaDeEstados.proximaJogada();
+        //maquinaDeEstados.proximaJogada();
     }
 
     public ArrayList<String> dadosUtilizador() {

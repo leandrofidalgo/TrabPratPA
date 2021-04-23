@@ -16,6 +16,7 @@ public class MaquinaDeEstados {
 
     public MaquinaDeEstados() {
         dadosJogo = new DadosJogo();
+        estado = new MenuPrincipal(dadosJogo);
     }
 
     public DadosJogo getDadosJogo() {
