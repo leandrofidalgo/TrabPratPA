@@ -2,6 +2,7 @@ package pt.isec.laf.jogo.logica.estados;
 
 import pt.isec.laf.jogo.logica.IEstado;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
+import pt.isec.laf.jogo.logica.dados.Jogador;
 
 /**
  *
@@ -38,8 +39,7 @@ public class EscolherProximoJogador extends EstadoAdaptador {
             var j = getDadosJogo().getJogadores().get(i);
             if (j.isVezDoJogador() == false) {
                 j.setVezDoJogador(true);
-                getDadosJogo().adicionaDadosJogaga(getDadosJogo());
-                getDadosJogo().addMsgLog("O jogador escolhido foi: " + j.getNome());
+                getDadosJogo().addMsgLog("O proximo jogador que ira jogar sera: " + j.getNome());
             } else {
                 j.setVezDoJogador(false);
             }
@@ -47,4 +47,5 @@ public class EscolherProximoJogador extends EstadoAdaptador {
 
         }
     }
+
 }

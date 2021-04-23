@@ -99,7 +99,7 @@ public class DadosJogo {
     }
 
     public void incrementaNumJogadas() {
-        this.numJogada = this.numJogada++;
+        this.numJogada = this.numJogada + 1;
     }
 
     //--------- Funcoes uteis para fazer algo ------------
@@ -134,26 +134,6 @@ public class DadosJogo {
     public int gerarColunaAleatoria() {
         int coluna = getRandom(0, 6);
         return coluna;
-    }
-
-    public boolean iniciaProximaJogada(int coluna) {
-        //fazer a logica de colocar uma peca
-        for (int i = 6 - 1; i >= 0; i--) {
-            if (getTabuleiro()[i][coluna] == 0) {
-                Jogador jog = retornaJogadorAtual();
-                if (jog == null) {
-                    return false;
-                } else {
-                    int corPeca = jog.getCorDaPeca();
-                    getTabuleiro()[i][coluna] = corPeca;
-                    //incrementar num de jogadas do jogador e do jogo
-                    jog.incrementaNumJogada();
-                    this.incrementaNumJogadas();
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public boolean verificaSeJogoAcabou() {
@@ -222,7 +202,6 @@ public class DadosJogo {
         //verificar a diagonal para baixo
         int ganhou;
         Jogador jog = retornaJogadorAtual();
-
         for (int i = 0; (6 - i) < 3; i++) {
             for (int j = 0; (7 - j) < 3; j++) {
                 ganhou = 0;

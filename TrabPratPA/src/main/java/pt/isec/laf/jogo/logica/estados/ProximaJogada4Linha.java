@@ -21,10 +21,10 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             //inciar a jogada do CPU
             //Efetuar a proxima jogada
             coluna = getDadosJogo().gerarColunaAleatoria();
-            bool = getDadosJogo().iniciaProximaJogada(coluna);
+            bool = iniciaProximaJogada(coluna);
             if (bool) {
                 getDadosJogo().addMsgLog("Jogada efetuada com sucesso e a peca foi colocada na devida coluna!");
-                //TODO guardar a jogada e verificar quantas jogadas existem pois so podem existir 5
+                //TODO guardar a jogada e verificar quantas jogadas existem pois so podem existir 
                 getDadosJogo().adicionaDadosJogaga(getDadosJogo());
                 return new VerificarSeAcabou(getDadosJogo());
             } else {
@@ -35,7 +35,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             coluna = coluna - 1;
             //Efetuar a proxima jogada
             //incrementar jogadas (incrementar jogadaas do jogador e do jogo)
-            bool = getDadosJogo().iniciaProximaJogada(coluna);
+            bool = iniciaProximaJogada(coluna);
         }
         if (bool) {
             getDadosJogo().addMsgLog("Jogada efetuada com sucesso e a peca foi colocada na devida coluna!");
@@ -46,6 +46,26 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             getDadosJogo().addMsgLog("A coluna já se encontra completa por favor tente outra coluna!");
             return this;
         }
+    }
+
+    public boolean iniciaProximaJogada(int coluna) {
+        //fazer a logica de colocar uma peca
+        for (int i = 6 - 1; i >= 0; i--) {
+            if (getDadosJogo().getTabuleiro()[i][coluna] == 0) {
+                Jogador jog = getDadosJogo().retornaJogadorAtual();
+                if (jog == null) {
+                    return false;
+                } else {
+                    int corPeca = jog.getCorDaPeca();
+                    getDadosJogo().getTabuleiro()[i][coluna] = corPeca;
+                    //incrementar num de jogadas do jogador e do jogo
+                    jog.incrementaNumJogada();
+                    getDadosJogo().incrementaNumJogadas();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     //TODO criar proxima jogada do CPU

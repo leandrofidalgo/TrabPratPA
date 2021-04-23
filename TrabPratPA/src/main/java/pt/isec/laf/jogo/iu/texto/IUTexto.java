@@ -165,7 +165,6 @@ public class IUTexto {
         imprimirTabuleiro();
         //TODO verificar se é um CPU
         if (maquinaDeEstados.getDadosJogo().retornaJogadorAtual() instanceof CPU) {
-            imprimirTabuleiro();
             maquinaDeEstados.jogaPeca(0);
         } else {
             System.out.println("------------------------ Menu Jogada ------------------------");
