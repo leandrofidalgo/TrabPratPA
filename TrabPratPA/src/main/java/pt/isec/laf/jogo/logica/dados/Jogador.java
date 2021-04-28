@@ -14,6 +14,7 @@ public class Jogador {
     private int numPecasEspeciais; //quantas pecas especiais tem
     private int numAcertou;
     private boolean vezDoJogador; //dewfine a vez do jogador
+    private boolean vencedor;
 
     public Jogador(String nome, int num_jogada, int creditos, int peca) {
         this.nome = nome;
@@ -24,6 +25,7 @@ public class Jogador {
         //TODO podera ter de ser mudado...
         numPecasEspeciais = 0;
         numAcertou = 0;
+        vencedor = false;
     }
 
     public String getNome() {
@@ -42,6 +44,10 @@ public class Jogador {
         return corDaPeca;
     }
 
+    public boolean isVencedor() {
+        return vencedor;
+    }
+
     public boolean isVezDoJogador() {
         return vezDoJogador;
     }
@@ -53,9 +59,19 @@ public class Jogador {
     public void setNum_jogada(int num_jogada) {
         this.num_jogada = num_jogada;
     }
-    
-    public void incrementaNumJogada(){
-        this.num_jogada = this.num_jogada++;
+
+    public void setVencedor(boolean vencedor) {
+        this.vencedor = vencedor;
     }
+
+    public void incrementaNumJogada() {
+        this.num_jogada = this.num_jogada + 1;
+    }
+    
+    public void incrementaNumPecasEspeciais(){
+        this.numPecasEspeciais = this.numPecasEspeciais + 1;
+    }
+    
+    //TODO decrementar as pecas especiais
 
 }

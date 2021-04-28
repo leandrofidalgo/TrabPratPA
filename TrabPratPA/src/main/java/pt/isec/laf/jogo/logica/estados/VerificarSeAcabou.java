@@ -17,6 +17,7 @@ public class VerificarSeAcabou extends EstadoAdaptador {
     public IEstado verificarSeAcabou() {
         boolean ganhou = getDadosJogo().verificaSeJogoAcabou();
         if(ganhou == true){
+            getDadosJogo().setVencedor();
             return new FimDoJogo(getDadosJogo());
         }else{
             return new EscolherProximoJogador(getDadosJogo());

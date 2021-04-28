@@ -110,4 +110,20 @@ public class MaquinaDeEstados {
     public void jogaPecaEspecial() {
         estado = estado.jogarPecaEspecial();
     }
+
+    public void retornarMenuPrincipal() {
+        estado = estado.retornarMenuPrincipal();
+    }
+
+    public void naoJogarMiniJogo() {
+        estado = estado.naoJogarMiniJogo();
+    }
+
+    public void jogarMiniJogoCalculos(int valor) {
+        estado = estado.jogarMiniJogoCalculos(valor);
+    }
+
+    public void jogarMiniJogoPalavras(String palavras,String palavrasParaEscrever) {
+        estado = estado.jogarMiniJogoPalavras(palavras, palavrasParaEscrever);
+    }
 }

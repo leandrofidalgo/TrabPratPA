@@ -21,5 +21,9 @@ public interface IEstado {
     IEstado jogarMiniJogo();
     IEstado jogarPecaEspecial();
     //IEstado 
-    
+    IEstado retornarMenuPrincipal();
+    IEstado naoJogarMiniJogo();
+    IEstado jogarMiniJogoCalculos(int valor);
+    IEstado jogarMiniJogoPalavras(String palavras, String palavrasParaEscrever);
+
 }

@@ -3,6 +3,7 @@ package pt.isec.laf.jogo.logica.estados;
 import pt.isec.laf.jogo.logica.IEstado;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
 import pt.isec.laf.jogo.logica.dados.Jogador;
+import pt.isec.laf.jogo.logica.dados.Pessoa;
 
 /**
  *
@@ -22,24 +23,27 @@ public class EscolherProximoJogador extends EstadoAdaptador {
             //significa que é a primeira jogada
             int num = getDadosJogo().getRandom(0, 1);
             getDadosJogo().getJogadores().get(num).setVezDoJogador(false);
-        } else if (getDadosJogo().retornaJogadorAtual().getNum_jogada() % 4 == 0 && getDadosJogo().retornaJogadorAtual().getNum_jogada() != 0) {
-            //quando pode jogar o minijogo e fazer return do estado do mini jogo
-            //quem estiver a true agora significa que é ele a jogar
-            proximoJogador();
-            return new EscolherJogarMiniJogo(getDadosJogo());
         }
         proximoJogador();
+        if (getDadosJogo().retornaJogadorAtual().getNum_jogada() % 4 == 0 && getDadosJogo().retornaJogadorAtual().getNum_jogada() != 0 && getDadosJogo().retornaJogadorAtual() instanceof Pessoa) {
+            //quando pode jogar o minijogo e fazer return do estado do mini jogo
+            //quem estiver a true agora significa que é ele a jogar
+            return new EscolherJogarMiniJogo(getDadosJogo());
+        }
+
         //quem estiver a true agora significa que é ele a jogar
         return new ProximaJogada4Linha(getDadosJogo());
     }
 
-    public void proximoJogador(){
+    public void proximoJogador() {
         //se a vez do jogdar esta a false e passar para true e colocar a false a do outro
         for (int i = 0; i < 2; i++) {
             var j = getDadosJogo().getJogadores().get(i);
             if (j.isVezDoJogador() == false) {
                 j.setVezDoJogador(true);
-                getDadosJogo().addMsgLog("O proximo jogador que ira jogar sera: " + j.getNome());
+
+                getDadosJogo().addMsgLog("E a vez do jogador: " + j.getNome());
+
             } else {
                 j.setVezDoJogador(false);
             }

@@ -36,16 +36,17 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             //Efetuar a proxima jogada
             //incrementar jogadas (incrementar jogadaas do jogador e do jogo)
             bool = iniciaProximaJogada(coluna);
+            if (bool) {
+                getDadosJogo().addMsgLog("Jogada efetuada com sucesso e a peca foi colocada na devida coluna!");
+                //TODO guardar a jogada
+                getDadosJogo().adicionaDadosJogaga(getDadosJogo());
+                return new VerificarSeAcabou(getDadosJogo());
+            } else {
+                getDadosJogo().addMsgLog("A coluna já se encontra completa por favor tente outra coluna!");
+                return this;
+            }
         }
-        if (bool) {
-            getDadosJogo().addMsgLog("Jogada efetuada com sucesso e a peca foi colocada na devida coluna!");
-            //TODO guardar a jogada
-            getDadosJogo().adicionaDadosJogaga(getDadosJogo());
-            return new VerificarSeAcabou(getDadosJogo());
-        } else {
-            getDadosJogo().addMsgLog("A coluna já se encontra completa por favor tente outra coluna!");
-            return this;
-        }
+        return this;
     }
 
     public boolean iniciaProximaJogada(int coluna) {
@@ -68,7 +69,6 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
         return false;
     }
 
-    //TODO criar proxima jogada do CPU
     @Override
     public IEstado jogarPecaEspecial() {
         //efetuar a jogada da peca especial

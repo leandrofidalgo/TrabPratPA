@@ -80,4 +80,24 @@ public abstract class EstadoAdaptador implements IEstado {
         return this;
     }
 
+    @Override
+    public IEstado retornarMenuPrincipal() {
+        return this;
+    }
+
+    @Override
+    public IEstado naoJogarMiniJogo() {
+        return this;
+    }
+
+    @Override
+    public IEstado jogarMiniJogoCalculos(int valor) {
+        return this;
+    }
+
+    @Override
+    public IEstado jogarMiniJogoPalavras(String palavras, String palavrasParaEscrever) {
+        return this;
+    }
+
 }

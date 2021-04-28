@@ -2,20 +2,13 @@ package pt.isec.laf.jogo.iu.texto;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import pt.isec.laf.jogo.logica.MaquinaDeEstados;
 import static pt.isec.laf.jogo.logica.dados.DadosJogo.COLUNAS;
 import static pt.isec.laf.jogo.logica.dados.DadosJogo.LINHAS;
-import pt.isec.laf.jogo.logica.dados.Jogador;
-
 /**
  *
  * @author leandro
@@ -277,7 +270,6 @@ public class IUTextoFodeu {
             while (true) {
                 if (linha != null) {
                     //System.out.println(linha);
-
                 } else {
                     break;
                 }

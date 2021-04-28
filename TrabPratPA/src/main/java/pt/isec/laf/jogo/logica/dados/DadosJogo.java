@@ -17,6 +17,7 @@ public class DadosJogo {
     private int[][] tabuleiro; //Tabuleiro do jogo //se 0 -> vazio, se 1 -> jogador 1, se 2 -> jogador 2
     private Random rand = new Random();
     private boolean jogoAcabou = false;
+    private MiniJogo miniJogo;
 
     private boolean proximoMiniJogo; //qual o proximo mini jogo que ira ser realizado //false = calculos & true = palavras
     private int numMiniJogos; //quantos mini jogos foram realizados
@@ -43,6 +44,7 @@ public class DadosJogo {
         this.proximoMiniJogo = false;
         logMensagens = new ArrayList<>();
         dadosJogadas = new ArrayList<>();
+        miniJogo = new MiniJogo();
     }
 
     //----------------- Getters e Setters -------------------
@@ -74,6 +76,10 @@ public class DadosJogo {
         return rand;
     }
 
+    public MiniJogo getMiniJogo() {
+        return miniJogo;
+    }
+
     public ArrayList<Jogador> getJogadores() {
         return jogadores;
     }
@@ -87,7 +93,7 @@ public class DadosJogo {
     }
 
     public void incrementaNumMiniJogo() {
-        this.numMiniJogos++;
+        this.numMiniJogos = this.numMiniJogos + 1;
     }
 
     public void setJogoAcabou(boolean jogoAcabou) {
@@ -117,6 +123,20 @@ public class DadosJogo {
             if (jogadores.get(i).isVezDoJogador()) {
                 return jogadores.get(i);
             }
+        }
+        return null;
+    }
+
+    public void setVencedor() {
+        for (int i = 0; i < 2; i++) {
+            jogadores.get(i).setVencedor(true);
+        }
+    }
+
+    public String retornarVencedor() {
+        for (int i = 0; i < 2; i++) {
+            jogadores.get(i).isVencedor();
+            return jogadores.get(i).getNome();
         }
         return null;
     }

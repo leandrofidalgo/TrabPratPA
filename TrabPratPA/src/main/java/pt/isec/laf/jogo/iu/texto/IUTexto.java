@@ -162,7 +162,9 @@ public class IUTexto {
     private void menuProximaJogada() {
         int valor;
         int coluna;
-        imprimirTabuleiro();
+        if (maquinaDeEstados.getDadosJogo().getNum_jogada() == 0) {
+            imprimirTabuleiro();
+        }
         //TODO verificar se é um CPU
         if (maquinaDeEstados.getDadosJogo().retornaJogadorAtual() instanceof CPU) {
             maquinaDeEstados.jogaPeca(0);
@@ -170,14 +172,14 @@ public class IUTexto {
             System.out.println("------------------------ Menu Jogada ------------------------");
             System.out.println("1-Efetuar uma jogada");
             System.out.println("2-Efetuar a jogada da peça especial");
-            System.out.println("2-Retroceder jogada");
+            System.out.println("3-Retroceder jogada");
             while (!scanner.hasNextInt()) {
                 scanner.next();
             }
             valor = scanner.nextInt();
             if (valor == 1) {
                 //chamar função para avançar uma jogada
-                System.out.print("Indique a coluna onde deseja colocar a nova peca: ");
+                System.out.println("Indique a coluna onde deseja colocar a nova peca: ");
                 while (!scanner.hasNextInt()) {
                     scanner.next();
                 }
@@ -199,6 +201,7 @@ public class IUTexto {
                 //maquinaDeEstados.
             }
         }
+        imprimirTabuleiro();
     }
 
     public void imprimirTabuleiro() {
@@ -223,7 +226,7 @@ public class IUTexto {
 
     private void menuJogarMiniJogo() {
         int valor;
-        System.out.println("Parabéns, tem a opção de jogar um mini jogo para ter a oportunidade de lhe calhar uma peça especial!");
+        System.out.println("Parabéns, tem a opção de jogar um mini jogo para ter a oportunidade de ganhar uma peça especial!");
         System.out.println("Deseja jogar o mini jogo?");
         System.out.println("1-Sim");
         System.out.println("2-Nao");
@@ -231,94 +234,41 @@ public class IUTexto {
             scanner.next();
         }
         valor = scanner.nextInt();
-        if (valor >= 1 && valor <= 2) {
+        if (valor == 1) {
             maquinaDeEstados.jogarMiniJogo();
+        } else if (valor == 2) {
+            maquinaDeEstados.naoJogarMiniJogo();
         }
     }
 
     private void miniJogoCalculos() {
-        //pedir os varios numeros ao utilizador
-        int numAcertou = 0;
-        /*Thread td1 = new Thread(() -> {
-            //Thread secundaria para tratar da obtencao dos calculos do jogador
-            while (true) {
-                int numAcertou = 0;
         int valor; //valor do calculo
-        long timepassed; //time in seconds
-        int randomSinal;
-        int randomValor1;
-        int randomValor2;
-        //gerar random para o sinal da operação 1-4
-        randomSinal = rand.nextInt(4) + 1;
-        //gerar rando para os valores a calcular 0-99
-        randomValor1 = rand.nextInt(100);
-        randomValor2 = rand.nextInt(100);
-        switch (randomSinal) {
-            case 1:
-                System.out.println(randomValor1 + " + " + randomValor2);
-                while (!scanner.hasNextInt()) {
-                    scanner.next();
-                }
-                valor = scanner.nextInt();
-                //numAcertou = maquinaDeEstados.miniJogoCalculos(valor, randomValor1, randomValor2, "+");
-                if (valor == (randomValor1 + randomValor2)) {
-                    numAcertou++;
-                }
-                break;
-            case 2:
-                System.out.println(randomValor1 + " - " + randomValor2);
-                while (!scanner.hasNextInt()) {
-                    scanner.next();
-                }
-                valor = scanner.nextInt();
-                if (valor == (randomValor1 - randomValor2)) {
-                    numAcertou++;
-                }
-                break;
-            case 3:
-                System.out.println(randomValor1 + " / " + randomValor2);
-                while (!scanner.hasNextInt()) {
-                    scanner.next();
-                }
-                valor = scanner.nextInt();
-                if (valor == (randomValor1 / randomValor2)) {
-                    numAcertou++;
-                }
-                break;
-            case 4:
-                System.out.println(randomValor1 + " x " + randomValor2);
-                while (!scanner.hasNextInt()) {
-                    scanner.next();
-                }
-                valor = scanner.nextInt();
-                if (valor == (randomValor1 * randomValor2)) {
-                    numAcertou++;
-                }
-                break;
-            default:
-                System.out.println("Existe um problema com o sinal da operação!\n");
-                return -1;
+        String str = maquinaDeEstados.getDadosJogo().getMiniJogo().miniJogoCalculos();
+        System.out.println(str);
+        while (!scanner.hasNextInt()) {
+            scanner.next();
         }
-            }
-        });
-        td1.start();
-
-        long starttime = System.currentTimeMillis();
-        try {
-            //Esperar 30 segundos na thread principal
-            contador(starttime);
-            //supostamente passou 30sec 
-            synchronized (td1) {
-                td1.notify();
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }*/
+        valor = scanner.nextInt();
+        maquinaDeEstados.jogarMiniJogoCalculos(valor);
     }
 
     private void miniJogoPalavras() {
         //pedir as palavras.... e ainda fazer toda a logica
+        String nomeFicheiro, palavras; //palavra
+        //nome do ficheiro
+        System.out.println("Introduza o nome do ficheiro com as varias palavras: ");
+        while (!scanner.hasNext()) {
+            scanner.next();
+        }
+        nomeFicheiro = scanner.next();
+
+        String palavrasParaEscrever = maquinaDeEstados.getDadosJogo().getMiniJogo().miniJogoPalavras(nomeFicheiro);
+        System.out.println(palavrasParaEscrever);
+        while (!scanner.hasNext()) {
+            scanner.next();
+        }
+        palavras = scanner.nextLine();
+        maquinaDeEstados.jogarMiniJogoPalavras(palavras, palavrasParaEscrever);
     }
 
     private void menuVerificarSeAcabou() {
@@ -326,7 +276,25 @@ public class IUTexto {
     }
 
     private void menuFimDoJogo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int valor;
+        System.out.println("------------------------ Menu Fim do Jogo ------------------------");
+        if (maquinaDeEstados.getDadosJogo().retornarVencedor() == null) {
+            System.out.println("Não existiu nenhum vencedor!!");
+        } else {
+            System.out.println("Parabéns, " + maquinaDeEstados.getDadosJogo().retornarVencedor() + " acabou de ganhar o jogo do 4 em linha");
+        }
+        System.out.println("O que deseja efetuar agora: ");
+        System.out.println("1-Iniciar um novo jogo");
+        System.out.println("2-Retornar ao menu principal");
+        while (!scanner.hasNextInt()) {
+            scanner.next();
+        }
+        valor = scanner.nextInt();
+        if (valor == 1) {
+            maquinaDeEstados.iniciarNovoJogo();
+        } else if (valor == 2) {
+            maquinaDeEstados.retornarMenuPrincipal();
+        }
     }
 
     public void showMsgLog() {
