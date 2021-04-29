@@ -188,7 +188,12 @@ public class IUTexto {
             } else if (valor == 2) {
                 //chamar funcao para jogar a peca especial
                 //TODO perguntar qual é a coluna onde a deseja colocar
-                maquinaDeEstados.jogaPecaEspecial();
+                System.out.println("Indique a coluna onde deseja colocar a peca especial: ");
+                while (!scanner.hasNextInt()) {
+                    scanner.next();
+                }
+                coluna = scanner.nextInt();
+                maquinaDeEstados.jogaPecaEspecial(coluna);
             } else if (valor == 3) {
                 int iteracoes;
                 //chamar função para perguntar quantas vezes deseja voltar atrás

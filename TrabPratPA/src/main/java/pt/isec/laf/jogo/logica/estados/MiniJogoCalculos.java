@@ -70,8 +70,10 @@ public class MiniJogoCalculos extends EstadoAdaptador {
             } else {
                 //perdeu
                 //getDadosJogo().retornaJogadorAtual().setVezDoJogador(false);
+                //incrementar a vez do jogador e a jogdada do jogo
                 getDadosJogo().addMsgLog("Perdeu o mini jogo dos calculos e como consequencia perdeu a vez de jogar!");
                 getDadosJogo().retornaJogadorAtual().incrementaNumJogada();
+                getDadosJogo().incrementaNumJogadas();
                 return new EscolherProximoJogador(getDadosJogo());
             }
         }

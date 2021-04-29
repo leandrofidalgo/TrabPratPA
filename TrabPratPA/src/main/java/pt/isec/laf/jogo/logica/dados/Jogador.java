@@ -64,14 +64,17 @@ public class Jogador {
         this.vencedor = vencedor;
     }
 
+    public void decrementarNumPecasEspeciais(int numPecasEspeciais) {
+        this.numPecasEspeciais = this.numPecasEspeciais - 1;
+    }
+
     public void incrementaNumJogada() {
         this.num_jogada = this.num_jogada + 1;
     }
-    
-    public void incrementaNumPecasEspeciais(){
+
+    public void incrementaNumPecasEspeciais() {
         this.numPecasEspeciais = this.numPecasEspeciais + 1;
     }
-    
-    //TODO decrementar as pecas especiais
 
+    //TODO decrementar as pecas especiais
 }

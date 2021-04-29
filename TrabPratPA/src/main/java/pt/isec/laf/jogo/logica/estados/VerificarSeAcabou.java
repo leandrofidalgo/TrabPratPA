@@ -16,13 +16,18 @@ public class VerificarSeAcabou extends EstadoAdaptador {
     @Override
     public IEstado verificarSeAcabou() {
         boolean ganhou = getDadosJogo().verificaSeJogoAcabou();
-        if(ganhou == true){
+        boolean ninguemGanhou = getDadosJogo().verificaSeEstaTudoPreenchido();
+        if (ganhou == true) {
             getDadosJogo().setVencedor();
             return new FimDoJogo(getDadosJogo());
-        }else{
+        } else {
+            if (ninguemGanhou == true) {
+                getDadosJogo().addMsgLog("Ninguem ganhou!");
+                return new FimDoJogo(getDadosJogo());
+            }
             return new EscolherProximoJogador(getDadosJogo());
         }
+
     }
 
-    
 }

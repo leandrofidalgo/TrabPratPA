@@ -71,7 +71,7 @@ public abstract class EstadoAdaptador implements IEstado {
     }
 
     @Override
-    public IEstado jogarPecaEspecial() {
+    public IEstado jogarPecaEspecial(int coluna) {
         return this;
     }
 

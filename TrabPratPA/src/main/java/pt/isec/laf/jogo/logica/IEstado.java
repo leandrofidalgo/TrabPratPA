@@ -19,7 +19,7 @@ public interface IEstado {
     IEstado proximaJogada(int coluna);
     IEstado verificarSeAcabou();
     IEstado jogarMiniJogo();
-    IEstado jogarPecaEspecial();
+    IEstado jogarPecaEspecial(int coluna);
     //IEstado 
     IEstado retornarMenuPrincipal();
     IEstado naoJogarMiniJogo();

@@ -1,5 +1,6 @@
 package pt.isec.laf.jogo.logica.dados;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,7 +8,7 @@ import java.util.Random;
  *
  * @author leandro
  */
-public class DadosJogo {
+public class DadosJogo implements IMementoOriginator{
 
     public static final int LINHAS = 6;
     public static final int COLUNAS = 7;
@@ -168,6 +169,16 @@ public class DadosJogo {
         }
     }
 
+    public boolean verificaSeEstaTudoPreenchido() {
+        int conta = 0;
+        for (int i = 0; i < 7; i++) {
+            if (tabuleiro[0][i] == 1 || tabuleiro[0][i] == 2) {
+                conta++;
+            }
+        }
+        return conta == 7;
+    }
+
     public int getRandom(int min, int max) {
         return rand.nextInt(max - min + 1) + min;
     }
@@ -256,6 +267,16 @@ public class DadosJogo {
             }
         }
         return false;
+    }
+
+    @Override
+    public Memento getMemento() throws IOException {
+        return new Memento(tabuleiro);
+    }
+
+    @Override
+    public void setMemento(Memento m) throws IOException, ClassNotFoundException {
+        tabuleiro = (int [][]) m.getSnapshot();
     }
 
 }

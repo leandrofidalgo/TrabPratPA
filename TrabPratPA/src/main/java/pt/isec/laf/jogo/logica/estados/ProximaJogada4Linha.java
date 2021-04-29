@@ -17,6 +17,11 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
     @Override
     public IEstado proximaJogada(int coluna) {
         boolean bool = false;
+        //verificar se a coluna existe
+        if (coluna < 0 && coluna > 7) {
+            getDadosJogo().addMsgLog("Esta coluna nao existe!");
+            return this;
+        }
         if (coluna == 0) {
             //inciar a jogada do CPU
             //Efetuar a proxima jogada
@@ -70,21 +75,31 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
     }
 
     @Override
-    public IEstado jogarPecaEspecial() {
+    public IEstado jogarPecaEspecial(int coluna) {
         //efetuar a jogada da peca especial
         //verificar se o jogador tem a peca especial
-        //TODO isto esta tudo mal
-        for (int i = 0; i < 2; i++) {
-            var j = getDadosJogo().getJogadores().get(i);
-            if (j.isVezDoJogador()) {
-                if (j.getNumPecasEspeciais() > 0) {
-
-                } else {
-                    getDadosJogo().addMsgLog("O jogador nao tem pecas especiais!");
-                }
-            }
+        //verificar se a coluna existe
+        if (coluna <= 0 && coluna > 7) {
+            getDadosJogo().addMsgLog("Esta coluna nao existe!");
+            return this;
         }
-        return super.jogarPecaEspecial(); //To change body of generated methods, choose Tools | Templates.
+        coluna = coluna - 1;
+        var j = getDadosJogo().retornaJogadorAtual();
+        if (j.getNumPecasEspeciais() > 0) {
+            //colucar na primeira posicao da coluna a contar de baixo e eliminar o que se encontra acima
+            int corPeca = j.getCorDaPeca();
+            getDadosJogo().getTabuleiro()[5][coluna] = corPeca;
+            for (int i = 0; i < 5; i++) {
+                getDadosJogo().getTabuleiro()[i][coluna] = 0;
+            }
+            j.decrementarNumPecasEspeciais(0);
+            getDadosJogo().addMsgLog("A peca especial foi colocada na devida posicao!");
+            return this;
+        } else {
+            getDadosJogo().addMsgLog("O jogador nao tem pecas especiais!");
+            return this;
+        }
+
     }
 
 }
