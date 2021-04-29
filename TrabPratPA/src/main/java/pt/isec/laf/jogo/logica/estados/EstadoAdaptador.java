@@ -100,4 +100,9 @@ public abstract class EstadoAdaptador implements IEstado {
         return this;
     }
 
+    @Override
+    public IEstado voltarAtras(int iteracoes) {
+        return this;
+    }
+
 }

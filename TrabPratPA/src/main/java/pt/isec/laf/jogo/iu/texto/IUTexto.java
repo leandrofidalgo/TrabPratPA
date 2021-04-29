@@ -203,7 +203,7 @@ public class IUTexto {
                     scanner.next();
                 }
                 iteracoes = scanner.nextInt();
-                //maquinaDeEstados.
+                maquinaDeEstados.voltarAtras(iteracoes);
             }
         }
         imprimirTabuleiro();

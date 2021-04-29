@@ -20,7 +20,7 @@ public interface IEstado {
     IEstado verificarSeAcabou();
     IEstado jogarMiniJogo();
     IEstado jogarPecaEspecial(int coluna);
-    //IEstado 
+    IEstado voltarAtras(int iteracoes);
     IEstado retornarMenuPrincipal();
     IEstado naoJogarMiniJogo();
     IEstado jogarMiniJogoCalculos(int valor);

@@ -102,4 +102,9 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
 
     }
 
+    @Override
+    public IEstado voltarAtras(int iteracoes) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

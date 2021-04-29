@@ -129,6 +129,10 @@ public class MaquinaDeEstados  {//implements ICareTaker {
     public void jogarMiniJogoPalavras(String palavras, String palavrasParaEscrever) {
         estado = estado.jogarMiniJogoPalavras(palavras, palavrasParaEscrever);
     }
+    
+    public void voltarAtras(int iteracoes) {
+        estado = estado.voltarAtras(iteracoes);
+    }
 
     //------------------------Memento
     private final Stack<Memento> stackHist = new Stack<>();
@@ -163,4 +167,6 @@ public class MaquinaDeEstados  {//implements ICareTaker {
         }
 
     }*/
+
+    
 }
