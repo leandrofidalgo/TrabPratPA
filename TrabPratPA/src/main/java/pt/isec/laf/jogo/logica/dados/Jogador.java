@@ -77,4 +77,11 @@ public class Jogador {
     }
 
     //TODO decrementar as pecas especiais
+    public boolean decrementarCreditos(int iteracoes) {
+        if (this.creditos >= iteracoes) {
+            this.creditos = creditos - iteracoes;
+            return true;
+        }
+        return false;
+    }
 }

@@ -1,14 +1,15 @@
 package pt.isec.laf.jogo.logica.dados;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.Stack;
 
 /**
  *
  * @author leandro
  */
-public class DadosJogo implements IMementoOriginator{
+public class DadosJogo {
 
     public static final int LINHAS = 6;
     public static final int COLUNAS = 7;
@@ -26,8 +27,11 @@ public class DadosJogo implements IMementoOriginator{
     //mensagens de log
     private ArrayList<String> logMensagens;
 
-    //gravar jogadas
-    private ArrayList<DadosJogo> dadosJogadas;
+    //guardar os jogos
+    private ArrayList<DadosJogo> jogosGuardados;
+
+    //guarda tabuleiros de cada jogada
+    private Stack<int[][]> tabuleiros;
 
     public DadosJogo(ArrayList<Jogador> jogadores, int numJogada) {
         this.jogadores = jogadores;
@@ -35,7 +39,8 @@ public class DadosJogo implements IMementoOriginator{
         this.tabuleiro = new int[LINHAS][COLUNAS];
         this.proximoMiniJogo = false;
         logMensagens = new ArrayList<>();
-        dadosJogadas = new ArrayList<>();
+        jogosGuardados = new ArrayList<>();
+        tabuleiros = new Stack<>();
     }
 
     public DadosJogo() {
@@ -44,8 +49,9 @@ public class DadosJogo implements IMementoOriginator{
         this.jogadores = new ArrayList<>();
         this.proximoMiniJogo = false;
         logMensagens = new ArrayList<>();
-        dadosJogadas = new ArrayList<>();
         miniJogo = new MiniJogo();
+        jogosGuardados = new ArrayList<>();
+        tabuleiros = new Stack<>();
     }
 
     //----------------- Getters e Setters -------------------
@@ -105,6 +111,10 @@ public class DadosJogo implements IMementoOriginator{
         this.proximoMiniJogo = proximoMiniJogo;
     }
 
+    public void setTabuleiro(int[][] tabuleiroAnterior) {
+        this.tabuleiro = tabuleiroAnterior;
+    }
+
     public void incrementaNumJogadas() {
         this.numJogada = this.numJogada + 1;
     }
@@ -116,7 +126,32 @@ public class DadosJogo implements IMementoOriginator{
     }
 
     public void adicionaDadosJogaga(DadosJogo dadosJogo) {
-        dadosJogadas.add(dadosJogo);
+        //verificar se o jogo acabou verificar quantos jogos ja tenho guardados
+        jogosGuardados.add(dadosJogo);
+        addMsgLog("Jogo adicionado com sucesso!");
+    }
+
+    public void adicionaJogada() {
+        //verificar se ja tenho 5
+        int[][] aux = new int[LINHAS][COLUNAS];
+        for (int i = 0; i < LINHAS; i++) {
+            System.arraycopy(this.tabuleiro[i], 0, aux[i], 0, COLUNAS);
+        }
+        if (tabuleiros.size() > 5) {
+            tabuleiros.remove(0);
+        }
+        tabuleiros.push(aux);
+        addMsgLog("Tabuleiro adicionado com sucesso!");
+    }
+
+    public int[][] getJogadaAnterior(int iteracoes) {
+        if (tabuleiros.size() >= iteracoes) {
+            for (int i = 0; i < iteracoes; i++) {
+                tabuleiros.pop();
+            }
+            return tabuleiros.pop();
+        }
+        return null;
     }
 
     public Jogador retornaJogadorAtual() {
@@ -128,9 +163,20 @@ public class DadosJogo implements IMementoOriginator{
         return null;
     }
 
+    public Jogador retornarOOutroJogador() {
+        for (int i = 0; i < 2; i++) {
+            if (!jogadores.get(i).isVezDoJogador()) {
+                return jogadores.get(i);
+            }
+        }
+        return null;
+    }
+
     public void setVencedor() {
         for (int i = 0; i < 2; i++) {
-            jogadores.get(i).setVencedor(true);
+            if (jogadores.get(i).isVezDoJogador()) {
+                jogadores.get(i).setVencedor(true);
+            }
         }
     }
 
@@ -267,16 +313,6 @@ public class DadosJogo implements IMementoOriginator{
             }
         }
         return false;
-    }
-
-    @Override
-    public Memento getMemento() throws IOException {
-        return new Memento(tabuleiro);
-    }
-
-    @Override
-    public void setMemento(Memento m) throws IOException, ClassNotFoundException {
-        tabuleiro = (int [][]) m.getSnapshot();
     }
 
 }

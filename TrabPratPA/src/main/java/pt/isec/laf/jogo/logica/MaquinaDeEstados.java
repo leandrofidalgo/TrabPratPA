@@ -1,29 +1,25 @@
 package pt.isec.laf.jogo.logica;
 
-import java.util.ArrayList;
-import java.util.Stack;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
-import pt.isec.laf.jogo.logica.dados.ICareTaker;
-import pt.isec.laf.jogo.logica.dados.Memento;
 import pt.isec.laf.jogo.logica.estados.*;
 
 /**
  *
  * @author leandro
  */
-public class MaquinaDeEstados  {//implements ICareTaker {
+public class MaquinaDeEstados {
 
     private DadosJogo dadosJogo;
     //private Jogador j1, j2;
     private IEstado estado;
 
     public MaquinaDeEstados() {
-        dadosJogo = new DadosJogo();
-        estado = new MenuPrincipal(dadosJogo);
+        this.dadosJogo = new DadosJogo();
+        this.estado = new MenuPrincipal(dadosJogo);
     }
 
     public DadosJogo getDadosJogo() {
-        return dadosJogo;
+        return this.dadosJogo;
     }
 
     //-------------------------------------verificar estado atual-----------------------------
@@ -129,44 +125,9 @@ public class MaquinaDeEstados  {//implements ICareTaker {
     public void jogarMiniJogoPalavras(String palavras, String palavrasParaEscrever) {
         estado = estado.jogarMiniJogoPalavras(palavras, palavrasParaEscrever);
     }
-    
+
     public void voltarAtras(int iteracoes) {
         estado = estado.voltarAtras(iteracoes);
     }
 
-    //------------------------Memento
-    private final Stack<Memento> stackHist = new Stack<>();
-    private final Stack<Memento> stackRedo = new Stack<>();
-
-    /*@Override
-    public void saveMemento() {
-        stackRedo.clear();
-        try {
-            stackHist.push(this.getMemento());
-        } catch (IOException ex) {
-            System.err.println("gravaMemento: " + ex);
-            stackHist.clear();
-            stackRedo.clear();
-        }
-    }
-
-    @Override
-    public void undo() {
-        if (stackHist.isEmpty()) {
-            return;
-        }
-        try {
-            Memento atual = this.getMemento();
-            stackRedo.push(atual);
-            Memento anterior = stackHist.pop();
-            this.setMemento(anterior);
-        } catch (IOException | ClassNotFoundException ex) {
-            System.err.println("undo: " + ex);
-            stackHist.clear();
-            stackRedo.clear();
-        }
-
-    }*/
-
-    
 }

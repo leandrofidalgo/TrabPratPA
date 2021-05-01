@@ -29,7 +29,10 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             bool = iniciaProximaJogada(coluna);
             if (bool) {
                 getDadosJogo().addMsgLog("Jogada efetuada com sucesso e a peca foi colocada na devida coluna!");
-                //TODO guardar a jogada e verificar quantas jogadas existem pois so podem existir 
+                //TODO guardar a jogada e verificar quantas jogadas existem pois so podem existir
+                //adicionar o tabuleiro
+                getDadosJogo().adicionaJogada();
+                //TODO adicionar os jogos para depois fazer o replay
                 getDadosJogo().adicionaDadosJogaga(getDadosJogo());
                 return new VerificarSeAcabou(getDadosJogo());
             } else {
@@ -44,6 +47,9 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             if (bool) {
                 getDadosJogo().addMsgLog("Jogada efetuada com sucesso e a peca foi colocada na devida coluna!");
                 //TODO guardar a jogada
+                //adicionar o tabuleiro
+                getDadosJogo().adicionaJogada();
+                //TODO adicionar os jogos para depois fazer o replay
                 getDadosJogo().adicionaDadosJogaga(getDadosJogo());
                 return new VerificarSeAcabou(getDadosJogo());
             } else {
@@ -104,7 +110,31 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
 
     @Override
     public IEstado voltarAtras(int iteracoes) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int[][] tabuleiroAnterior = getDadosJogo().getJogadaAnterior(iteracoes);
+        if (tabuleiroAnterior == null) {
+            getDadosJogo().addMsgLog("O numero de iteracoes que deseja recuar sao demasiadas para o numero de jogadas guardadas!");
+            return this;
+        } else {
+            //se for par continuo a ser eu se n é o outro
+            Jogador jogadorAtual = getDadosJogo().retornaJogadorAtual();
+            boolean decrementarCreditos = jogadorAtual.decrementarCreditos(iteracoes);
+            if (decrementarCreditos) {
+                jogadorAtual.setNum_jogada(0);
+                getDadosJogo().setTabuleiro(tabuleiroAnterior);
+                if (iteracoes % 2 != 0) {
+                    //é o jogador atual
+                    Jogador outroJogador = getDadosJogo().retornarOOutroJogador();
+                    jogadorAtual.setVezDoJogador(false);
+                    outroJogador.setVezDoJogador(true);
+                }
+                return this;
+            } else {
+                getDadosJogo().addMsgLog("Nao tem creditos suficientes para recuar nas jogadas!");
+                return this;
+            }
+
+        }
+
     }
 
 }
