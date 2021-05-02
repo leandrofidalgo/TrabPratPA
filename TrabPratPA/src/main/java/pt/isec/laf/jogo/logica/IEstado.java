@@ -10,7 +10,8 @@ import pt.isec.laf.jogo.logica.dados.DadosJogo;
 public interface IEstado {
     //Novos estados
     IEstado iniciarJogo(); //menuprincipal
-    IEstado carregarJogo(); //menuprincipal
+    public DadosJogo getDadosJogo();
+    IEstado carregarJogo(String nomeFicheiro);
     IEstado modoCPUXCPU(); //escolhermodojogo
     IEstado modoHomemXCPU(); //escolhermodojogo
     IEstado modoHomemXHomem(); //escolhermodojogo
@@ -20,10 +21,11 @@ public interface IEstado {
     IEstado verificarSeAcabou();
     IEstado jogarMiniJogo();
     IEstado jogarPecaEspecial(int coluna);
+    
+    IEstado guardarJogo(String nomeFicheiro);
     IEstado voltarAtras(int iteracoes);
     IEstado retornarMenuPrincipal();
     IEstado naoJogarMiniJogo();
     IEstado jogarMiniJogoCalculos(int valor);
     IEstado jogarMiniJogoPalavras(String palavras, String palavrasParaEscrever);
-
 }

@@ -1,5 +1,8 @@
 package pt.isec.laf.jogo.logica.estados;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import pt.isec.laf.jogo.logica.IEstado;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
 import pt.isec.laf.jogo.logica.dados.Jogador;
@@ -100,7 +103,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             }
             j.decrementarNumPecasEspeciais(0);
             getDadosJogo().addMsgLog("A peca especial foi colocada na devida posicao!");
-            return this;
+            return new VerificarSeAcabou(getDadosJogo());
         } else {
             getDadosJogo().addMsgLog("O jogador nao tem pecas especiais!");
             return this;
@@ -133,6 +136,26 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
                 return this;
             }
 
+        }
+
+    }
+
+    @Override
+    public IEstado guardarJogo(String nomeFicheiro) {
+        // serialização do objeto DadosJogo num ficheiro
+        File ficheiro = new File(nomeFicheiro);
+        try {
+            FileOutputStream fOS = new FileOutputStream(ficheiro);
+            ObjectOutputStream objOutput = new ObjectOutputStream(fOS);
+            objOutput.writeUnshared(getDadosJogo());
+            objOutput.close();
+            fOS.close();
+            getDadosJogo().addMsgLog("O estado do jogo foi gravado com sucesso com o nome: " + nomeFicheiro + "!");
+            return this;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            getDadosJogo().addMsgLog("Houve um problema ao gravar o estado do jogo!");
+            return this;
         }
 
     }

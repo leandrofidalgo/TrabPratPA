@@ -1,5 +1,6 @@
 package pt.isec.laf.jogo.logica.dados;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -9,7 +10,7 @@ import java.util.Stack;
  *
  * @author leandro
  */
-public class DadosJogo {
+public class DadosJogo implements Serializable{
 
     public static final int LINHAS = 6;
     public static final int COLUNAS = 7;

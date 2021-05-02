@@ -1,10 +1,12 @@
 package pt.isec.laf.jogo.logica.dados;
 
+import java.io.Serializable;
+
 /**
  *
  * @author leandro
  */
-public class Jogador {
+public class Jogador implements Serializable {
 
     private String nome; //os jogadores têm de ter nomes diferentes
     private int num_jogada; //numero da jogada atual TODO numero de jogadas ate minijogo

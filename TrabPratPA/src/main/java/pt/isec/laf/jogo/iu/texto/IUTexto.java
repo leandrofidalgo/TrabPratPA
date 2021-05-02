@@ -60,6 +60,7 @@ public class IUTexto {
 
     public void menuPrincipal() {
         int valor;
+        String nomeFicheiro;
         System.out.print("------------------------------------------------------------");
         System.out.print("------------------------ 4 em Linha ------------------------");
         System.out.print("------------------------------------------------------------");
@@ -76,7 +77,12 @@ public class IUTexto {
         if (valor == 1) {
             maquinaDeEstados.iniciarNovoJogo();
         } else if (valor == 2) {
-
+            System.out.println("Introduza o nome do ficheiro de onde deseja carregar o jogo: ");
+            while (!scanner.hasNext()) {
+                scanner.next();
+            }
+            nomeFicheiro = scanner.next();
+            maquinaDeEstados.carregarJogo(nomeFicheiro);
         } else if (valor == 3) {
             maquinaDeEstados.getDadosJogo().setJogoAcabou(true);
         } else {
@@ -160,8 +166,8 @@ public class IUTexto {
     }
 
     private void menuProximaJogada() {
-        int valor;
-        int coluna;
+        int valor, coluna;
+        String nomeFicheiro;
         if (maquinaDeEstados.getDadosJogo().getNum_jogada() == 0) {
             imprimirTabuleiro();
         }
@@ -172,7 +178,8 @@ public class IUTexto {
             System.out.println("------------------------ Menu Jogada ------------------------");
             System.out.println("1-Efetuar uma jogada");
             System.out.println("2-Efetuar a jogada da peça especial");
-            System.out.println("3-Retroceder jogada");
+            System.out.println("3-Guardar um jogo de um ficheiro");
+            System.out.println("4-Retroceder jogada");
             while (!scanner.hasNextInt()) {
                 scanner.next();
             }
@@ -195,6 +202,13 @@ public class IUTexto {
                 coluna = scanner.nextInt();
                 maquinaDeEstados.jogaPecaEspecial(coluna);
             } else if (valor == 3) {
+                System.out.println("Introduza o nome do ficheiro onde deseja guardar o estado atual do jogo: ");
+                while (!scanner.hasNext()) {
+                    scanner.next();
+                }
+                nomeFicheiro = scanner.next();
+                maquinaDeEstados.guardarJogo(nomeFicheiro);
+            } else if (valor == 4) {
                 int iteracoes;
                 //chamar função para perguntar quantas vezes deseja voltar atrás
                 //chamar processo de retroceder jogada

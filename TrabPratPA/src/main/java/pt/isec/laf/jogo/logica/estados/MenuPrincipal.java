@@ -1,8 +1,9 @@
 package pt.isec.laf.jogo.logica.estados;
 
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import pt.isec.laf.jogo.logica.IEstado;
-import pt.isec.laf.jogo.logica.MaquinaDeEstados;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
 
 /**
@@ -23,8 +24,27 @@ public class MenuPrincipal extends EstadoAdaptador {
     }
 
     @Override
-    public IEstado carregarJogo() {
-        return super.carregarJogo(); //To change body of generated methods, choose Tools | Templates.
+    public IEstado carregarJogo(String nomeFicheiro) {
+        DadosJogo dadosJogo;
+        try {
+            File ficheiro = new File(nomeFicheiro);
+            if (ficheiro.exists()) {
+                FileInputStream fIS = new FileInputStream(ficheiro);
+                ObjectInputStream objInput = new ObjectInputStream(fIS);
+                dadosJogo = (DadosJogo) objInput.readUnshared();
+                objInput.close();
+                fIS.close();
+                setDadosJogo(dadosJogo);
+                return new ProximaJogada4Linha(dadosJogo);
+            } else {
+                getDadosJogo().addMsgLog("O ficheiro que indicou nao existe!");
+                return this;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            getDadosJogo().addMsgLog("Erro ao carregar o ficheiro!");
+            return this;
+        }
     }
 
 }

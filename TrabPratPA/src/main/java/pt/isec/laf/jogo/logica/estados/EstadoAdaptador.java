@@ -31,7 +31,7 @@ public abstract class EstadoAdaptador implements IEstado {
     }
 
     @Override
-    public IEstado carregarJogo() {
+    public IEstado carregarJogo(String nomeFicheiro) {
         return this;
     }
 
@@ -102,6 +102,11 @@ public abstract class EstadoAdaptador implements IEstado {
 
     @Override
     public IEstado voltarAtras(int iteracoes) {
+        return this;
+    }
+
+    @Override
+    public IEstado guardarJogo(String nomeFicheiro) {
         return this;
     }
 

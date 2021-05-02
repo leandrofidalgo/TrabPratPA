@@ -21,6 +21,10 @@ public class MaquinaDeEstados {
     public DadosJogo getDadosJogo() {
         return this.dadosJogo;
     }
+    
+    public void setDadosJogo(DadosJogo dadosJogo){
+        this.dadosJogo = dadosJogo;
+    }
 
     //-------------------------------------verificar estado atual-----------------------------
     public boolean isMenuPrincipal() {
@@ -108,6 +112,15 @@ public class MaquinaDeEstados {
 
     public void jogaPecaEspecial(int coluna) {
         estado = estado.jogarPecaEspecial(coluna);
+    }
+
+    public void carregarJogo(String nomeFicheiro) {
+        estado = estado.carregarJogo(nomeFicheiro);
+        setDadosJogo(estado.getDadosJogo());
+    }
+
+    public void guardarJogo(String nomeFicheiro) {
+        estado = estado.guardarJogo(nomeFicheiro);
     }
 
     public void retornarMenuPrincipal() {

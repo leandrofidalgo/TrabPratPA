@@ -3,6 +3,7 @@ package pt.isec.laf.jogo.logica.dados;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author leandro
  */
-public class MiniJogo {
+public class MiniJogo implements Serializable {
 
     private int randomSinal;
     private int randomValor1;
