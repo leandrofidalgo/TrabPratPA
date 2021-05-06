@@ -16,7 +16,7 @@ public class MiniJogoCalculos extends EstadoAdaptador {
     @Override
     public IEstado jogarMiniJogoCalculos(int valor) {
         var j = getDadosJogo().getMiniJogo();
-        if (System.currentTimeMillis() - j.getStartTime() <= 30000 && j.getNumVezesQueGanhou() != 4) {
+        if (System.currentTimeMillis() - j.getStartTime() <= 30000 && j.getNumVezesQueGanhou() != 5) {
             switch (j.getRandomSinal()) {
                 case 1:
                     if (valor == (j.getRandomValor1() + j.getRandomValor2())) {
@@ -62,7 +62,7 @@ public class MiniJogoCalculos extends EstadoAdaptador {
             //TODO verificar se ganhou
             //setar o num vezes que ganhou a 0
             //adicionar pecas especiais caso ganhe
-            if (j.getNumVezesQueGanhou() == 4) {
+            if (j.getNumVezesQueGanhou() == 5) {
                 //ganhou
                 getDadosJogo().retornaJogadorAtual().incrementaNumPecasEspeciais();
                 getDadosJogo().addMsgLog("Parabéns ganhou o mini jogo dos calculos e como recompensa foi lhe dada uma peça especial!");

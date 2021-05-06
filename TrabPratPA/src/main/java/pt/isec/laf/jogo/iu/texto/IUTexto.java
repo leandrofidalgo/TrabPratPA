@@ -5,6 +5,7 @@ import pt.isec.laf.jogo.logica.MaquinaDeEstados;
 import pt.isec.laf.jogo.logica.dados.CPU;
 import static pt.isec.laf.jogo.logica.dados.DadosJogo.COLUNAS;
 import static pt.isec.laf.jogo.logica.dados.DadosJogo.LINHAS;
+import pt.isec.laf.jogo.logica.dados.Jogador;
 
 /**
  *
@@ -83,6 +84,9 @@ public class IUTexto {
             }
             nomeFicheiro = scanner.next();
             maquinaDeEstados.carregarJogo(nomeFicheiro);
+            Jogador j = maquinaDeEstados.getDadosJogo().retornaJogadorAtual();
+            System.out.println("O jogador que ira jogar sera: " + j.getNome());
+            imprimirTabuleiro();
         } else if (valor == 3) {
             maquinaDeEstados.getDadosJogo().setJogoAcabou(true);
         } else {

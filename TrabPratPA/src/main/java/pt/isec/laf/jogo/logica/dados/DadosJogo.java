@@ -10,7 +10,7 @@ import java.util.Stack;
  *
  * @author leandro
  */
-public class DadosJogo implements Serializable{
+public class DadosJogo implements Serializable {
 
     public static final int LINHAS = 6;
     public static final int COLUNAS = 7;
@@ -174,17 +174,15 @@ public class DadosJogo implements Serializable{
     }
 
     public void setVencedor() {
-        for (int i = 0; i < 2; i++) {
-            if (jogadores.get(i).isVezDoJogador()) {
-                jogadores.get(i).setVencedor(true);
-            }
-        }
+        Jogador j = retornaJogadorAtual();
+        j.setVencedor(true);
     }
 
     public String retornarVencedor() {
         for (int i = 0; i < 2; i++) {
-            jogadores.get(i).isVencedor();
-            return jogadores.get(i).getNome();
+            if (jogadores.get(i).isVencedor()) {
+                return jogadores.get(i).getNome();
+            }
         }
         return null;
     }
@@ -209,11 +207,7 @@ public class DadosJogo implements Serializable{
         boolean ganhouColunas = verificaColunas();
         boolean ganhouDiagonais1 = verificaDiagonais();
         boolean ganhouDiagonais2 = verificaDiagonais2();
-        if (ganhouLinhas == true || ganhouColunas == true || ganhouDiagonais1 == true || ganhouDiagonais2 == true) {
-            return true;
-        } else {
-            return false;
-        }
+        return ganhouLinhas || ganhouColunas || ganhouDiagonais1 || ganhouDiagonais2;
     }
 
     public boolean verificaSeEstaTudoPreenchido() {

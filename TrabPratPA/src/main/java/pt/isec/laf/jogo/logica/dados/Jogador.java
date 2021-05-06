@@ -66,7 +66,7 @@ public class Jogador implements Serializable {
         this.vencedor = vencedor;
     }
 
-    public void decrementarNumPecasEspeciais(int numPecasEspeciais) {
+    public void decrementarNumPecasEspeciais() {
         this.numPecasEspeciais = this.numPecasEspeciais - 1;
     }
 

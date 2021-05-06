@@ -101,14 +101,13 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             for (int i = 0; i < 5; i++) {
                 getDadosJogo().getTabuleiro()[i][coluna] = 0;
             }
-            j.decrementarNumPecasEspeciais(0);
+            j.decrementarNumPecasEspeciais();
             getDadosJogo().addMsgLog("A peca especial foi colocada na devida posicao!");
             return new VerificarSeAcabou(getDadosJogo());
         } else {
             getDadosJogo().addMsgLog("O jogador nao tem pecas especiais!");
             return this;
         }
-
     }
 
     @Override
