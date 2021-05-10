@@ -16,12 +16,14 @@ public class FimDoJogo extends EstadoAdaptador {
     @Override
     public IEstado iniciarJogo() {
         //zerar dados do jogo tabuleiro
+        //TODO guardar 1 jogo cheio de jogos
         getDadosJogo().zerarDadosJogo();
         return new EscolherModoJogo(getDadosJogo());
     }
 
     @Override
     public IEstado retornarMenuPrincipal() {
+        //TODO guardar 1 jogo cheio de jogos
         return new MenuPrincipal(getDadosJogo());
     }
 

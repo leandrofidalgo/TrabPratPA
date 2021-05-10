@@ -37,7 +37,7 @@ public class MenuPrincipal extends EstadoAdaptador {
                 setDadosJogo(dadosJogo);
                 return new ProximaJogada4Linha(dadosJogo);
             } else {
-                getDadosJogo().addMsgLog("O ficheiro que indicou nao existe!");
+                getDadosJogo().addMsgLog("O ficheiro que indicou não existe!");
                 return this;
             }
         } catch (Exception ex) {

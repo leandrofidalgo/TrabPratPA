@@ -22,7 +22,7 @@ public class VerificarSeAcabou extends EstadoAdaptador {
             return new FimDoJogo(getDadosJogo());
         } else {
             if (ninguemGanhou == true) {
-                getDadosJogo().addMsgLog("Ninguem ganhou!");
+                getDadosJogo().addMsgLog("Ninguém ganhou!");
                 return new FimDoJogo(getDadosJogo());
             }
             return new EscolherProximoJogador(getDadosJogo());

@@ -41,9 +41,8 @@ public class EscolherProximoJogador extends EstadoAdaptador {
             var j = getDadosJogo().getJogadores().get(i);
             if (j.isVezDoJogador() == false) {
                 j.setVezDoJogador(true);
-
-                getDadosJogo().addMsgLog("E a vez do jogador: " + j.getNome());
-
+                getDadosJogo().addMsgLog("É a vez do jogador: '" + j.getNome() + "' que tem a peça " + ((j.getCorDaPeca() == 1) ? "'O'" : "'X'") + ",que tem " + j.getCreditos() 
+                        + " créditos e tem " + j.getNumPecasEspeciais() + " peças especiais!");
             } else {
                 j.setVezDoJogador(false);
             }

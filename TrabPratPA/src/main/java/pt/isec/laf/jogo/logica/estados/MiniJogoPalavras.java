@@ -24,7 +24,7 @@ public class MiniJogoPalavras extends EstadoAdaptador {
                 return new ProximaJogada4Linha(getDadosJogo());
             } else {
                 //as palavras foram mal escritas
-                getDadosJogo().addMsgLog("Perdeu o mini jogo dos calculos e como consequencia perdeu a vez de jogar!");
+                getDadosJogo().addMsgLog("Perdeu o mini jogo das palavras e como consequencia perdeu a vez de jogar!");
                 getDadosJogo().retornaJogadorAtual().incrementaNumJogada();
                 return new EscolherProximoJogador(getDadosJogo());
             }

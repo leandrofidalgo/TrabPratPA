@@ -24,7 +24,6 @@ public class Jogador implements Serializable {
         this.creditos = creditos;
         this.corDaPeca = peca;
         vezDoJogador = true;
-        //TODO podera ter de ser mudado...
         numPecasEspeciais = 0;
         numAcertou = 0;
         vencedor = false;
@@ -44,6 +43,10 @@ public class Jogador implements Serializable {
 
     public int getCorDaPeca() {
         return corDaPeca;
+    }
+
+    public int getCreditos() {
+        return creditos;
     }
 
     public boolean isVencedor() {

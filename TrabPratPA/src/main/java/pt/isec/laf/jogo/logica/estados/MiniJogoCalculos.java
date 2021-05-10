@@ -59,13 +59,12 @@ public class MiniJogoCalculos extends EstadoAdaptador {
                     return this;
             }
         } else {
-            //TODO verificar se ganhou
             //setar o num vezes que ganhou a 0
             //adicionar pecas especiais caso ganhe
             if (j.getNumVezesQueGanhou() == 5) {
                 //ganhou
                 getDadosJogo().retornaJogadorAtual().incrementaNumPecasEspeciais();
-                getDadosJogo().addMsgLog("Parabéns ganhou o mini jogo dos calculos e como recompensa foi lhe dada uma peça especial!");
+                getDadosJogo().addMsgLog("Parabéns ganhou o mini jogo dos cálculos e como recompensa foi lhe dada uma peça especial!");
                 return new ProximaJogada4Linha(getDadosJogo());
             } else {
                 //perdeu

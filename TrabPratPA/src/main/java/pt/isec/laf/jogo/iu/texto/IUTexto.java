@@ -22,11 +22,6 @@ public class IUTexto {
     }
 
     public void run() {
-        //miniJogoCalculos();
-        //miniJogoPalavras();
-        //imprimirTabuleiro();
-        //inicioDoJogo();
-        //menuPrincipal();
         while (!maquinaDeEstados.getDadosJogo().isJogoAcabou()) {
             System.out.println();
             showMsgLog();
@@ -65,12 +60,12 @@ public class IUTexto {
         System.out.print("------------------------------------------------------------");
         System.out.print("------------------------ 4 em Linha ------------------------");
         System.out.print("------------------------------------------------------------");
-        System.out.println("------------------------ Menu Principal ------------------------");
+        System.out.println("----------------------- Menu Principal -----------------------");
         System.out.println("1-Iniciar novo jogo");
         System.out.println("2-Carregar um jogo de um ficheiro");
         System.out.println("3-Terminar o jogo");
         System.out.print("> ");
-        System.out.flush(); //TODO provavelmente colocar flush para ajudar
+        System.out.flush();
         while (!scanner.hasNextInt()) {
             scanner.next();
         }
@@ -85,7 +80,7 @@ public class IUTexto {
             nomeFicheiro = scanner.next();
             maquinaDeEstados.carregarJogo(nomeFicheiro);
             Jogador j = maquinaDeEstados.getDadosJogo().retornaJogadorAtual();
-            System.out.println("O jogador que ira jogar sera: " + j.getNome());
+            System.out.println("O jogador que irá jogar será: " + j.getNome());
             imprimirTabuleiro();
         } else if (valor == 3) {
             maquinaDeEstados.getDadosJogo().setJogoAcabou(true);
@@ -174,6 +169,11 @@ public class IUTexto {
         String nomeFicheiro;
         if (maquinaDeEstados.getDadosJogo().getNum_jogada() == 0) {
             imprimirTabuleiro();
+            //guardar a jogada e verificar quantas jogadas existem pois so podem existir
+            //adicionar o tabuleiro
+            maquinaDeEstados.getDadosJogo().adicionaJogada();
+            //TODO adicionar os jogos para depois fazer o replay
+            maquinaDeEstados.getDadosJogo().adicionaDadosJogaga(maquinaDeEstados.getDadosJogo());
         }
         //TODO verificar se é um CPU
         if (maquinaDeEstados.getDadosJogo().retornaJogadorAtual() instanceof CPU) {
@@ -182,7 +182,7 @@ public class IUTexto {
             System.out.println("------------------------ Menu Jogada ------------------------");
             System.out.println("1-Efetuar uma jogada");
             System.out.println("2-Efetuar a jogada da peça especial");
-            System.out.println("3-Guardar um jogo de um ficheiro");
+            System.out.println("3-Guardar o estado atual do jogo num ficheiro");
             System.out.println("4-Retroceder jogada");
             while (!scanner.hasNextInt()) {
                 scanner.next();
@@ -216,7 +216,7 @@ public class IUTexto {
                 int iteracoes;
                 //chamar função para perguntar quantas vezes deseja voltar atrás
                 //chamar processo de retroceder jogada
-                System.out.println("Quantas iteracoes deseja voltar atras (Maximo 5 vezes): ");
+                System.out.println("Quantas iteracões deseja voltar atras (Maximo 5 vezes): ");
                 while (!scanner.hasNextInt()) {
                     scanner.next();
                 }
@@ -252,7 +252,7 @@ public class IUTexto {
         System.out.println("Parabéns, tem a opção de jogar um mini jogo para ter a oportunidade de ganhar uma peça especial!");
         System.out.println("Deseja jogar o mini jogo?");
         System.out.println("1-Sim");
-        System.out.println("2-Nao");
+        System.out.println("2-Não");
         while (!scanner.hasNextInt()) {
             scanner.next();
         }
@@ -279,7 +279,7 @@ public class IUTexto {
         //pedir as palavras.... e ainda fazer toda a logica
         String nomeFicheiro, palavras; //palavra
         //nome do ficheiro
-        System.out.println("Introduza o nome do ficheiro com as varias palavras: ");
+        System.out.println("Introduza o nome do ficheiro com as várias palavras: ");
         while (!scanner.hasNext()) {
             scanner.next();
         }

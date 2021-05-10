@@ -25,7 +25,7 @@ public class EscolherJogarMiniJogo extends EstadoAdaptador {
             int num = getDadosJogo().getRandom(0, 1);
             if (num == 0) {
                 //calculos
-                logicaMiniJogo(true, "Jogo dos calculos");
+                logicaMiniJogo(true, "Jogo dos cálculos");
                 return new MiniJogoCalculos(getDadosJogo());
             } else {
                 //palavras
@@ -35,7 +35,7 @@ public class EscolherJogarMiniJogo extends EstadoAdaptador {
         } else {
             if (!getDadosJogo().isProximoMiniJogo()) {
                 //calculos
-                logicaMiniJogo(true, "Jogo dos calculos");
+                logicaMiniJogo(true, "Jogo dos cálculos");
                 return new MiniJogoCalculos(getDadosJogo());
             } else {
                 //palavras
