@@ -28,4 +28,8 @@ public interface IEstado {
     IEstado naoJogarMiniJogo();
     IEstado jogarMiniJogoCalculos(int valor);
     IEstado jogarMiniJogoPalavras(String palavras, String palavrasParaEscrever);
+    IEstado guardarDadosJogo();
+    IEstado replay();
+
+   
 }

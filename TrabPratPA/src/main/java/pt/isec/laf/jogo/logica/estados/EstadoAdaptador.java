@@ -110,4 +110,14 @@ public abstract class EstadoAdaptador implements IEstado {
         return this;
     }
 
+    @Override
+    public IEstado guardarDadosJogo() {
+        return this;
+    }
+
+    @Override
+    public IEstado replay() {
+        return this;
+    }
+
 }

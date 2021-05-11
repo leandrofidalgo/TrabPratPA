@@ -63,7 +63,8 @@ public class IUTexto {
         System.out.println("----------------------- Menu Principal -----------------------");
         System.out.println("1-Iniciar novo jogo");
         System.out.println("2-Carregar um jogo de um ficheiro");
-        System.out.println("3-Terminar o jogo");
+        System.out.println("3-Replay de um jogo");
+        System.out.println("4-Terminar o jogo");
         System.out.print("> ");
         System.out.flush();
         while (!scanner.hasNextInt()) {
@@ -83,6 +84,17 @@ public class IUTexto {
             System.out.println("O jogador que irá jogar será: " + j.getNome());
             imprimirTabuleiro();
         } else if (valor == 3) {
+            maquinaDeEstados.replayJogo();
+            var replay = maquinaDeEstados.getDadosJogo().getReplay();
+            for(int i = 0; i < replay.size(); i++){
+                if(replay.get(i).get(i).getTipoReplay().equals("jogada")){
+                    System.out.println("Jogada efetuada pelo jogador " + replay.get(i).get(i).getJogador().getNome());
+                    imprimirTabuleiro(replay.get(i).get(i).getTabuleiro());
+                }else if(replay.get(i).get(i).getTipoReplay().equals("minijogo")){
+                    System.out.println("O jogador " + replay.get(i).get(i).getJogador().getNome() + "ganhou o minijogo!");
+                }
+            }
+        } else if (valor == 4) {
             maquinaDeEstados.getDadosJogo().setJogoAcabou(true);
         } else {
             System.out.println("Valor inválido!");
@@ -172,8 +184,6 @@ public class IUTexto {
             //guardar a jogada e verificar quantas jogadas existem pois so podem existir
             //adicionar o tabuleiro
             maquinaDeEstados.getDadosJogo().adicionaJogada();
-            //TODO adicionar os jogos para depois fazer o replay
-            maquinaDeEstados.getDadosJogo().adicionaDadosJogaga(maquinaDeEstados.getDadosJogo());
         }
         //TODO verificar se é um CPU
         if (maquinaDeEstados.getDadosJogo().retornaJogadorAtual() instanceof CPU) {
@@ -246,6 +256,26 @@ public class IUTexto {
         }
         System.out.println(sB.toString());
     }
+    
+    public void imprimirTabuleiro(int[][] tabuleiro) {
+        StringBuilder sB = new StringBuilder();
+        for (int i = 0; i < LINHAS; i++) {
+            sB.append("|");
+            for (int j = 0; j < COLUNAS; j++) {
+                if (tabuleiro[i][j] == 0) {
+                    sB.append(" |");
+                }
+                if (tabuleiro[i][j] == 1) {
+                    sB.append("O|");
+                }
+                if (tabuleiro[i][j] == 2) {
+                    sB.append("X|");
+                }
+            }
+            sB.append("\n");
+        }
+        System.out.println(sB.toString());
+    }
 
     private void menuJogarMiniJogo() {
         int valor;
@@ -300,11 +330,21 @@ public class IUTexto {
 
     private void menuFimDoJogo() {
         int valor;
-        System.out.println("------------------------ Menu Fim do Jogo ------------------------");
         if (maquinaDeEstados.getDadosJogo().retornarVencedor() == null) {
             System.out.println("Não existiu nenhum vencedor!!");
         } else {
             System.out.println("Parabéns, " + maquinaDeEstados.getDadosJogo().retornarVencedor() + " acabou de ganhar o jogo do 4 em linha");
+        }
+        System.out.println("------------------------ Menu Fim do Jogo ------------------------");
+        System.out.println("Deseja guardar o Jogo?");
+        System.out.println("1-Sim");
+        System.out.println("2-Não");
+        while (!scanner.hasNextInt()) {
+            scanner.next();
+        }
+        valor = scanner.nextInt();
+        if (valor == 1) {
+            maquinaDeEstados.guardarDadosJogo();
         }
         System.out.println("O que deseja efetuar agora: ");
         System.out.println("1-Iniciar um novo jogo");

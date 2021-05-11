@@ -21,6 +21,7 @@ public class MiniJogoPalavras extends EstadoAdaptador {
                 //as palavras do utilziador sao iguais ás que era suposto escrever
                 getDadosJogo().retornaJogadorAtual().incrementaNumPecasEspeciais();
                 getDadosJogo().addMsgLog("Parabéns ganhou o mini jogo das palavras e como recompensa foi lhe dada uma peça especial!");
+                getDadosJogo().adicionaMiniJogo("minijogo");
                 return new ProximaJogada4Linha(getDadosJogo());
             } else {
                 //as palavras foram mal escritas

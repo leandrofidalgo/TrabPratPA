@@ -36,7 +36,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
                 //adicionar o tabuleiro
                 getDadosJogo().adicionaJogada();
                 //TODO adicionar os jogos para depois fazer o replay
-                getDadosJogo().adicionaDadosJogaga(getDadosJogo());
+                getDadosJogo().adicionarJogos("jogada");
                 return new VerificarSeAcabou(getDadosJogo());
             } else {
                 //getDadosJogo().addMsgLog("A coluna já se encontra completa por favor tente outra coluna!");
@@ -53,7 +53,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
                 //adicionar o tabuleiro
                 getDadosJogo().adicionaJogada();
                 //TODO adicionar os jogos para depois fazer o replay
-                getDadosJogo().adicionaDadosJogaga(getDadosJogo());
+                getDadosJogo().adicionarJogos("jogada");
                 return new VerificarSeAcabou(getDadosJogo());
             } else {
                 getDadosJogo().addMsgLog("A coluna já se encontra completa por favor tente outra coluna!");
@@ -113,39 +113,36 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
     @Override
     public IEstado voltarAtras(int iteracoes) {
         int[][] tabuleiroAnterior;
-       
-            tabuleiroAnterior = getDadosJogo().getJogadaAnterior(iteracoes);
-
-            if (tabuleiroAnterior == null) {
-                getDadosJogo().addMsgLog("O número de iteracões que deseja recuar são demasiadas para o número de jogadas guardadas!");
+        tabuleiroAnterior = getDadosJogo().getJogadaAnterior(iteracoes);
+        if (tabuleiroAnterior == null) {
+            getDadosJogo().addMsgLog("O número de iteracões que deseja recuar são demasiadas para o número de jogadas guardadas!");
+            return this;
+        } else {
+            //se for par continuo a ser eu se n é o outro
+            Jogador j = getDadosJogo().retornaJogadorAtual();
+            boolean decrementarCreditos = j.decrementarCreditos(iteracoes);
+            if (decrementarCreditos) {
+                j.setNum_jogada(0);
+                getDadosJogo().setTabuleiro(tabuleiroAnterior);
+                getDadosJogo().adicionaJogada();
+                if (iteracoes % 2 != 0) {
+                    //é o jogador atual
+                    Jogador outroJogador = getDadosJogo().retornarOOutroJogador();
+                    j.setVezDoJogador(false);
+                    outroJogador.setVezDoJogador(true);
+                    getDadosJogo().addMsgLog("É a vez do jogador: " + outroJogador.getNome() + " que tem a peça " + ((outroJogador.getCorDaPeca() == 1) ? "O" : "X")
+                            + " ,que tem " + outroJogador.getCreditos() + " créditos e tem " + outroJogador.getNumPecasEspeciais() + " peças especiais!");
+                } else {
+                    getDadosJogo().addMsgLog("É a vez do jogador: " + j.getNome() + " que tem a peça " + ((j.getCorDaPeca() == 1) ? "O" : "X") + " ,que tem " + j.getCreditos()
+                            + " créditos e tem " + j.getNumPecasEspeciais() + " peças especiais!");
+                }
                 return this;
             } else {
-                //se for par continuo a ser eu se n é o outro
-                Jogador j = getDadosJogo().retornaJogadorAtual();
-                boolean decrementarCreditos = j.decrementarCreditos(iteracoes);
-                if (decrementarCreditos) {
-                    j.setNum_jogada(0);
-                    getDadosJogo().setTabuleiro(tabuleiroAnterior);
-                    getDadosJogo().adicionaJogada();
-                    if (iteracoes % 2 != 0) {
-                        //é o jogador atual
-                        Jogador outroJogador = getDadosJogo().retornarOOutroJogador();
-                        j.setVezDoJogador(false);
-                        outroJogador.setVezDoJogador(true);
-                        getDadosJogo().addMsgLog("É a vez do jogador: " + outroJogador.getNome() + " que tem a peça " + ((outroJogador.getCorDaPeca() == 1) ? "O" : "X")
-                                + " ,que tem " + outroJogador.getCreditos() + " créditos e tem " + outroJogador.getNumPecasEspeciais() + " peças especiais!");
-                    } else {
-                        getDadosJogo().addMsgLog("É a vez do jogador: " + j.getNome() + " que tem a peça " + ((j.getCorDaPeca() == 1) ? "O" : "X") + " ,que tem " + j.getCreditos()
-                                + " créditos e tem " + j.getNumPecasEspeciais() + " peças especiais!");
-                    }
-                    return this;
-                } else {
-                    getDadosJogo().addMsgLog("Não tem creditos suficientes para recuar nas jogadas!");
-                    return this;
-                }
-
+                getDadosJogo().addMsgLog("Não tem creditos suficientes para recuar nas jogadas!");
+                return this;
             }
-        
+
+        }
 
     }
 

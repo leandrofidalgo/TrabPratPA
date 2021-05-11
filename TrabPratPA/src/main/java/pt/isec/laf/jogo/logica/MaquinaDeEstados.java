@@ -21,8 +21,8 @@ public class MaquinaDeEstados {
     public DadosJogo getDadosJogo() {
         return this.dadosJogo;
     }
-    
-    public void setDadosJogo(DadosJogo dadosJogo){
+
+    public void setDadosJogo(DadosJogo dadosJogo) {
         this.dadosJogo = dadosJogo;
     }
 
@@ -141,6 +141,14 @@ public class MaquinaDeEstados {
 
     public void voltarAtras(int iteracoes) {
         estado = estado.voltarAtras(iteracoes);
+    }
+
+    public void guardarDadosJogo() {
+        estado = estado.guardarDadosJogo();
+    }
+
+    public void replayJogo() {
+        estado = estado.replay();
     }
 
 }

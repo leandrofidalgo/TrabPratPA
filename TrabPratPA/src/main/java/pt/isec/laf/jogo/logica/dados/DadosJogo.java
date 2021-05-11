@@ -28,8 +28,9 @@ public class DadosJogo implements Serializable {
     //mensagens de log
     private ArrayList<String> logMensagens;
 
-    //guardar os jogos
-    private ArrayList<DadosJogo> jogosGuardados;
+    //guardar jogos para replay
+    private ArrayList<Replay> iteracoes;
+    ArrayList<ArrayList<Replay>> replay;
 
     //guarda tabuleiros de cada jogada
     private Stack<int[][]> tabuleiros;
@@ -40,7 +41,7 @@ public class DadosJogo implements Serializable {
         this.tabuleiro = new int[LINHAS][COLUNAS];
         this.proximoMiniJogo = false;
         logMensagens = new ArrayList<>();
-        jogosGuardados = new ArrayList<>();
+        iteracoes = new ArrayList<>();
         tabuleiros = new Stack<>();
     }
 
@@ -51,7 +52,7 @@ public class DadosJogo implements Serializable {
         this.proximoMiniJogo = false;
         logMensagens = new ArrayList<>();
         miniJogo = new MiniJogo();
-        jogosGuardados = new ArrayList<>();
+        iteracoes = new ArrayList<>();
         tabuleiros = new Stack<>();
     }
 
@@ -74,6 +75,14 @@ public class DadosJogo implements Serializable {
 
     public int getNumMiniJogos() {
         return numMiniJogos;
+    }
+
+    public ArrayList<Replay> getIteracoes() {
+        return iteracoes;
+    }
+
+    public ArrayList<ArrayList<Replay>> getReplay() {
+        return replay;
     }
 
     public boolean isProximoMiniJogo() {
@@ -124,12 +133,6 @@ public class DadosJogo implements Serializable {
     public void adicionaJogador(Jogador jogador) {
         jogadores.add(jogador);
         addMsgLog("Jogador adicionado com sucesso!");
-    }
-
-    public void adicionaDadosJogaga(DadosJogo dadosJogo) {
-        //verificar se o jogo acabou verificar quantos jogos ja tenho guardados
-        jogosGuardados.add(dadosJogo);
-        addMsgLog("Jogo adicionado com sucesso!");
     }
 
     public void adicionaJogada() {
@@ -308,6 +311,25 @@ public class DadosJogo implements Serializable {
             }
         }
         return false;
+    }
+
+    public void adicionarJogos(String str) {
+        int[][] aux = new int[LINHAS][COLUNAS];
+        for (int i = 0; i < LINHAS; i++) {
+            System.arraycopy(this.tabuleiro[i], 0, aux[i], 0, COLUNAS);
+        }
+        Replay replay = new Replay(str, aux, false, retornaJogadorAtual());
+        iteracoes.add(replay);
+        addMsgLog("Jogada adicionada com sucesso!");
+    }
+    
+    public void adicionaMiniJogo(String str){
+        Replay replay = new Replay(str, null, true, retornaJogadorAtual());
+        iteracoes.add(replay);
+    }
+
+    public void setReplay(ArrayList<ArrayList<Replay>> jogos) {
+        this.replay = jogos;
     }
 
 }
