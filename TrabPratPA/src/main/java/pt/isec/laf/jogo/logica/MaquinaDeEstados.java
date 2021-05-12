@@ -151,4 +151,10 @@ public class MaquinaDeEstados {
         estado = estado.replay();
     }
 
+    public void terminarJogo() {
+        estado = estado.terminarJogo();
+    }
+    
+    
+
 }

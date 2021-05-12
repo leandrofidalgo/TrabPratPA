@@ -3,6 +3,7 @@ package pt.isec.laf.jogo.logica.dados;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Stack;
 
@@ -30,7 +31,7 @@ public class DadosJogo implements Serializable {
 
     //guardar jogos para replay
     private ArrayList<Replay> iteracoes;
-    ArrayList<ArrayList<Replay>> replay;
+    private HashMap<String, ArrayList<Replay>> replay;
 
     //guarda tabuleiros de cada jogada
     private Stack<int[][]> tabuleiros;
@@ -41,19 +42,14 @@ public class DadosJogo implements Serializable {
         this.tabuleiro = new int[LINHAS][COLUNAS];
         this.proximoMiniJogo = false;
         logMensagens = new ArrayList<>();
-        iteracoes = new ArrayList<>();
-        tabuleiros = new Stack<>();
-    }
-
-    public DadosJogo() {
-        this.tabuleiro = new int[LINHAS][COLUNAS];
-        this.numJogada = 0;
-        this.jogadores = new ArrayList<>();
-        this.proximoMiniJogo = false;
-        logMensagens = new ArrayList<>();
         miniJogo = new MiniJogo();
         iteracoes = new ArrayList<>();
         tabuleiros = new Stack<>();
+        replay = new HashMap<>();
+    }
+
+    public DadosJogo() {
+        this(new ArrayList<>(), 0);
     }
 
     //----------------- Getters e Setters -------------------
@@ -81,7 +77,7 @@ public class DadosJogo implements Serializable {
         return iteracoes;
     }
 
-    public ArrayList<ArrayList<Replay>> getReplay() {
+    public HashMap<String, ArrayList<Replay>> getReplay() {
         return replay;
     }
 
@@ -322,14 +318,15 @@ public class DadosJogo implements Serializable {
         iteracoes.add(replay);
         addMsgLog("Jogada adicionada com sucesso!");
     }
-    
-    public void adicionaMiniJogo(String str){
+
+    public void adicionaMiniJogo(String str) {
         Replay replay = new Replay(str, null, true, retornaJogadorAtual());
         iteracoes.add(replay);
     }
 
-    public void setReplay(ArrayList<ArrayList<Replay>> jogos) {
-        this.replay = jogos;
+    public void setReplay(HashMap<String, ArrayList<Replay>> replay) {
+        this.replay = replay;
     }
+
 
 }

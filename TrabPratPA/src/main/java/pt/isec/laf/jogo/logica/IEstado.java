@@ -30,6 +30,6 @@ public interface IEstado {
     IEstado jogarMiniJogoPalavras(String palavras, String palavrasParaEscrever);
     IEstado guardarDadosJogo();
     IEstado replay();
-
+    IEstado terminarJogo();
    
 }

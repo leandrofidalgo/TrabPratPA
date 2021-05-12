@@ -1,10 +1,12 @@
 package pt.isec.laf.jogo.logica.dados;
 
+import java.io.Serializable;
+
 /**
  *
  * @author leandro
  */
-public class Replay {
+public class Replay implements Serializable{
 
     String tipoReplay; //jogada | minijogo
     int[][] tabuleiro;

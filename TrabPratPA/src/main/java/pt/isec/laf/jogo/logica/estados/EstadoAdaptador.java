@@ -120,4 +120,9 @@ public abstract class EstadoAdaptador implements IEstado {
         return this;
     }
 
+    @Override
+    public IEstado terminarJogo() {
+        return this;
+    }
+
 }

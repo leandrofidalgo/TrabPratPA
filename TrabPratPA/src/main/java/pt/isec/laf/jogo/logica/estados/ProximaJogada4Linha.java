@@ -166,4 +166,10 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
 
     }
 
+    @Override
+    public IEstado terminarJogo() {
+        return new FimDoJogo(getDadosJogo());
+    }
+
+    
 }
