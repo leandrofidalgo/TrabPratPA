@@ -8,10 +8,10 @@ import java.io.Serializable;
  */
 public class Replay implements Serializable{
 
-    String tipoReplay; //jogada | minijogo
-    int[][] tabuleiro;
-    boolean ganhouMiniJogo;
-    Jogador jogador;
+    private String tipoReplay; //jogada | minijogo
+    private int[][] tabuleiro;
+    private boolean ganhouMiniJogo;
+    private Jogador jogador;
 
     public Replay(String tipoReplay, int[][] tabuleiro, boolean ganhouMiniJogo, Jogador jogador) {
         this.tipoReplay = tipoReplay;

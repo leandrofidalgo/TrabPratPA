@@ -30,6 +30,10 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             //Efetuar a proxima jogada
             coluna = getDadosJogo().gerarColunaAleatoria();
             bool = iniciaProximaJogada(coluna);
+            boolean ninguemGanhou = getDadosJogo().verificaSeEstaTudoPreenchido();
+            if(ninguemGanhou){
+                return new VerificarSeAcabou(getDadosJogo());
+            }
             if (bool) {
                 getDadosJogo().addMsgLog("Jogada efetuada com sucesso e a peca foi colocada na devida coluna!");
                 //TODO guardar a jogada e verificar quantas jogadas existem pois so podem existir

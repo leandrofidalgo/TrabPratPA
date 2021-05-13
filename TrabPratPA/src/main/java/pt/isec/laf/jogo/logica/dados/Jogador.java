@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Jogador implements Serializable {
 
     private String nome; //os jogadores têm de ter nomes diferentes
-    private int num_jogada; //numero da jogada atual TODO numero de jogadas ate minijogo
+    private int numJogada; //numero da jogada atual TODO numero de jogadas ate minijogo
     private int creditos; //numero de creditos do jogador
     //private boolean pessoa; //se true é uma pessoa se false é o computador
     private int corDaPeca; //se 1 = VERDE, se 2 = VERMELHO
@@ -20,7 +20,7 @@ public class Jogador implements Serializable {
 
     public Jogador(String nome, int num_jogada, int creditos, int peca) {
         this.nome = nome;
-        this.num_jogada = num_jogada;
+        this.numJogada = num_jogada;
         this.creditos = creditos;
         this.corDaPeca = peca;
         vezDoJogador = true;
@@ -34,7 +34,7 @@ public class Jogador implements Serializable {
     }
 
     public int getNum_jogada() {
-        return num_jogada;
+        return numJogada;
     }
 
     public int getNumPecasEspeciais() {
@@ -62,7 +62,7 @@ public class Jogador implements Serializable {
     }
 
     public void setNum_jogada(int num_jogada) {
-        this.num_jogada = num_jogada;
+        this.numJogada = num_jogada;
     }
 
     public void setVencedor(boolean vencedor) {
@@ -74,14 +74,13 @@ public class Jogador implements Serializable {
     }
 
     public void incrementaNumJogada() {
-        this.num_jogada = this.num_jogada + 1;
+        this.numJogada = this.numJogada + 1;
     }
 
     public void incrementaNumPecasEspeciais() {
         this.numPecasEspeciais = this.numPecasEspeciais + 1;
     }
 
-    //TODO decrementar as pecas especiais
     public boolean decrementarCreditos(int iteracoes) {
         if (this.creditos >= iteracoes) {
             this.creditos = creditos - iteracoes;

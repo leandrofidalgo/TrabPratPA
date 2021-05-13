@@ -210,13 +210,12 @@ public class DadosJogo implements Serializable {
     }
 
     public boolean verificaSeEstaTudoPreenchido() {
-        int conta = 0;
-        for (int i = 0; i < 7; i++) {
-            if (tabuleiro[0][i] == 1 || tabuleiro[0][i] == 2) {
-                conta++;
+        for (int j = 0; j < COLUNAS; j++) {
+            if (tabuleiro[0][j] == 0) {
+                return false;
             }
         }
-        return conta == 7;
+        return true;
     }
 
     public int getRandom(int min, int max) {
@@ -233,8 +232,8 @@ public class DadosJogo implements Serializable {
         //verificar linha a linha
         int ganhou = 0;
         Jogador jog = retornaJogadorAtual();
-        for (int linha = 0; linha < 6; linha++) {
-            for (int coluna = 0; coluna < 7; coluna++) {
+        for (int linha = 0; linha < LINHAS; linha++) {
+            for (int coluna = 0; coluna < COLUNAS; coluna++) {
                 if (getTabuleiro()[linha][coluna] == jog.getCorDaPeca()) {
                     ganhou++;
                     if (ganhou == 4) {
@@ -271,17 +270,13 @@ public class DadosJogo implements Serializable {
 
     public boolean verificaDiagonais() {
         //verificar a diagonal para baixo
-        int ganhou;
         Jogador jog = retornaJogadorAtual();
-        for (int i = 0; (6 - i) < 3; i++) {
-            for (int j = 0; (7 - j) < 3; j++) {
-                ganhou = 0;
-                for (int k = 0, linha = i, coluna = j; k < 4; k++, linha++, coluna++) {
-                    if (getTabuleiro()[linha][coluna] == jog.getCorDaPeca()) {
-                        ganhou++;
-                    }
-                }
-                if (ganhou == 4) {
+        for (int i = 3; i < LINHAS; i++) {
+            for (int j = 0; j < COLUNAS - 3; j++) {
+                if (getTabuleiro()[i][j] == jog.getCorDaPeca()
+                        && getTabuleiro()[i - 1][j + 1] == jog.getCorDaPeca()
+                        && getTabuleiro()[i - 2][j + 2] == jog.getCorDaPeca()
+                        && getTabuleiro()[i - 3][j + 3] == jog.getCorDaPeca()) {
                     return true;
                 }
             }
@@ -291,17 +286,13 @@ public class DadosJogo implements Serializable {
 
     private boolean verificaDiagonais2() {
         //verificar a diagonal para cima
-        int ganhou = 0;
         Jogador jog = retornaJogadorAtual();
-        for (int i = 0; (6 - i) < 3; i++) {
-            for (int j = 3; j < 7; j++) {
-                ganhou = 0;
-                for (int k = 0, linha = i, coluna = j; k < 4; k++, linha++, coluna--) {
-                    if (getTabuleiro()[linha][coluna] == jog.getCorDaPeca()) {
-                        ganhou++;
-                    }
-                }
-                if (ganhou == 4) {
+        for (int i = 0; i < LINHAS - 3; i++) {
+            for (int j = 0; j < COLUNAS - 3; j++) {
+                if (getTabuleiro()[i][j] == jog.getCorDaPeca()
+                        && getTabuleiro()[i + 1][j + 1] == jog.getCorDaPeca()
+                        && getTabuleiro()[i + 2][j + 2] == jog.getCorDaPeca()
+                        && getTabuleiro()[i + 3][j + 3] == jog.getCorDaPeca()) {
                     return true;
                 }
             }
@@ -327,6 +318,5 @@ public class DadosJogo implements Serializable {
     public void setReplay(HashMap<String, ArrayList<Replay>> replay) {
         this.replay = replay;
     }
-
 
 }

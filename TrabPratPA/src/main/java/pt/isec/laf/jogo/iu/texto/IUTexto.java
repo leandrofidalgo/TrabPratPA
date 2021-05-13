@@ -106,10 +106,14 @@ public class IUTexto {
                 String r = arr[valor - 1];
                 for (int i = 0; i < replay.get(r).size(); i++) {
                     if (replay.get(r).get(i).getTipoReplay().equals("jogada")) {
-                        System.out.println("Jogada efetuada pelo jogador " + replay.get(r).get(i).getJogador().getNome());
+                        if(replay.get(r).get(i).getJogador() instanceof CPU){
+                            System.out.println("Jogada efetuada pelo CPU " + replay.get(r).get(i).getJogador().getNome());
+                        }else{
+                            System.out.println("Jogada efetuada pelo jogador " + replay.get(r).get(i).getJogador().getNome());
+                        }
                         imprimirTabuleiro(replay.get(r).get(i).getTabuleiro());
                     } else if (replay.get(r).get(i).getTipoReplay().equals("minijogo")) {
-                        System.out.println("O jogador " + replay.get(r).get(i).getJogador().getNome() + "ganhou o minijogo!");
+                        System.out.println("O jogador " + replay.get(r).get(i).getJogador().getNome() + " ganhou o minijogo!");
                     }
                 }
             } else {
