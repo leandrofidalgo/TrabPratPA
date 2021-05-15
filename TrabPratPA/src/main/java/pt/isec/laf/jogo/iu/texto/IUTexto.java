@@ -106,9 +106,9 @@ public class IUTexto {
                 String r = arr[valor - 1];
                 for (int i = 0; i < replay.get(r).size(); i++) {
                     if (replay.get(r).get(i).getTipoReplay().equals("jogada")) {
-                        if(replay.get(r).get(i).getJogador() instanceof CPU){
+                        if (replay.get(r).get(i).getJogador() instanceof CPU) {
                             System.out.println("Jogada efetuada pelo CPU " + replay.get(r).get(i).getJogador().getNome());
-                        }else{
+                        } else {
                             System.out.println("Jogada efetuada pelo jogador " + replay.get(r).get(i).getJogador().getNome());
                         }
                         imprimirTabuleiro(replay.get(r).get(i).getTabuleiro());
@@ -231,7 +231,11 @@ public class IUTexto {
                     scanner.next();
                 }
                 coluna = scanner.nextInt();
-                maquinaDeEstados.jogaPeca(coluna);
+                if (coluna > 0 && coluna < 8) {
+                    maquinaDeEstados.jogaPeca(coluna);
+                } else {
+                    System.out.println("Coluna inexistente!");
+                }
             } else if (valor == 2) {
                 //chamar funcao para jogar a peca especial
                 //TODO perguntar qual é a coluna onde a deseja colocar
@@ -335,20 +339,20 @@ public class IUTexto {
 
     private void miniJogoPalavras() {
         //pedir as palavras.... e ainda fazer toda a logica
-        String nomeFicheiro, palavras; //palavra
+        String palavras;
+        /*String nomeFicheiro;
         //nome do ficheiro
         System.out.println("Introduza o nome do ficheiro com as várias palavras: ");
         while (!scanner.hasNext()) {
             scanner.next();
         }
-        nomeFicheiro = scanner.next();
-
-        String palavrasParaEscrever = maquinaDeEstados.getDadosJogo().getMiniJogo().miniJogoPalavras(nomeFicheiro);
+        nomeFicheiro = scanner.next();*/
+        String palavrasParaEscrever = maquinaDeEstados.getDadosJogo().getMiniJogo().miniJogoPalavras("Palavras.txt");
         System.out.println(palavrasParaEscrever);
         while (!scanner.hasNext()) {
             scanner.next();
         }
-        palavras = scanner.nextLine();
+        palavras = scanner.next();
         maquinaDeEstados.jogarMiniJogoPalavras(palavras, palavrasParaEscrever);
     }
 

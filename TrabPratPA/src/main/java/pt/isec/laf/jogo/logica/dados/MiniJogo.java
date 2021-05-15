@@ -62,13 +62,13 @@ public class MiniJogo implements Serializable {
         try {
             //carregar ficheiro e fazer aleatoridade de 5 palavras
             startTime = System.currentTimeMillis();
-            String str = null;
+            String str = "";
             List<String> palavras = Files.readAllLines(Path.of(nomeFicheiro));
             if (palavras == null) {
                 return str = "O ficheiro nao existe!";
             }
             for (int i = 0; i < 5; i++) {
-                int random = getRandom(1, palavras.size() - 1);
+                int random = getRandom(0, palavras.size() - 1);
                 if (i != 4) {
                     str = str + palavras.get(random) + " ";
                 } else {
