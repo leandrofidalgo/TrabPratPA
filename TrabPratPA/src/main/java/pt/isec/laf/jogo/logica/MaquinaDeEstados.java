@@ -143,7 +143,7 @@ public class MaquinaDeEstados {
         estado = estado.voltarAtras(iteracoes);
     }
 
-    public void guardarDadosJogo() {
+    public void guardarDadosJogoReplay() {
         estado = estado.guardarDadosJogo();
     }
 
@@ -153,6 +153,10 @@ public class MaquinaDeEstados {
 
     public void terminarJogo() {
         estado = estado.terminarJogo();
+    }
+
+    public void guardarDadosJogo(String nomeFicheiro) {
+        estado = estado.guardarJogo(nomeFicheiro);
     }
     
     

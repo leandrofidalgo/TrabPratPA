@@ -105,6 +105,10 @@ public class DadosJogo implements Serializable {
         return jogoAcabou;
     }
 
+    public ArrayList<Replay> getReplay(String nomeKey){
+        return replay.get(nomeKey);
+    }
+    
     public void incrementaNumMiniJogo() {
         this.numMiniJogos = this.numMiniJogos + 1;
     }
@@ -318,5 +322,5 @@ public class DadosJogo implements Serializable {
     public void setReplay(HashMap<String, ArrayList<Replay>> replay) {
         this.replay = replay;
     }
-
+    
 }

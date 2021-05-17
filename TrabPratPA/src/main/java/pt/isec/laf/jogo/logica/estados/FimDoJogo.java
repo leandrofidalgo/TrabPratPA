@@ -1,5 +1,6 @@
 package pt.isec.laf.jogo.logica.estados;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -56,7 +57,9 @@ public class FimDoJogo extends EstadoAdaptador {
                 getDadosJogo().addMsgLog("O ficheiro de leitura dos replays não existe e foi criado!");
                 ficheiro.createNewFile();
             }
-        } catch (Exception ex) {
+        } catch(EOFException exe){
+            
+        }catch (Exception ex) {
             getDadosJogo().addMsgLog("Erro ao carregar o ficheiro!");
             return this;
         }
@@ -87,4 +90,6 @@ public class FimDoJogo extends EstadoAdaptador {
             return this;
         }
     }
+
+
 }

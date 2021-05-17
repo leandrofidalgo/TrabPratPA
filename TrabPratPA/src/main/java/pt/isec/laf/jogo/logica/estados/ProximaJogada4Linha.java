@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import pt.isec.laf.jogo.logica.IEstado;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
 import pt.isec.laf.jogo.logica.dados.Jogador;
+import pt.isec.laf.jogo.logica.dados.Replay;
 
 /**
  *
@@ -40,7 +41,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
                 //adicionar o tabuleiro
                 getDadosJogo().adicionaJogada();
                 //TODO adicionar os jogos para depois fazer o replay
-                getDadosJogo().adicionarJogos("jogada");
+                getDadosJogo().adicionarJogos(Replay.JOGADA);
                 return new VerificarSeAcabou(getDadosJogo());
             } else {
                 //getDadosJogo().addMsgLog("A coluna já se encontra completa por favor tente outra coluna!");
@@ -57,7 +58,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
                 //adicionar o tabuleiro
                 getDadosJogo().adicionaJogada();
                 //TODO adicionar os jogos para depois fazer o replay
-                getDadosJogo().adicionarJogos("jogada");
+                getDadosJogo().adicionarJogos(Replay.JOGADA);
                 return new VerificarSeAcabou(getDadosJogo());
             } else {
                 getDadosJogo().addMsgLog("A coluna já se encontra completa por favor tente outra coluna!");
@@ -167,7 +168,6 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             getDadosJogo().addMsgLog("Houve um problema ao gravar o estado do jogo!");
             return this;
         }
-
     }
 
     @Override

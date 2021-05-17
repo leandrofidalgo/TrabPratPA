@@ -2,6 +2,7 @@ package pt.isec.laf.jogo.logica.estados;
 
 import pt.isec.laf.jogo.logica.IEstado;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
+import pt.isec.laf.jogo.logica.dados.Replay;
 
 /**
  *
@@ -65,7 +66,7 @@ public class MiniJogoCalculos extends EstadoAdaptador {
                 //ganhou
                 getDadosJogo().retornaJogadorAtual().incrementaNumPecasEspeciais();
                 getDadosJogo().addMsgLog("Parabéns ganhou o mini jogo dos cálculos e como recompensa foi lhe dada uma peça especial!");
-                getDadosJogo().adicionaMiniJogo("minijogo");
+                getDadosJogo().adicionaMiniJogo(Replay.MINIJOGO);
                 return new ProximaJogada4Linha(getDadosJogo());
             } else {
                 //perdeu

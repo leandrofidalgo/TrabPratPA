@@ -7,6 +7,7 @@ import pt.isec.laf.jogo.logica.dados.CPU;
 import static pt.isec.laf.jogo.logica.dados.DadosJogo.COLUNAS;
 import static pt.isec.laf.jogo.logica.dados.DadosJogo.LINHAS;
 import pt.isec.laf.jogo.logica.dados.Jogador;
+import pt.isec.laf.jogo.logica.dados.Replay;
 
 /**
  *
@@ -81,7 +82,7 @@ public class IUTexto {
             }
             nomeFicheiro = scanner.next();
             maquinaDeEstados.carregarJogo(nomeFicheiro);
-            if (!(maquinaDeEstados.getDadosJogo().getJogadores().size() == 0)) {
+            if (!maquinaDeEstados.getDadosJogo().getJogadores().isEmpty()) {
                 Jogador j = maquinaDeEstados.getDadosJogo().retornaJogadorAtual();
                 System.out.println("O jogador que irá jogar será: " + j.getNome());
                 imprimirTabuleiro();
@@ -90,6 +91,7 @@ public class IUTexto {
             }
         } else if (valor == 3) {
             maquinaDeEstados.replayJogo();
+            //buscar os replays disponiveis
             var replay = maquinaDeEstados.getDadosJogo().getReplay();
             String[] arr = new String[replay.keySet().size()];
             System.arraycopy(replay.keySet().toArray(), 0, arr, 0, replay.keySet().size());
@@ -103,19 +105,10 @@ public class IUTexto {
             }
             valor = scanner.nextInt();
             if (!(valor <= 0 || valor > replay.keySet().size())) {
+                //ir buscar o replay todo do jogo
                 String r = arr[valor - 1];
-                for (int i = 0; i < replay.get(r).size(); i++) {
-                    if (replay.get(r).get(i).getTipoReplay().equals("jogada")) {
-                        if (replay.get(r).get(i).getJogador() instanceof CPU) {
-                            System.out.println("Jogada efetuada pelo CPU " + replay.get(r).get(i).getJogador().getNome());
-                        } else {
-                            System.out.println("Jogada efetuada pelo jogador " + replay.get(r).get(i).getJogador().getNome());
-                        }
-                        imprimirTabuleiro(replay.get(r).get(i).getTabuleiro());
-                    } else if (replay.get(r).get(i).getTipoReplay().equals("minijogo")) {
-                        System.out.println("O jogador " + replay.get(r).get(i).getJogador().getNome() + " ganhou o minijogo!");
-                    }
-                }
+                String str = replayParaImprimir(r);
+                System.out.println(str);
             } else {
                 System.out.println("Valor inválido!");
             }
@@ -269,46 +262,6 @@ public class IUTexto {
         imprimirTabuleiro();
     }
 
-    public void imprimirTabuleiro() {
-        StringBuilder sB = new StringBuilder();
-        for (int i = 0; i < LINHAS; i++) {
-            sB.append("|");
-            for (int j = 0; j < COLUNAS; j++) {
-                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 0) {
-                    sB.append(" |");
-                }
-                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 1) {
-                    sB.append("O|");
-                }
-                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 2) {
-                    sB.append("X|");
-                }
-            }
-            sB.append("\n");
-        }
-        System.out.println(sB.toString());
-    }
-
-    public void imprimirTabuleiro(int[][] tabuleiro) {
-        StringBuilder sB = new StringBuilder();
-        for (int i = 0; i < LINHAS; i++) {
-            sB.append("|");
-            for (int j = 0; j < COLUNAS; j++) {
-                if (tabuleiro[i][j] == 0) {
-                    sB.append(" |");
-                }
-                if (tabuleiro[i][j] == 1) {
-                    sB.append("O|");
-                }
-                if (tabuleiro[i][j] == 2) {
-                    sB.append("X|");
-                }
-            }
-            sB.append("\n");
-        }
-        System.out.println(sB.toString());
-    }
-
     private void menuJogarMiniJogo() {
         int valor;
         System.out.println("Parabéns, tem a opção de jogar um mini jogo para ter a oportunidade de ganhar uma peça especial!");
@@ -368,7 +321,7 @@ public class IUTexto {
             System.out.println("Parabéns, " + maquinaDeEstados.getDadosJogo().retornarVencedor() + " acabou de ganhar o jogo do 4 em linha");
         }
         System.out.println("------------------------ Menu Fim do Jogo ------------------------");
-        System.out.println("Deseja guardar o Jogo?");
+        System.out.println("Deseja guardar o Jogo para mais tarde fazer replay?");
         System.out.println("1-Sim");
         System.out.println("2-Não");
         while (!scanner.hasNextInt()) {
@@ -376,7 +329,7 @@ public class IUTexto {
         }
         valor = scanner.nextInt();
         if (valor == 1) {
-            maquinaDeEstados.guardarDadosJogo();
+            maquinaDeEstados.guardarDadosJogoReplay();
         }
         System.out.println("O que deseja efetuar agora: ");
         System.out.println("1-Iniciar um novo jogo");
@@ -390,6 +343,66 @@ public class IUTexto {
         } else if (valor == 2) {
             maquinaDeEstados.retornarMenuPrincipal();
         }
+    }
+
+    public String replayParaImprimir(String nomeKey) {
+        StringBuilder sB = new StringBuilder();
+        var replay = maquinaDeEstados.getDadosJogo().getReplay(nomeKey);
+        for (int i = 0; i < replay.size(); i++) {
+            if (replay.get(i).getTipoReplay().equals(Replay.JOGADA)) {
+                if (replay.get(i).getJogador() instanceof CPU) {
+                    sB.append("Jogada efetuada pelo CPU ").append(replay.get(i).getJogador().getNome());
+                } else {
+                    sB.append("Jogada efetuada pelo jogador ").append(replay.get(i).getJogador().getNome());
+                }
+                sB.append("\n");
+                sB.append(buscarTabuleiro(replay.get(i).getTabuleiro()));
+            } else if (replay.get(i).getTipoReplay().equals(Replay.MINIJOGO)) {
+                sB.append("O jogador ").append(replay.get(i).getJogador().getNome()).append(" ganhou o minijogo!");
+            }
+            sB.append("\n");
+        }
+        return sB.toString();
+    }
+
+    public String buscarTabuleiro(int[][] tabuleiro) {
+        StringBuilder sB = new StringBuilder();
+        for (int i = 0; i < LINHAS; i++) {
+            sB.append("|");
+            for (int j = 0; j < COLUNAS; j++) {
+                if (tabuleiro[i][j] == 0) {
+                    sB.append(" |");
+                }
+                if (tabuleiro[i][j] == 1) {
+                    sB.append("O|");
+                }
+                if (tabuleiro[i][j] == 2) {
+                    sB.append("X|");
+                }
+            }
+            sB.append("\n");
+        }
+        return sB.toString();
+    }
+
+    public void imprimirTabuleiro() {
+        StringBuilder sB = new StringBuilder();
+        for (int i = 0; i < LINHAS; i++) {
+            sB.append("|");
+            for (int j = 0; j < COLUNAS; j++) {
+                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 0) {
+                    sB.append(" |");
+                }
+                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 1) {
+                    sB.append("O|");
+                }
+                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 2) {
+                    sB.append("X|");
+                }
+            }
+            sB.append("\n");
+        }
+        System.out.println(sB.toString());
     }
 
     public void showMsgLog() {
