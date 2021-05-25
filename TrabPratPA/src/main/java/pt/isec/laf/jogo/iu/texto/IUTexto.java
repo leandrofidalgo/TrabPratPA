@@ -231,7 +231,6 @@ public class IUTexto {
                 }
             } else if (valor == 2) {
                 //chamar funcao para jogar a peca especial
-                //TODO perguntar qual é a coluna onde a deseja colocar
                 System.out.println("Indique a coluna onde deseja colocar a peca especial: ");
                 while (!scanner.hasNextInt()) {
                     scanner.next();
