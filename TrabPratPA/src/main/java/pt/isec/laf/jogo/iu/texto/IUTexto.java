@@ -1,5 +1,6 @@
 package pt.isec.laf.jogo.iu.texto;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import pt.isec.laf.jogo.logica.MaquinaDeEstados;
@@ -24,10 +25,10 @@ public class IUTexto {
     }
 
     public void run() {
-        while (!maquinaDeEstados.getDadosJogo().isJogoAcabou()) {
+        while (!maquinaDeEstados.isJogoAcabou()) {
             System.out.println();
             showMsgLog();
-            maquinaDeEstados.getDadosJogo().clearMsgLog();
+            maquinaDeEstados.apagarLog();
             if (maquinaDeEstados.isMenuPrincipal()) {
                 menuPrincipal();
             } else if (maquinaDeEstados.isEscolherModoJogo()) {
@@ -39,11 +40,11 @@ public class IUTexto {
             } else if (maquinaDeEstados.isModoPessoaXPessoa()) {
                 menuPessoaXPessoa();
             } else if (maquinaDeEstados.isEscolherProximoJogador()) {
-                menuEscolherProximoJogador();
+                maquinaDeEstados.escolheProximoJogador();
             } else if (maquinaDeEstados.isProximaJogada4Linha()) {
                 menuProximaJogada();
             } else if (maquinaDeEstados.isVerificarSeAcabou()) {
-                menuVerificarSeAcabou();
+                maquinaDeEstados.verificaSeAcabou();
             } else if (maquinaDeEstados.isEscolherJogarMiniJogo()) {
                 menuJogarMiniJogo();
             } else if (maquinaDeEstados.isMiniJogoCalculos()) {
@@ -82,17 +83,13 @@ public class IUTexto {
             }
             nomeFicheiro = scanner.next();
             maquinaDeEstados.carregarJogo(nomeFicheiro);
-            if (!maquinaDeEstados.getDadosJogo().getJogadores().isEmpty()) {
-                Jogador j = maquinaDeEstados.getDadosJogo().retornaJogadorAtual();
-                System.out.println("O jogador que irá jogar será: " + j.getNome());
-                imprimirTabuleiro();
-            } else {
-                System.out.println("Aconteceu algum erro!");
-            }
+            Jogador j = maquinaDeEstados.jogardorAtual();
+            System.out.println("O jogador que irá jogar será: " + j.getNome());
+            imprimirTabuleiro();
         } else if (valor == 3) {
             maquinaDeEstados.replayJogo();
             //buscar os replays disponiveis
-            var replay = maquinaDeEstados.getDadosJogo().getReplay();
+            var replay = maquinaDeEstados.getReplay();
             String[] arr = new String[replay.keySet().size()];
             System.arraycopy(replay.keySet().toArray(), 0, arr, 0, replay.keySet().size());
             Arrays.sort(arr);
@@ -113,7 +110,7 @@ public class IUTexto {
                 System.out.println("Valor inválido!");
             }
         } else if (valor == 4) {
-            maquinaDeEstados.getDadosJogo().setJogoAcabou(true);
+            maquinaDeEstados.setJogoAcabou(true);
         } else {
             System.out.println("Valor inválido!");
         }
@@ -190,21 +187,15 @@ public class IUTexto {
         }
     }
 
-    private void menuEscolherProximoJogador() {
-        maquinaDeEstados.escolheProximoJogador();
-    }
-
     private void menuProximaJogada() {
         int valor, coluna;
         String nomeFicheiro;
-        if (maquinaDeEstados.getDadosJogo().getNum_jogada() == 0) {
+        if (maquinaDeEstados.numJogada() == 0) {
             imprimirTabuleiro();
-            //guardar a jogada e verificar quantas jogadas existem pois so podem existir
             //adicionar o tabuleiro
-            maquinaDeEstados.getDadosJogo().adicionaJogada();
+            maquinaDeEstados.adicionaJogada();
         }
-        //TODO verificar se é um CPU
-        if (maquinaDeEstados.getDadosJogo().retornaJogadorAtual() instanceof CPU) {
+        if (maquinaDeEstados.jogadorAtual() instanceof CPU) {
             maquinaDeEstados.jogaPeca(0);
         } else {
             System.out.println("------------------------ Menu Jogada ------------------------");
@@ -280,7 +271,7 @@ public class IUTexto {
 
     private void miniJogoCalculos() {
         int valor; //valor do calculo
-        String str = maquinaDeEstados.getDadosJogo().getMiniJogo().miniJogoCalculos();
+        String str = maquinaDeEstados.getPerguntaCalculos();
         System.out.println(str);
         while (!scanner.hasNextInt()) {
             scanner.next();
@@ -292,14 +283,7 @@ public class IUTexto {
     private void miniJogoPalavras() {
         //pedir as palavras.... e ainda fazer toda a logica
         String palavras;
-        /*String nomeFicheiro;
-        //nome do ficheiro
-        System.out.println("Introduza o nome do ficheiro com as várias palavras: ");
-        while (!scanner.hasNext()) {
-            scanner.next();
-        }
-        nomeFicheiro = scanner.next();*/
-        String palavrasParaEscrever = maquinaDeEstados.getDadosJogo().getMiniJogo().miniJogoPalavras("Palavras.txt");
+        String palavrasParaEscrever = maquinaDeEstados.getPerguntaPalavras();
         System.out.println(palavrasParaEscrever);
         while (!scanner.hasNext()) {
             scanner.next();
@@ -308,16 +292,12 @@ public class IUTexto {
         maquinaDeEstados.jogarMiniJogoPalavras(palavras, palavrasParaEscrever);
     }
 
-    private void menuVerificarSeAcabou() {
-        maquinaDeEstados.verificaSeAcabou();
-    }
-
     private void menuFimDoJogo() {
         int valor;
-        if (maquinaDeEstados.getDadosJogo().retornarVencedor() == null) {
+        if (maquinaDeEstados.vencedor() == null) {
             System.out.println("Não existiu nenhum vencedor!!");
         } else {
-            System.out.println("Parabéns, " + maquinaDeEstados.getDadosJogo().retornarVencedor() + " acabou de ganhar o jogo do 4 em linha");
+            System.out.println("Parabéns, " + maquinaDeEstados.vencedor() + " acabou de ganhar o jogo do 4 em linha");
         }
         System.out.println("------------------------ Menu Fim do Jogo ------------------------");
         System.out.println("Deseja guardar o Jogo para mais tarde fazer replay?");
@@ -346,7 +326,7 @@ public class IUTexto {
 
     public String replayParaImprimir(String nomeKey) {
         StringBuilder sB = new StringBuilder();
-        var replay = maquinaDeEstados.getDadosJogo().getReplay(nomeKey);
+        ArrayList<Replay> replay = maquinaDeEstados.getReplayKey(nomeKey);
         for (int i = 0; i < replay.size(); i++) {
             if (replay.get(i).getTipoReplay().equals(Replay.JOGADA)) {
                 if (replay.get(i).getJogador() instanceof CPU) {
@@ -386,16 +366,17 @@ public class IUTexto {
 
     public void imprimirTabuleiro() {
         StringBuilder sB = new StringBuilder();
+        int[][] tabuleiro = maquinaDeEstados.getTabuleiro();
         for (int i = 0; i < LINHAS; i++) {
             sB.append("|");
             for (int j = 0; j < COLUNAS; j++) {
-                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 0) {
+                if (tabuleiro[i][j] == 0) {
                     sB.append(" |");
                 }
-                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 1) {
+                if (tabuleiro[i][j] == 1) {
                     sB.append("O|");
                 }
-                if (maquinaDeEstados.getDadosJogo().getTabuleiro()[i][j] == 2) {
+                if (tabuleiro[i][j] == 2) {
                     sB.append("X|");
                 }
             }
@@ -405,8 +386,9 @@ public class IUTexto {
     }
 
     public void showMsgLog() {
-        if (maquinaDeEstados.getDadosJogo().getMsgLog().size() > 0) {
-            for (String msg : maquinaDeEstados.getDadosJogo().getMsgLog()) {
+        ArrayList<String> logs = maquinaDeEstados.getLogs();
+        if (logs.size() > 0) {
+            for (String msg : logs) {
                 System.out.println("---> " + msg);
             }
         }
