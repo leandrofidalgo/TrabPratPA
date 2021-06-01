@@ -32,7 +32,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             coluna = getDadosJogo().gerarColunaAleatoria();
             bool = iniciaProximaJogada(coluna);
             boolean ninguemGanhou = getDadosJogo().verificaSeEstaTudoPreenchido();
-            if(ninguemGanhou){
+            if (ninguemGanhou) {
                 return new VerificarSeAcabou(getDadosJogo());
             }
             if (bool) {
@@ -45,7 +45,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
                 return new VerificarSeAcabou(getDadosJogo());
             } else {
                 //getDadosJogo().addMsgLog("A coluna já se encontra completa por favor tente outra coluna!");
-                proximaJogada(0);
+                return proximaJogada(0);
             }
         } else {
             coluna = coluna - 1;
@@ -65,7 +65,6 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
                 return this;
             }
         }
-        return this;
     }
 
     public boolean iniciaProximaJogada(int coluna) {
@@ -107,6 +106,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
                 getDadosJogo().getTabuleiro()[i][coluna] = 0;
             }
             j.decrementarNumPecasEspeciais();
+            j.incrementaNumJogada();
             getDadosJogo().addMsgLog("A peca especial foi colocada na devida posicao!");
             return new VerificarSeAcabou(getDadosJogo());
         } else {
@@ -146,9 +146,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
                 getDadosJogo().addMsgLog("Não tem creditos suficientes para recuar nas jogadas!");
                 return this;
             }
-
         }
-
     }
 
     @Override
@@ -175,5 +173,4 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
         return new FimDoJogo(getDadosJogo());
     }
 
-    
 }

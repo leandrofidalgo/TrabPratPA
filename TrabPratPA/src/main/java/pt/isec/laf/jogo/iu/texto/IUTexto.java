@@ -9,7 +9,6 @@ import static pt.isec.laf.jogo.logica.dados.DadosJogo.COLUNAS;
 import static pt.isec.laf.jogo.logica.dados.DadosJogo.LINHAS;
 import pt.isec.laf.jogo.logica.dados.Jogador;
 import pt.isec.laf.jogo.logica.dados.Replay;
-
 /**
  *
  * @author leandro
@@ -83,8 +82,8 @@ public class IUTexto {
             }
             nomeFicheiro = scanner.next();
             maquinaDeEstados.carregarJogo(nomeFicheiro);
-            Jogador j = maquinaDeEstados.jogardorAtual();
-            System.out.println("O jogador que irá jogar será: " + j.getNome());
+            String nomeJogador = maquinaDeEstados.jogadorAtualString();
+            System.out.println("O jogador que irá jogar será: " + nomeJogador);
             imprimirTabuleiro();
         } else if (valor == 3) {
             maquinaDeEstados.replayJogo();
@@ -209,7 +208,6 @@ public class IUTexto {
             }
             valor = scanner.nextInt();
             if (valor == 1) {
-                //chamar função para avançar uma jogada
                 System.out.println("Indique a coluna onde deseja colocar a nova peca: ");
                 while (!scanner.hasNextInt()) {
                     scanner.next();
@@ -221,7 +219,6 @@ public class IUTexto {
                     System.out.println("Coluna inexistente!");
                 }
             } else if (valor == 2) {
-                //chamar funcao para jogar a peca especial
                 System.out.println("Indique a coluna onde deseja colocar a peca especial: ");
                 while (!scanner.hasNextInt()) {
                     scanner.next();
@@ -237,8 +234,6 @@ public class IUTexto {
                 maquinaDeEstados.guardarJogo(nomeFicheiro);
             } else if (valor == 4) {
                 int iteracoes;
-                //chamar função para perguntar quantas vezes deseja voltar atrás
-                //chamar processo de retroceder jogada
                 System.out.println("Quantas iteracões deseja voltar atras (Maximo 5 vezes): ");
                 while (!scanner.hasNextInt()) {
                     scanner.next();

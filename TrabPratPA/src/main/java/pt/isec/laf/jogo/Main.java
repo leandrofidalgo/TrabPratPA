@@ -1,5 +1,6 @@
 package pt.isec.laf.jogo;
 
+import pt.isec.laf.jogo.iu.gui.Aplicacao;
 import pt.isec.laf.jogo.iu.texto.IUTexto;
 import pt.isec.laf.jogo.logica.MaquinaDeEstados;
 
@@ -9,8 +10,9 @@ import pt.isec.laf.jogo.logica.MaquinaDeEstados;
  */
 public class Main {
     public static void main(String[] args) {
-        IUTexto iU = new IUTexto(new MaquinaDeEstados());
-        iU.run();
+        Aplicacao.main(args);
+        //IUTexto iU = new IUTexto(new MaquinaDeEstados());
+        //iU.run();
         /*System.out.println("Comecei o jogo!");
         Jogador jogador1 = new Jogador("Pedro Parvo", 0, 5, true, 1);
         Jogador jogador2 = new Jogador("Maquina", 0, 5, false, 2);

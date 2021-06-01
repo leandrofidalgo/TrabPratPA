@@ -149,7 +149,7 @@ public class DadosJogo implements Serializable {
     }
 
     public int[][] getJogadaAnterior(int iteracoes) {
-        if (tabuleiros.size() >= iteracoes) {
+        if (tabuleiros.size() >= iteracoes + 1) {
             for (int i = 0; i < iteracoes; i++) {
                 tabuleiros.pop();
             }
@@ -230,6 +230,7 @@ public class DadosJogo implements Serializable {
         jogadores = new ArrayList<>();
         numJogada = 0;
         tabuleiro = new int[LINHAS][COLUNAS];
+        tabuleiros = new Stack<>();
     }
 
     public boolean verificaLinhas() {

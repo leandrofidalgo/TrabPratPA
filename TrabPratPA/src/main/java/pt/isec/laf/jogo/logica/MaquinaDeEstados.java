@@ -1,6 +1,10 @@
 package pt.isec.laf.jogo.logica;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
+import pt.isec.laf.jogo.logica.dados.Jogador;
+import pt.isec.laf.jogo.logica.dados.Replay;
 import pt.isec.laf.jogo.logica.estados.*;
 
 /**
@@ -18,11 +22,11 @@ public class MaquinaDeEstados {
         this.estado = new MenuPrincipal(dadosJogo);
     }
 
-    public DadosJogo getDadosJogo() {
+    private DadosJogo getDadosJogo() {
         return this.dadosJogo;
     }
 
-    public void setDadosJogo(DadosJogo dadosJogo) {
+    private void setDadosJogo(DadosJogo dadosJogo) {
         this.dadosJogo = dadosJogo;
     }
 
@@ -160,5 +164,61 @@ public class MaquinaDeEstados {
     }
     
     
+    public boolean isJogoAcabou() {
+        return getDadosJogo().isJogoAcabou();
+    }
+
+    public void apagarLog() {
+        getDadosJogo().clearMsgLog();
+    }
+
+    public String jogadorAtualString() {
+         return getDadosJogo().retornaJogadorAtual().getNome();
+    }
+
+    public HashMap<String, ArrayList<Replay>> getReplay() {
+        return getDadosJogo().getReplay();
+    }
+
+    public void setJogoAcabou(boolean b) {
+        getDadosJogo().setJogoAcabou(b);
+    }
+
+    public int numJogada() {
+        return getDadosJogo().getNum_jogada();
+    }
+
+    public void adicionaJogada() {
+        getDadosJogo().adicionaJogada();
+    }
+
+    public Jogador jogadorAtual() {
+        return getDadosJogo().retornaJogadorAtual();
+    }
+
+    public String getPerguntaCalculos() {
+        return getDadosJogo().getMiniJogo().miniJogoCalculos();
+    }
+
+    public String getPerguntaPalavras() {
+        return getDadosJogo().getMiniJogo().miniJogoPalavras("Palavras.txt");
+    }
+
+    public String vencedor() {
+        return getDadosJogo().retornarVencedor();
+    }
+
+    public ArrayList<Replay> getReplayKey(String nomeKey) {
+        return getDadosJogo().getReplay(nomeKey);
+    }
+
+    public int[][] getTabuleiro() {
+        return getDadosJogo().getTabuleiro();
+    }
+
+    public ArrayList<String> getLogs() {
+        return getDadosJogo().getMsgLog();
+    }
+
 
 }

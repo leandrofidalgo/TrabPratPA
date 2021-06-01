@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.isec.laf.jogo.iu.gui.ControllerMenuJogarMiniJogo">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="600.0">
+         <image>
+            <Image url="@fundo.jpg" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" prefHeight="500.0" prefWidth="600.0" spacing="7.5" style="-fx-background-color: 4D4D4D;">
+         <children>
+            <TextArea maxWidth="300.0" minWidth="300.0" prefHeight="61.0" prefWidth="300.0" text="Parabéns, tem a opção de jogar um mini jogo para ter a oportunidade de ganhar uma peça especial!!&#10;Deseja jogar o mini jogo?" wrapText="true" />
+            <HBox alignment="CENTER" maxHeight="25.0" maxWidth="300.0" minHeight="25.0" minWidth="300.0" prefHeight="25.0" prefWidth="300.0">
+               <children>
+                  <Button fx:id="btnSim" maxWidth="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#sim" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: green;" text="Sim" />
+                  <Button fx:id="btnNao" maxWidth="150.0" minWidth="150.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: red;" text="Não" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</Pane>
