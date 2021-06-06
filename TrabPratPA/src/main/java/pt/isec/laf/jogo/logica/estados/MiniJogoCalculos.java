@@ -64,6 +64,7 @@ public class MiniJogoCalculos extends EstadoAdaptador {
             //adicionar pecas especiais caso ganhe
             if (j.getNumVezesQueGanhou() == 5) {
                 //ganhou
+                j.setNumVezesQueJogouMiniJogo(0);
                 getDadosJogo().retornaJogadorAtual().incrementaNumPecasEspeciais();
                 getDadosJogo().addMsgLog("Parabéns ganhou o mini jogo dos cálculos e como recompensa foi lhe dada uma peça especial!");
                 getDadosJogo().adicionaMiniJogo(Replay.MINIJOGO);
@@ -72,9 +73,11 @@ public class MiniJogoCalculos extends EstadoAdaptador {
                 //perdeu
                 //getDadosJogo().retornaJogadorAtual().setVezDoJogador(false);
                 //incrementar a vez do jogador e a jogdada do jogo
+                j.setNumVezesQueJogouMiniJogo(0);
                 getDadosJogo().addMsgLog("Perdeu o mini jogo dos calculos e como consequencia perdeu a vez de jogar!");
                 getDadosJogo().retornaJogadorAtual().incrementaNumJogada();
                 getDadosJogo().incrementaNumJogadas();
+                getDadosJogo().adicionaMiniJogo(Replay.MINIJOGOPERDEU);
                 return new EscolherProximoJogador(getDadosJogo());
             }
         }

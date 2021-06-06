@@ -102,6 +102,10 @@ public class MiniJogo implements Serializable {
         return numVezesQueGanhou;
     }
 
+    public int getNumVezesQueJogouMiniJogo() {
+        return numVezesQueJogouMiniJogo;
+    }
+
     public void setNumVezesQueGanhou(int numVezesQueGanhou) {
         this.numVezesQueGanhou = numVezesQueGanhou;
     }

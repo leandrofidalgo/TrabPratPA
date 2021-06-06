@@ -24,11 +24,10 @@ public class Aplicacao extends Application {
     private MaquinaDeEstadosObservavel maquinaDeEstadosObservavel;
     private Scene scene;
     private Stage stage;
-    private HashMap<String, Parent> fxmls;
     private String[] nomeFXMLS = {"EscolherModoJogo", "MenuJogada", "MenuJogarMiniJogo", "MenuPrincipal",
         "MiniJogoCalculos", "MiniJogoPalavras", "ModoCPUxCPU", "ModoPessoaXCPU", "ModoPessoaXPessoa", "Replay"};
     private static Aplicacao aplicacao;
-    private static String replay; //Apenas para replay
+    private String replay; //Apenas para replay
 
     public MaquinaDeEstadosObservavel getMaquinaDeEstadosObservavel() {
         return maquinaDeEstadosObservavel;
@@ -42,21 +41,25 @@ public class Aplicacao extends Application {
         return stage;
     }
 
-    public static String getReplay() {
+    public String getReplay() {
         return replay;
     }
 
-    public static void setReplay(String replay) {
-        Aplicacao.replay = replay;
+    public void setReplay(String replayAlterar) {
+       replay = replayAlterar;
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    public void setRoot(String fxml) {
-        scene.setRoot(fxmls.get(fxml));
-        stage.setTitle(fxml);
+    public void setAndLoadFXMl(String fxml) {
+        try {
+            scene.setRoot(loadFXML(fxml));
+            stage.setTitle(fxml);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private Parent loadFXML(String fxml) throws IOException {
@@ -68,10 +71,35 @@ public class Aplicacao extends Application {
     public void start(Stage stage) throws Exception {
         aplicacao = this;
         maquinaDeEstadosObservavel = new MaquinaDeEstadosObservavel(new MaquinaDeEstados());
-        fxmls = new HashMap<>();
-        CarregarFXMLS();
-        scene = new Scene(fxmls.get("MenuPrincipal"));
+        maquinaDeEstadosObservavel.addPropertyChangeListener("estado", (e) -> {
+            if (maquinaDeEstadosObservavel.isMenuPrincipal()) {
+                setAndLoadFXMl("MenuPrincipal");
+            } else if (maquinaDeEstadosObservavel.isEscolherModoJogo()) {
+                setAndLoadFXMl("EscolherModoJogo");
+            } else if (maquinaDeEstadosObservavel.isModoCPUXCPU()) {
+                setAndLoadFXMl("ModoCPUxCPU");
+            } else if (maquinaDeEstadosObservavel.isModoPessoaXCPU()) {
+                setAndLoadFXMl("ModoPessoaxCPU");
+            } else if (maquinaDeEstadosObservavel.isModoPessoaXPessoa()) {
+                setAndLoadFXMl("ModoPessoaxPessoa");
+            } else if (maquinaDeEstadosObservavel.isEscolherProximoJogador()) {
+                maquinaDeEstadosObservavel.escolheProximoJogador();
+            } else if (maquinaDeEstadosObservavel.isProximaJogada4Linha()) {
+                setAndLoadFXMl("MenuJogada");
+            } else if (maquinaDeEstadosObservavel.isVerificarSeAcabou()) {
+                maquinaDeEstadosObservavel.verificaSeAcabou();
+            } else if (maquinaDeEstadosObservavel.isEscolherJogarMiniJogo()) {
+                setAndLoadFXMl("MenuJogarMiniJogo");
+            } else if (maquinaDeEstadosObservavel.isMiniJogoCalculos()) {
+                setAndLoadFXMl("MiniJogoCalculos");
+            } else if (maquinaDeEstadosObservavel.isMiniJogoPalavras()) {
+                setAndLoadFXMl("MiniJogoPalavras");
+            } else if (maquinaDeEstadosObservavel.isFimDoJogo()) {
+                setAndLoadFXMl("MenuFimDoJogo");
+            }
+        });
         this.stage = stage;
+        scene = new Scene(loadFXML("MenuPrincipal"));
         stage.setTitle("Menu Principal");
         stage.setResizable(false);
         stage.setScene(scene);
@@ -81,9 +109,4 @@ public class Aplicacao extends Application {
         stage.show();
     }
 
-    public void CarregarFXMLS() throws IOException {
-        for (String s : nomeFXMLS) {
-            fxmls.put(s, loadFXML(s));
-        }
-    }
 }

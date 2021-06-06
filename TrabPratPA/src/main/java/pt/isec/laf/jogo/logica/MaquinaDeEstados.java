@@ -220,5 +220,7 @@ public class MaquinaDeEstados {
         return getDadosJogo().getMsgLog();
     }
 
-
+    public int getNumJogadasMiniJogos(){
+        return getDadosJogo().getMiniJogo().getNumVezesQueJogouMiniJogo();
+    }
 }

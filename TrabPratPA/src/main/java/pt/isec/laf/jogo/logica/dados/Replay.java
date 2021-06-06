@@ -15,6 +15,7 @@ public class Replay implements Serializable{
     
     public static final String JOGADA = "jogada";
     public static final String MINIJOGO = "minijogo";
+    public static final String MINIJOGOPERDEU = "minijogoperdeu";
 
     public Replay(String tipoReplay, int[][] tabuleiro, boolean ganhouMiniJogo, Jogador jogador) {
         this.tipoReplay = tipoReplay;

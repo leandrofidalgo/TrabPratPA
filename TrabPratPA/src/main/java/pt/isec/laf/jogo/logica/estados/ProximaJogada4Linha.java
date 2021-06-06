@@ -37,7 +37,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             }
             if (bool) {
                 getDadosJogo().addMsgLog("Jogada efetuada com sucesso e a peca foi colocada na devida coluna!");
-                //TODO guardar a jogada e verificar quantas jogadas existem pois so podem existir
+                //guardar a jogada e verificar quantas jogadas existem pois so podem existir
                 //adicionar o tabuleiro
                 getDadosJogo().adicionaJogada();
                 //TODO adicionar os jogos para depois fazer o replay
@@ -54,10 +54,10 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
             bool = iniciaProximaJogada(coluna);
             if (bool) {
                 getDadosJogo().addMsgLog("Jogada efetuada com sucesso e a peca foi colocada na devida coluna!");
-                //TODO guardar a jogada
+                //guardar a jogada
                 //adicionar o tabuleiro
                 getDadosJogo().adicionaJogada();
-                //TODO adicionar os jogos para depois fazer o replay
+                //adicionar os jogos para depois fazer o replay
                 getDadosJogo().adicionarJogos(Replay.JOGADA);
                 return new VerificarSeAcabou(getDadosJogo());
             } else {
@@ -170,7 +170,7 @@ public class ProximaJogada4Linha extends EstadoAdaptador {
 
     @Override
     public IEstado terminarJogo() {
-        return new FimDoJogo(getDadosJogo());
+        return new MenuPrincipal(getDadosJogo());
     }
 
 }

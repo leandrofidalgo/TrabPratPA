@@ -17,11 +17,11 @@
       </ImageView>
       <VBox alignment="CENTER" prefHeight="500.0" prefWidth="600.0" spacing="7.5" style="-fx-background-color: 4D4D4D;">
          <children>
-            <TextArea maxWidth="300.0" minWidth="300.0" prefHeight="61.0" prefWidth="300.0" text="Parabéns, tem a opção de jogar um mini jogo para ter a oportunidade de ganhar uma peça especial!!&#10;Deseja jogar o mini jogo?" wrapText="true" />
+            <TextArea fx:id="idTexto" editable="false" maxWidth="300.0" minWidth="300.0" prefHeight="61.0" prefWidth="300.0" text="Parabéns, tem a opção de jogar um mini jogo para ter a oportunidade de ganhar uma peça especial!!&#10;Deseja jogar o mini jogo?" wrapText="true" />
             <HBox alignment="CENTER" maxHeight="25.0" maxWidth="300.0" minHeight="25.0" minWidth="300.0" prefHeight="25.0" prefWidth="300.0">
                <children>
                   <Button fx:id="btnSim" maxWidth="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#sim" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: green;" text="Sim" />
-                  <Button fx:id="btnNao" maxWidth="150.0" minWidth="150.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: red;" text="Não" />
+                  <Button fx:id="btnNao" maxWidth="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#nao" prefWidth="150.0" style="-fx-background-color: red;" text="Não" />
                </children>
             </HBox>
          </children>

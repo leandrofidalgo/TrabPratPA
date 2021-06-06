@@ -75,74 +75,90 @@ public class MaquinaDeEstadosObservavel {
     }
 
     //-------------------------------------atualizar estados-----------------------------
-    public void menuPrincipal(){
-        pcs.firePropertyChange("TerminarJogo", null, null);
-    }
-    
     public void iniciarNovoJogo() {
         maquinaDeEstados.iniciarNovoJogo();
-        pcs.firePropertyChange("MenuPrincipal", null, null);
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void escolherModoJogo(int valor) {
         maquinaDeEstados.escolherModoJogo(valor);
+        if (valor == 1) {
+            pcs.firePropertyChange("estado", null, null);
+        } else if (valor == 2) {
+            pcs.firePropertyChange("estado", null, null);
+        } else if (valor == 3) {
+            pcs.firePropertyChange("estado", null, null);
+        }
     }
 
     public void definirNomes(String nome, String nome2) {
         maquinaDeEstados.definirNomes(nome, nome2);
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void escolheProximoJogador() {
         maquinaDeEstados.escolheProximoJogador();
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void jogaPeca(int coluna) {
         maquinaDeEstados.jogaPeca(coluna);
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void verificaSeAcabou() {
         maquinaDeEstados.verificaSeAcabou();
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void jogarMiniJogo() {
         maquinaDeEstados.jogarMiniJogo();
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void jogaPecaEspecial(int coluna) {
         maquinaDeEstados.jogaPecaEspecial(coluna);
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void carregarJogo(String nomeFicheiro) {
         maquinaDeEstados.carregarJogo(nomeFicheiro);
-        pcs.firePropertyChange("MenuPrincipalCarregar", null, null);
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void guardarJogo(String nomeFicheiro) {
         maquinaDeEstados.guardarJogo(nomeFicheiro);
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void retornarMenuPrincipal() {
         maquinaDeEstados.retornarMenuPrincipal();
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void naoJogarMiniJogo() {
         maquinaDeEstados.naoJogarMiniJogo();
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void jogarMiniJogoCalculos(int valor) {
         maquinaDeEstados.jogarMiniJogoCalculos(valor);
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void jogarMiniJogoPalavras(String palavras, String palavrasParaEscrever) {
         maquinaDeEstados.jogarMiniJogoPalavras(palavras, palavrasParaEscrever);
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void voltarAtras(int iteracoes) {
         maquinaDeEstados.voltarAtras(iteracoes);
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void guardarDadosJogoReplay() {
         maquinaDeEstados.guardarDadosJogoReplay();
+        //pcs.firePropertyChange("estado", null, null);
     }
 
     public void replayJogo() {
@@ -151,10 +167,13 @@ public class MaquinaDeEstadosObservavel {
 
     public void terminarJogo() {
         maquinaDeEstados.terminarJogo();
+        pcs.firePropertyChange("estado", null, null);
     }
 
     public void guardarDadosJogo(String nomeFicheiro) {
         maquinaDeEstados.guardarDadosJogo(nomeFicheiro);
+        pcs.firePropertyChange("estado", null, null);
+
     }
 
     public boolean isJogoAcabou() {
@@ -213,4 +232,7 @@ public class MaquinaDeEstadosObservavel {
         return maquinaDeEstados.getLogs();
     }
 
+    public int getNumJogadasMiniJogos(){
+        return maquinaDeEstados.getNumJogadasMiniJogos();
+    }
 }

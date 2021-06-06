@@ -79,12 +79,8 @@ public class ControllerMenuPrincipal {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             apli.setReplay(result.get());
-            Stage st = apli.getStage();
-            st.setMaxHeight(850);
-            st.setMaxWidth(1000);
-            st.setMinHeight(850);
-            st.setMinWidth(1000);
-            apli.setRoot("Replay");
+            System.out.println("choice" + result.get());
+            apli.setAndLoadFXMl("Replay");
         }
     }
 
@@ -93,25 +89,12 @@ public class ControllerMenuPrincipal {
         Platform.exit();
     }
 
-    @FXML
     public void initialize() {
         apli = Aplicacao.getAplicacao();
-        apli.getMaquinaDeEstadosObservavel().addPropertyChangeListener("MenuPrincipal", (evt) -> {
-            apli.setRoot("EscolherModoJogo");
-        });
-        apli.getMaquinaDeEstadosObservavel().addPropertyChangeListener("MenuPrincipalCarregar", (evt) -> {
-            if (!apli.getMaquinaDeEstadosObservavel().isMenuPrincipal()) {
-                Stage st = apli.getStage();
-                st.setMaxHeight(850);
-                st.setMaxWidth(1000);
-                st.setMinHeight(850);
-                st.setMinWidth(1000);
-                apli.setRoot("MenuJogada");
-            }
-        });
-        /*apli.getMaquinaDeEstadosObservavel().addPropertyChangeListener("MenuPrincipalReplay", (evt) -> {
-            apli.setRoot("EscolherModoJogo");
-        });*/
+        apli.getStage().setMaxWidth(500);
+        apli.getStage().setMaxHeight(400);
+        apli.getStage().setMinWidth(500);
+        apli.getStage().setMinHeight(400);
     }
     
 

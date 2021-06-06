@@ -18,10 +18,7 @@ public class EscolherJogarMiniJogo extends EstadoAdaptador {
         //fazer sort e escolher um dos jogos, o primeiro mini jogo sera definido assim
         var j = getDadosJogo().retornaJogadorAtual();
         //definir o primeiro mini jogo
-        //TODO como fazer por causa do numero de pecas especiais....? fazer na proximajogada4linha
-
-        //TODO verificar se é a primeira vez que esta a jogar um minijogo
-        if (getDadosJogo().getNum_jogada() == 4 || getDadosJogo().getNum_jogada() == 8) {
+        if (getDadosJogo().getNum_jogada() == 4) {
             int num = getDadosJogo().getRandom(0, 1);
             if (num == 0) {
                 //calculos

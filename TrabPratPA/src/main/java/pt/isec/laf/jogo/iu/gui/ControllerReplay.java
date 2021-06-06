@@ -47,8 +47,6 @@ public class ControllerReplay implements Initializable {
     @FXML
     private Text jogadorGanhou;
     @FXML
-    private Button idIniciarReplay;
-    @FXML
     private FlowPane idFlowPane;
     @FXML
     private Button btnAvancarReplay;
@@ -59,21 +57,18 @@ public class ControllerReplay implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         apli = Aplicacao.getAplicacao();
         i = 0;
-        apli.getMaquinaDeEstadosObservavel().addPropertyChangeListener("TerminarJogo", (evt) -> {
-            apli.setRoot("MenuPrincipal");
-        });
-    }
-
-    @FXML
-    private void iniciarReplay(ActionEvent event) {
+        apli.getStage().setMaxWidth(1000);
+        apli.getStage().setMaxHeight(850);
+        apli.getStage().setMinWidth(1000);
+        apli.getStage().setMinHeight(850);
         Thread td;
-        ArrayList<Replay> replay = apli.getMaquinaDeEstadosObservavel().getReplayKey(Aplicacao.getReplay());
+        ArrayList<Replay> replay = apli.getMaquinaDeEstadosObservavel().getReplayKey(apli.getReplay());
         td = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (i != replay.size()) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                         Platform.runLater(() -> {
                             btnAvancarReplay.fire();
                         });
@@ -89,21 +84,20 @@ public class ControllerReplay implements Initializable {
 
     @FXML
     private void terminarReplay(ActionEvent event) {
-        apli.getStage().setMaxWidth(500);
-        apli.getStage().setMaxHeight(400);
-        apli.getStage().setMinWidth(500);
-        apli.getStage().setMinHeight(400);
-        apli.getMaquinaDeEstadosObservavel().menuPrincipal();
+        apli.setAndLoadFXMl("MenuPrincipal");
     }
 
     @FXML
     private void avancarReplay(ActionEvent event) {
-        replayParaImprimir(Aplicacao.getReplay());
+        Platform.runLater(() -> {
+            replayParaImprimir(apli.getReplay());
+        });
     }
 
     public void replayParaImprimir(String nomeKey) {
         ArrayList<Replay> replay = apli.getMaquinaDeEstadosObservavel().getReplayKey(nomeKey);
         while (i != replay.size()) {
+        //while (true) {
             if (replay.get(i).getTipoReplay().equals(Replay.JOGADA)) {
                 if (replay.get(i).getJogador() instanceof CPU) {
                     jogadorGanhou.setText("Jogada efetuada pelo CPU: " + replay.get(i).getJogador().getNome());
@@ -114,9 +108,10 @@ public class ControllerReplay implements Initializable {
                 }
                 imprimirTabuleiro(replay.get(i).getTabuleiro());
             } else if (replay.get(i).getTipoReplay().equals(Replay.MINIJOGO)) {
-                //TODO ganhou mini jogo
-                idMiniJogo.setText("O jogador " + replay.get(i).getJogador().getNome() + "ganhou o mini jogo!");
+                idMiniJogo.setText("O jogador " + replay.get(i).getJogador().getNome() + " ganhou o mini jogo!");
                 //sB.append("O jogador ").append(replay.get(i).getJogador().getNome()).append(" ganhou o minijogo!");
+            } else if (replay.get(i).getTipoReplay().equals(Replay.MINIJOGOPERDEU)) {
+                idMiniJogo.setText("O jogador " + replay.get(i).getJogador().getNome() + " perdeu o mini jogo!");
             }
             i++;
             return;
@@ -128,7 +123,7 @@ public class ControllerReplay implements Initializable {
         gridPane.setAlignment(Pos.CENTER);
         idFlowPane.getChildren().clear();
         idFlowPane.getChildren().add(gridPane);
-        gridPane.setStyle("-fx-background-color: gray");
+        gridPane.setStyle("-fx-background-color: gray;");
         gridPane.setVgap(10);
         gridPane.setHgap(10);
         gridPane.setPadding(new Insets(10));

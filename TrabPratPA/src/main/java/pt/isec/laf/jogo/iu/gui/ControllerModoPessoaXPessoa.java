@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -19,6 +20,8 @@ import javafx.scene.control.TextField;
  * @author leandro
  */
 public class ControllerModoPessoaXPessoa implements Initializable {
+
+    private Aplicacao apli;
 
     @FXML
     private TextField nome1;
@@ -32,11 +35,14 @@ public class ControllerModoPessoaXPessoa implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        apli = Aplicacao.getAplicacao();
+    }
 
     @FXML
     private void confirmar(ActionEvent event) {
+        String str = nome1.getText();
+        String str2 = nome2.getText();
+        apli.getMaquinaDeEstadosObservavel().definirNomes(str, str2);
     }
-    
+
 }

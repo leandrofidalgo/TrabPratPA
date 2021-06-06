@@ -2,6 +2,7 @@ package pt.isec.laf.jogo.logica.estados;
 
 import pt.isec.laf.jogo.logica.IEstado;
 import pt.isec.laf.jogo.logica.dados.DadosJogo;
+import pt.isec.laf.jogo.logica.dados.Replay;
 
 /**
  *
@@ -21,17 +22,20 @@ public class MiniJogoPalavras extends EstadoAdaptador {
                 //as palavras do utilziador sao iguais ás que era suposto escrever
                 getDadosJogo().retornaJogadorAtual().incrementaNumPecasEspeciais();
                 getDadosJogo().addMsgLog("Parabéns ganhou o mini jogo das palavras e como recompensa foi lhe dada uma peça especial!");
-                getDadosJogo().adicionaMiniJogo("minijogo");
+                getDadosJogo().adicionaMiniJogo(Replay.MINIJOGO);
+                //getDadosJogo().adicionaMiniJogo("minijogo");
                 return new ProximaJogada4Linha(getDadosJogo());
             } else {
                 //as palavras foram mal escritas
                 getDadosJogo().addMsgLog("Perdeu o mini jogo das palavras e como consequencia perdeu a vez de jogar!");
                 getDadosJogo().retornaJogadorAtual().incrementaNumJogada();
+                getDadosJogo().adicionaMiniJogo(Replay.MINIJOGOPERDEU);
                 return new EscolherProximoJogador(getDadosJogo());
             }
         } else {
             getDadosJogo().addMsgLog("Perdeu o mini jogo das palavras e como consequencia perdeu a vez de jogar!");
             getDadosJogo().retornaJogadorAtual().incrementaNumJogada();
+            getDadosJogo().adicionaMiniJogo(Replay.MINIJOGOPERDEU);
             return new EscolherProximoJogador(getDadosJogo());
         }
     }

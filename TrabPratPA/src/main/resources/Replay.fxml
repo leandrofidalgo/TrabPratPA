@@ -30,7 +30,6 @@
             </Text>
             <HBox alignment="CENTER" prefHeight="60.0" prefWidth="1000.0">
                <children>
-                  <Button fx:id="idIniciarReplay" mnemonicParsing="false" onAction="#iniciarReplay" prefHeight="25.0" prefWidth="200.0" text="Inciar replay" />
                   <Button fx:id="btnAvancarReplay" mnemonicParsing="false" onAction="#avancarReplay" prefHeight="25.0" prefWidth="200.0" text="Avancar Replay">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />

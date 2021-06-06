@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.isec.laf.jogo.iu.gui.ControllerMiniJogoCalculos">
@@ -17,9 +18,17 @@
       </ImageView>
       <VBox alignment="CENTER" prefHeight="500.0" prefWidth="600.0" spacing="7.5" style="-fx-background-color: 4D4D4D;">
          <children>
-            <Text fx:id="idCalculo" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <TextField fx:id="tbCalculo" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
-            <Button fx:id="btnConfirmar" maxWidth="200.0" minWidth="200.0" mnemonicParsing="false" prefWidth="200.0" text="Confirmar" />
+            <Text fx:id="idTempo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="idCalculo" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font size="30.0" />
+               </font></Text>
+            <TextField fx:id="tbCalculo" maxWidth="200.0" minWidth="200.0" onAction="#confirmar" prefWidth="200.0" />
+            <Button fx:id="btnConfirmar" maxWidth="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#confirmar" prefWidth="200.0" text="Confirmar" />
          </children>
       </VBox>
    </children>
