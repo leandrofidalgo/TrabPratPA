@@ -8,20 +8,15 @@ package pt.isec.laf.jogo.iu.gui;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -97,19 +92,15 @@ public class ControllerReplay implements Initializable {
     public void replayParaImprimir(String nomeKey) {
         ArrayList<Replay> replay = apli.getMaquinaDeEstadosObservavel().getReplayKey(nomeKey);
         while (i != replay.size()) {
-        //while (true) {
             if (replay.get(i).getTipoReplay().equals(Replay.JOGADA)) {
                 if (replay.get(i).getJogador() instanceof CPU) {
                     jogadorGanhou.setText("Jogada efetuada pelo CPU: " + replay.get(i).getJogador().getNome());
-                    //sB.append("Jogada efetuada pelo CPU ").append(replay.get(i).getJogador().getNome());
                 } else {
                     jogadorGanhou.setText("Jogada efetuada pelo jogador: " + replay.get(i).getJogador().getNome());
-                    //sB.append("Jogada efetuada pelo jogador ").append(replay.get(i).getJogador().getNome());
                 }
                 imprimirTabuleiro(replay.get(i).getTabuleiro());
             } else if (replay.get(i).getTipoReplay().equals(Replay.MINIJOGO)) {
                 idMiniJogo.setText("O jogador " + replay.get(i).getJogador().getNome() + " ganhou o mini jogo!");
-                //sB.append("O jogador ").append(replay.get(i).getJogador().getNome()).append(" ganhou o minijogo!");
             } else if (replay.get(i).getTipoReplay().equals(Replay.MINIJOGOPERDEU)) {
                 idMiniJogo.setText("O jogador " + replay.get(i).getJogador().getNome() + " perdeu o mini jogo!");
             }

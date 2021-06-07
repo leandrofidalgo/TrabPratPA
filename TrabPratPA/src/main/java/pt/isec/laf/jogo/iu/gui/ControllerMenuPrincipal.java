@@ -12,10 +12,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
-import javafx.stage.Stage;
-import pt.isec.laf.jogo.logica.MaquinaDeEstadosObservavel;
-import pt.isec.laf.jogo.logica.dados.CPU;
-import pt.isec.laf.jogo.logica.dados.Replay;
 
 /**
  *

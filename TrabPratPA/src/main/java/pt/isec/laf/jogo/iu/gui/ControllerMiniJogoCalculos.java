@@ -1,7 +1,5 @@
 package pt.isec.laf.jogo.iu.gui;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -24,9 +22,9 @@ public class ControllerMiniJogoCalculos implements Initializable {
     @FXML
     private TextField tbCalculo;
     @FXML
-    private Button btnConfirmar;
-    @FXML
     private Text idTempo;
+    @FXML
+    private Button btnConfirmarCalculos;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -35,6 +33,8 @@ public class ControllerMiniJogoCalculos implements Initializable {
         //se o numero de jogadas do minijogo for 0 começar a thread do contador
         if (apli.getMaquinaDeEstadosObservavel().getNumJogadasMiniJogos() == 0) {
             i = 30;
+        }else{
+            i = apli.getMaquinaDeEstadosObservavel().tempoMiniJogo();
         }
         td = new Thread(() -> {
             while (i-- > 0) {
@@ -53,7 +53,7 @@ public class ControllerMiniJogoCalculos implements Initializable {
                 }
             }
             Platform.runLater(() -> {
-                btnConfirmar.fire();
+                btnConfirmarCalculos.fire();
             });
         });
         td.setName("TD");
@@ -65,7 +65,7 @@ public class ControllerMiniJogoCalculos implements Initializable {
     }
 
     @FXML
-    private void confirmar(ActionEvent event) {
+    private void confirmarCalculos(ActionEvent event) {
         synchronized (this) {
             continuar = false;
             notifyAll();
@@ -81,5 +81,4 @@ public class ControllerMiniJogoCalculos implements Initializable {
             }
         }
     }
-
 }

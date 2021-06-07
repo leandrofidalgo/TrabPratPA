@@ -223,4 +223,8 @@ public class MaquinaDeEstados {
     public int getNumJogadasMiniJogos(){
         return getDadosJogo().getMiniJogo().getNumVezesQueJogouMiniJogo();
     }
+
+    public int tempoMiniJogo() {
+        return getDadosJogo().getMiniJogo().tempoRestanteEmSegundos();
+    }
 }

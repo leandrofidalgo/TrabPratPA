@@ -5,25 +5,16 @@
  */
 package pt.isec.laf.jogo.iu.gui;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -32,7 +23,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import pt.isec.laf.jogo.logica.dados.CPU;
 import static pt.isec.laf.jogo.logica.dados.DadosJogo.COLUNAS;
 import static pt.isec.laf.jogo.logica.dados.DadosJogo.LINHAS;

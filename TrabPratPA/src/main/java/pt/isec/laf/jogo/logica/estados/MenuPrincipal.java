@@ -22,7 +22,7 @@ public class MenuPrincipal extends EstadoAdaptador {
     @Override
     public IEstado iniciarJogo() {
         //zerar dados do jogo tabuleiro
-        getDadosJogo().zerarDadosJogo();
+        //getDadosJogo().zerarDadosJogo();
         return new EscolherModoJogo(getDadosJogo());
     }
 

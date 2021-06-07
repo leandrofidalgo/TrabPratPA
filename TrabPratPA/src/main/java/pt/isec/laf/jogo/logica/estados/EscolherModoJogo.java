@@ -11,6 +11,7 @@ public class EscolherModoJogo extends EstadoAdaptador {
 
     public EscolherModoJogo(DadosJogo dadosJogo) {
         super(dadosJogo);
+        dadosJogo.zerarDadosJogo();
     }
 
     @Override

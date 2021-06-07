@@ -2,8 +2,6 @@ package pt.isec.laf.jogo.iu.gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,9 +20,9 @@ public class ControllerMiniJogoPalavras implements Initializable {
     @FXML
     private TextField tbPalavras;
     @FXML
-    private Button btnConfirmar;
-    @FXML
     private Text idTempo;
+    @FXML
+    private Button btnConfirmarPalavras;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -45,20 +43,18 @@ public class ControllerMiniJogoPalavras implements Initializable {
                 } catch (InterruptedException ex) {
                     return;
                 }
-
             }
             Platform.runLater(() -> {
-                btnConfirmar.fire();
+                btnConfirmarPalavras.fire();
             });
         });
         td.start();
     }
 
     @FXML
-    private void confirmar(ActionEvent event) {
+    private void confirmarPalavras(ActionEvent event) {
         if (!tbPalavras.getText().isEmpty()) {
             apli.getMaquinaDeEstadosObservavel().jogarMiniJogoPalavras(tbPalavras.getText(), palavras);
         }
     }
-
 }

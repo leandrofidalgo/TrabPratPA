@@ -27,8 +27,8 @@
                <font>
                   <Font size="30.0" />
                </font></Text>
-            <TextField fx:id="tbCalculo" maxWidth="200.0" minWidth="200.0" onAction="#confirmar" prefWidth="200.0" />
-            <Button fx:id="btnConfirmar" maxWidth="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#confirmar" prefWidth="200.0" text="Confirmar" />
+            <TextField fx:id="tbCalculo" maxWidth="200.0" minWidth="200.0" onAction="#confirmarCalculos" prefWidth="200.0" />
+            <Button fx:id="btnConfirmarCalculos" maxWidth="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#confirmarCalculos" prefWidth="200.0" text="Confirmar" />
          </children>
       </VBox>
    </children>

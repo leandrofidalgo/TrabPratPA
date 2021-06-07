@@ -126,4 +126,7 @@ public class MiniJogo implements Serializable {
         this.numVezesQueJogouMiniJogo = numVezesQueJogouMiniJogo;
     }
 
+    public int tempoRestanteEmSegundos(){
+        return (int)(30 - (System.currentTimeMillis() - this.startTime)/1000);
+    }
 }

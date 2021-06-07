@@ -12,6 +12,7 @@ public class MiniJogoPalavras extends EstadoAdaptador {
 
     public MiniJogoPalavras(DadosJogo dadosJogo) {
         super(dadosJogo);
+        dadosJogo.comecarMiniJogo();
     }
 
     @Override

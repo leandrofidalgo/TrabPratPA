@@ -235,4 +235,8 @@ public class MaquinaDeEstadosObservavel {
     public int getNumJogadasMiniJogos(){
         return maquinaDeEstados.getNumJogadasMiniJogos();
     }
+
+    public int tempoMiniJogo() {
+        return maquinaDeEstados.tempoMiniJogo();
+    }
 }

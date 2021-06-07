@@ -231,6 +231,7 @@ public class DadosJogo implements Serializable {
         numJogada = 0;
         tabuleiro = new int[LINHAS][COLUNAS];
         tabuleiros = new Stack<>();
+        iteracoes = new ArrayList<>();
     }
 
     public boolean verificaLinhas() {
@@ -322,6 +323,10 @@ public class DadosJogo implements Serializable {
 
     public void setReplay(HashMap<String, ArrayList<Replay>> replay) {
         this.replay = replay;
+    }
+
+    public void comecarMiniJogo() {
+        miniJogo = new MiniJogo();
     }
     
 }
