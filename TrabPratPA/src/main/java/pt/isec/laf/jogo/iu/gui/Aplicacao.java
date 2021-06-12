@@ -63,7 +63,7 @@ public class Aplicacao extends Application {
     }
 
     private Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/" + fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxmls/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
@@ -79,9 +79,9 @@ public class Aplicacao extends Application {
             } else if (maquinaDeEstadosObservavel.isModoCPUXCPU()) {
                 setAndLoadFXMl("ModoCPUxCPU");
             } else if (maquinaDeEstadosObservavel.isModoPessoaXCPU()) {
-                setAndLoadFXMl("ModoPessoaxCPU");
+                setAndLoadFXMl("ModoPessoaXCPU");
             } else if (maquinaDeEstadosObservavel.isModoPessoaXPessoa()) {
-                setAndLoadFXMl("ModoPessoaxPessoa");
+                setAndLoadFXMl("ModoPessoaXPessoa");
             } else if (maquinaDeEstadosObservavel.isEscolherProximoJogador()) {
                 maquinaDeEstadosObservavel.escolheProximoJogador();
             } else if (maquinaDeEstadosObservavel.isProximaJogada4Linha()) {

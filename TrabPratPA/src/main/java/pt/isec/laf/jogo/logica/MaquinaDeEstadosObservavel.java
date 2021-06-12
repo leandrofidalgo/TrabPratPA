@@ -82,11 +82,7 @@ public class MaquinaDeEstadosObservavel {
 
     public void escolherModoJogo(int valor) {
         maquinaDeEstados.escolherModoJogo(valor);
-        if (valor == 1) {
-            pcs.firePropertyChange("estado", null, null);
-        } else if (valor == 2) {
-            pcs.firePropertyChange("estado", null, null);
-        } else if (valor == 3) {
+        if (valor >= 1 && valor <= 3) {
             pcs.firePropertyChange("estado", null, null);
         }
     }

@@ -44,7 +44,7 @@ public class MenuPrincipal extends EstadoAdaptador {
                 return this;
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             getDadosJogo().addMsgLog("Erro ao carregar o ficheiro!");
             return this;
         }
